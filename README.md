@@ -4,7 +4,7 @@
 
 The Query Creator is an open source point-and-click interface for querying your event data. It's maintained by the team at [Keen IO](https://keen.io/).
 
-<img width="100%" src="https://user-images.githubusercontent.com/7753369/91156939-fc5aa980-e6c4-11ea-913b-d2984d5a843e.png">
+<img width="100%" src="https://user-images.githubusercontent.com/23423731/99073586-790b6e80-25b6-11eb-8d9a-0ed493cc3744.png">
 
 ### Install
 

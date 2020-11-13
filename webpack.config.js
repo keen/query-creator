@@ -1,9 +1,36 @@
 const path = require('path');
-const merge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const createWebpackConfig = require('./webpack.common');
-
-const config = merge(createWebpackConfig(), {
+const config = {
+  entry: {
+    main: process.env.NODE_ENV === 'development' ? './public/index.tsx' : './src/index.ts',
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            configFile: 'tsconfig.json'
+          }
+        },
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: path.join(__dirname, 'public', 'index.html'),
+    }),
+  ],
   mode: 'development',
   target: 'web',
   devServer: {
@@ -18,6 +45,6 @@ const config = merge(createWebpackConfig(), {
     libraryExport: 'QueryCreator',
     libraryTarget: 'umd',
   },
-});
+};
 
 module.exports = config;

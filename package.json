@@ -150,16 +150,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:keen/explorer.git"
+    "url": "git@github.com:keen/query-creator.git"
   },
-  "bugs": "https://github.com/keen/explorer/issues",
+  "bugs": "https://github.com/keen/query-creator/issues",
   "author": "Keen IO <team@keen.io> (https://keen.io/)",
   "homepage": "https://keen.io",
   "keywords": [
     "Keen.io",
     "self service analytics",
     "Query Creator",
-    "Data explorer",
+    "Query Creator",
     "Data insights"
   ]
 }

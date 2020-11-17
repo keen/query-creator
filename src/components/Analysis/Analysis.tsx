@@ -154,7 +154,7 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
                   <ListItem
                     key={value}
                     isActive={selectionIndex === index}
-                    description={description}
+                    description={t(description)}
                     analysis={value}
                     onMouseEnter={() => setIndex(index)}
                     onClick={(_e, analysis) => {
@@ -192,7 +192,7 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
             <Tooltip mode="dark" hasArrow={false}>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: options[selectionIndex].description,
+                  __html: t(options[selectionIndex].description),
                 }}
               />
             </Tooltip>

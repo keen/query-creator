@@ -161,5 +161,8 @@
     "Query Creator",
     "Query Creator",
     "Data insights"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

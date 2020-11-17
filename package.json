@@ -1,7 +1,7 @@
 {
   "name": "@keen.io/query-creator",
   "description": "Query Creator",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "license": "MIT",
   "main": "dist/query-creator.umd.js",
   "browser": "dist/query-creator.umd.js",

@@ -3,8 +3,8 @@
   "description": "Query Creator",
   "version": "1.0.4",
   "license": "MIT",
-  "main": "dist/query-creator.umd.js",
-  "browser": "dist/query-creator.umd.js",
+  "main": "dist/index.js",
+  "module": "src/index.ts",
   "files": [
     "dist"
   ],

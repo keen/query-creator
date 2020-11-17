@@ -1,5 +1,9 @@
 {
 	"compilerOptions": {
+    "downlevelIteration": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": true,
+    "removeComments": true,
 		"target": "es6",
     "outDir": "./dist",
 		"moduleResolution": "node",

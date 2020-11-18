@@ -1,11 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import createI18n from '../src/i18n';
 import QueryCreator from '../src/QueryCreator';
+import { TranslationsSettings } from '../src/types';
 import config from '../config';
 
-class App extends React.Component {
+type Props = {
+  /** Translations */
+  translations?: TranslationsSettings;
+};
+class App extends React.Component<Props> {
   constructor(props) {
     super(props);
+    createI18n(this.props.translations);
   }
 
   onUpdateQuery(query) {

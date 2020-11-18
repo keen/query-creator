@@ -12,14 +12,11 @@ import rootSaga from './saga';
 import rootReducer from './reducer';
 import { rehydrateState } from './rehydrateState';
 import { AppContext } from './contexts';
-import createI18n from './i18n';
 
 import { appStart } from './modules/app';
 import { getQuery, serializeQuery, resetQuery } from './modules/query';
 import { updateChartSettings } from './modules/chartSettings';
 import { transformToQuery, transformQueryToCamelCase } from './utils';
-
-import { TranslationsSettings } from './types';
 
 import {
   UPDATE_TIMEOUT,
@@ -50,8 +47,6 @@ type Props = {
   onUpdateChartSettings: (chartSettings: Record<string, any>) => void;
   /** Host name */
   host?: string;
-  /** Translations */
-  translations?: TranslationsSettings;
 };
 
 class QueryCreator extends React.PureComponent<Props> {
@@ -84,7 +79,6 @@ class QueryCreator extends React.PureComponent<Props> {
       },
     });
 
-    createI18n(this.props.translations);
     const preloadedState = rehydrateState();
     this.store = createStore(
       rootReducer,

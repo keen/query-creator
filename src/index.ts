@@ -3,7 +3,7 @@ import {
   SET_QUERY_EVENT,
   NEW_QUERY_EVENT,
   UPDATE_VISUALIZATION_TYPE,
-  SET_CHART_SETTINGS
+  SET_CHART_SETTINGS,
 } from './constants';
 import { TIMEZONES } from './components/Timezone/constants';
 import { getTimezoneValue } from './components/Timezone/utils/getTimezoneValue';

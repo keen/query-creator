@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  slack: circleci/slack@3.4.2
+
 executors:
   nodejs:
     docker:
@@ -28,6 +31,9 @@ jobs:
       - run:
           name: Push changes
           command: git push --follow-tags --set-upstream origin ${CIRCLE_BRANCH}
+      - slack/notify:
+          color: "#b7e3f1"
+          message: Created npm package release version
   publish:
     executor: nodejs
     working_directory: ~/tmp
@@ -41,6 +47,9 @@ jobs:
       - run:
           name: Publish
           command: yarn publish
+      - slack/status:
+          message: npm package release
+          fail_only: false
   build:
     executor: nodejs
     working_directory: ~/tmp
@@ -68,7 +77,9 @@ jobs:
           root: dist
           paths:
             - "*"
-
+      - slack/status:
+          message: building application distribution
+          fail_only: false
 workflows:
   version: 2
   create_version:

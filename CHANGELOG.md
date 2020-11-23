@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.9](https://github.com/keen/query-creator/compare/v1.0.8...v1.0.9) (2020-11-23)
+
+
+### Bug Fixes
+
+* 🐛 runtime error for stream selection enter confirmation ([52db985](https://github.com/keen/query-creator/commit/52db9857600b56f751280e5b4b1c1c1012e50dc3))
+
 ### [1.0.8](https://github.com/keen/query-creator/compare/v1.0.7...v1.0.8) (2020-11-18)
 
 ### [1.0.7](https://github.com/keen/query-creator/compare/v1.0.6...v1.0.7) (2020-11-17)

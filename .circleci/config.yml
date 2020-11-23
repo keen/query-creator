@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  slack: circleci/slack@3.4.2
+
 executors:
   nodejs:
     docker:
@@ -28,6 +31,9 @@ jobs:
       - run:
           name: Push changes
           command: git push --follow-tags --set-upstream origin ${CIRCLE_BRANCH}
+      - slack/notify:
+          color: "#b7e3f1"
+          message: created npm package release version
   publish:
     executor: nodejs
     working_directory: ~/tmp
@@ -38,9 +44,14 @@ jobs:
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+      - slack/notify:
+          color: "#b7e3f1"
+          message: publishing npm package
       - run:
           name: Publish
           command: yarn publish
+      - slack/status:
+          fail_only: false
   build:
     executor: nodejs
     working_directory: ~/tmp
@@ -68,7 +79,8 @@ jobs:
           root: dist
           paths:
             - "*"
-
+      - slack/status:
+          fail_only: false
 workflows:
   version: 2
   create_version:

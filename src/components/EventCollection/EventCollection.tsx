@@ -70,8 +70,10 @@ const EventCollection: FC<Props> = ({
       const { current: optionsList } = collectionListRef;
       switch (e.keyCode) {
         case KEYBOARD_KEYS.ENTER:
-          const { value } = optionsList[selectionIndexRef.current];
-          onChange(value);
+          if (optionsList && optionsList.length) {
+            const { value } = optionsList[selectionIndexRef.current];
+            onChange(value);
+          }
           setOpen(false);
           break;
         case KEYBOARD_KEYS.UP:

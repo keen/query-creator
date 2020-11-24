@@ -2,9 +2,7 @@ import { ReducerState, ChartSettingsActions } from './types';
 
 import { UPDATE_CHART_SETTINGS, RESET_CHART_SETTINGS } from './constants';
 
-export const initialState: ReducerState = {
-  stepLabels: [],
-};
+export const initialState: ReducerState = {};
 
 export const chartSettingsReducer = (
   state: ReducerState = initialState,

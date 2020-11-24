@@ -1,7 +1,7 @@
 import { UPDATE_CHART_SETTINGS, RESET_CHART_SETTINGS } from './constants';
 
 export type ChartSettings = {
-  stepLabels: string[];
+  stepLabels?: string[];
 };
 
 export type ReducerState = ChartSettings;

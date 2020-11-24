@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.10](https://github.com/keen/query-creator/compare/v1.0.9...v1.0.10) (2020-11-24)
+
+
+### Bug Fixes
+
+* 🐛 step labels ([e71a5ad](https://github.com/keen/query-creator/commit/e71a5adf804781babd139046229de2333d9208ff))
+
 ### [1.0.9](https://github.com/keen/query-creator/compare/v1.0.8...v1.0.9) (2020-11-23)
 
 

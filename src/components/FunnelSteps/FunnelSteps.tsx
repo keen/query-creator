@@ -31,15 +31,20 @@ import {
   updateChartSettings,
 } from '../../modules/chartSettings';
 
-import { DRAG_ANIMATION_TIME } from './constants';
 import { AppContext } from '../../contexts';
+import { AppState } from '../../types';
+
+import { DRAG_ANIMATION_TIME } from './constants';
 
 const FunnelSteps: FC<{}> = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const steps = useSelector(getFunnelSteps);
-  const chartSettings = useSelector(getChartSettings);
-  const { stepLabels } = chartSettings;
+  const stepLabels = useSelector((state: AppState) => {
+    const { stepLabels: funnelStepsLabels } = getChartSettings(state);
+    if (funnelStepsLabels) return funnelStepsLabels;
+    return [];
+  });
 
   const { onUpdateChartSettings } = useContext(AppContext);
 

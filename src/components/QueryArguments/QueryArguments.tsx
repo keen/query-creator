@@ -31,7 +31,7 @@ import {
   setPercentile,
   DEFAULT_TIMEFRAME,
 } from '../../modules/query';
-import { updateChartSettings } from '../../modules/chartSettings';
+import { resetChartSettings } from '../../modules/chartSettings';
 
 import { AppContext } from '../../contexts';
 
@@ -54,8 +54,8 @@ const App: FC<Props> = () => {
           analysis={analysis}
           onChange={(updatedAnalysis) => {
             dispatch(selectAnalysis(updatedAnalysis));
-            dispatch(updateChartSettings({ stepLabels: [] }));
-            onUpdateChartSettings({ stepLabels: [] });
+            dispatch(resetChartSettings());
+            onUpdateChartSettings({});
           }}
         />
       </MenuItem>

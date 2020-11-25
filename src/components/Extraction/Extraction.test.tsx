@@ -4,6 +4,7 @@ import { render as rtlRender, fireEvent } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 
 import { createTree, createCollection } from '../../utils';
+import { PREVIEW_EVENTS_LIMIT } from './constants';
 import Extraction from './Extraction';
 
 jest.mock('uuid', () => {
@@ -71,6 +72,18 @@ test('allows user to change extraction limit', () => {
       },
     ]
   `);
+});
+
+test('show tooltip when input value exceeds extraction limit', () => {
+  const {
+    wrapper: { container, getByTestId },
+  } = render();
+
+  const input = container.querySelector('input[type="number"]');
+  const extractionValue = PREVIEW_EVENTS_LIMIT + 10;
+  fireEvent.change(input, { target: { value: extractionValue } });
+
+  expect(getByTestId('extraction-limit-hint')).toBeInTheDocument();
 });
 
 test('allows user to add extraction properties', () => {

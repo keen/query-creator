@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.11](https://github.com/keen/query-creator/compare/v1.0.10...v1.0.11) (2020-11-25)
+
+
+### Bug Fixes
+
+* 🐛 extraction tooltip ([8639870](https://github.com/keen/query-creator/commit/8639870f29fb3b368cf545d42722b47e89a421c3))
+* 🐛 filter values overlap ([c3d3b8c](https://github.com/keen/query-creator/commit/c3d3b8c373a518163416c87af7d06032f5c3eb75))
+
 ### [1.0.10](https://github.com/keen/query-creator/compare/v1.0.9...v1.0.10) (2020-11-24)
 
 

@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState, useEffect, useMemo } from 'react';
+import React, { FC, useCallback, useState, useEffect, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Input, Tooltip } from '@keen.io/ui-core';
@@ -27,7 +27,7 @@ import {
 } from '../../modules/query';
 
 import { TOOLTIP_MOTION } from '../../constants';
-import { DEFAULT_LIMIT, PREVIEW_EVENTS_LIMIT } from './constants';
+import { DEFAULT_LIMIT, PREVIEW_EVENTS_LIMIT, HIDE_TIME } from './constants';
 
 type Props = {
   /** Events collection identifer */
@@ -37,6 +37,7 @@ type Props = {
 const Extraction: FC<Props> = ({ collection }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const hideLimitHintTrigger = useRef(null);
   const [tooltip, setTooltip] = useState({
     visible: false,
   });
@@ -48,7 +49,15 @@ const Extraction: FC<Props> = ({ collection }) => {
     if (eventValue) {
       const value = parseInt(eventValue);
       if (value > PREVIEW_EVENTS_LIMIT) {
+        if (hideLimitHintTrigger.current)
+          clearTimeout(hideLimitHintTrigger.current);
         dispatch(setExtractionLimit(PREVIEW_EVENTS_LIMIT));
+
+        setTooltip({ visible: true });
+        hideLimitHintTrigger.current = setTimeout(
+          () => setTooltip({ visible: false }),
+          HIDE_TIME
+        );
       } else {
         dispatch(setExtractionLimit(value));
       }
@@ -63,7 +72,7 @@ const Extraction: FC<Props> = ({ collection }) => {
 
   const HINT_MARKUP = useMemo(
     () =>
-      `${t('extraction.maximum_email_events_limit')}<br /><br />${t(
+      `${t('extraction.maximum_events_limit')}<br /><br />${t(
         'extraction.email_events_limit_first'
       )} <strong>${t('extraction.extraction_to_email')}</strong>${t(
         'extraction.email_events_limit_second'

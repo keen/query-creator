@@ -57,6 +57,7 @@ const Filters: FC<Props> = ({
       <Wrapper
         onMouseEnter={() => !collection && showHint(true)}
         onMouseLeave={() => !collection && showHint(false)}
+        isDisabled={!collection}
       >
         {isSchemaExist && !isSchemaLoading && (
           <FiltersComponent

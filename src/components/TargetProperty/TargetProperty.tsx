@@ -11,7 +11,10 @@ import {
   Container,
   PropertyOverflow,
   TitleWrapper,
+  Subtitle,
+  SubtitleIcon,
   TooltipMotion,
+  TooltipMotionIcon,
   TooltipContainer,
 } from './TargetProperty.styles';
 import { createTree } from '../../utils';
@@ -76,7 +79,8 @@ const TargetProperty: FC<Props> = ({
     visible: false,
   });
   const containerRef = useRef(null);
-  const isAvailable = analysis && collection && NUM_ANALYSIS.includes(analysis);
+  const isAvailable =
+    analysis && !collection && NUM_ANALYSIS.includes(analysis);
 
   const { searchHandler, searchPhrase, clearSearchPhrase } = useSearch<{
     path: string;
@@ -139,10 +143,15 @@ const TargetProperty: FC<Props> = ({
             onMouseEnter={() => setTooltip({ visible: true })}
             onMouseLeave={() => setTooltip({ visible: false })}
           >
-            <Icon type="info" fill={colors.blue['500']} />
+            <Subtitle>
+              Numbers required
+              <SubtitleIcon>
+                <Icon type="info" fill={colors.blue['500']} />
+              </SubtitleIcon>
+            </Subtitle>
             <AnimatePresence>
               {tooltip.visible && (
-                <TooltipMotion
+                <TooltipMotionIcon
                   {...TOOLTIP_MOTION}
                   data-testid="extraction-limit-hint"
                 >
@@ -153,7 +162,7 @@ const TargetProperty: FC<Props> = ({
                     </strong>{' '}
                     {t('query_creator_target_property.tooltip_end')}
                   </Tooltip>
-                </TooltipMotion>
+                </TooltipMotionIcon>
               )}
             </AnimatePresence>
           </TooltipContainer>

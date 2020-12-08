@@ -1,7 +1,10 @@
 import React, { FC, useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { ActionButton, Dropdown } from '@keen.io/ui-core';
+import { AnimatePresence } from 'framer-motion';
+import { ActionButton, Dropdown, Tooltip } from '@keen.io/ui-core';
+import { Icon } from '@keen.io/icons';
+import { colors } from '@keen.io/colors';
 
 import Title from '../Title';
 import Tabs from '../Tabs';
@@ -17,6 +20,8 @@ import {
   Container,
   IntervalContainer,
   DropdownContainer,
+  TooltipMotion,
+  TooltipContainer,
 } from './Interval.styles';
 
 import { getInterval, setInterval } from '../../modules/query';
@@ -28,11 +33,17 @@ import {
   DEFAULT_CUSTOM_INTERVAL,
 } from './constants';
 
+import { TOOLTIP_MOTION } from '../../constants';
+import { TitleWrapper } from '../Extraction/Extraction.styles';
+
 type Props = {};
 
 const Interval: FC<Props> = () => {
   const { t } = useTranslation();
   const [isOpen, setOpen] = useState(false);
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+  });
   const containerRef = useRef(null);
 
   const dispatch = useDispatch();
@@ -62,9 +73,29 @@ const Interval: FC<Props> = () => {
 
   return (
     <Container ref={containerRef}>
-      <Title onClick={() => !isOpen && setOpen(true)}>
-        {t('query_creator_interval.label')}
-      </Title>
+      <TitleWrapper>
+        <Title onClick={() => !isOpen && setOpen(true)}>
+          {t('query_creator_interval.label')}
+        </Title>
+        <TooltipContainer
+          onMouseEnter={() => setTooltip({ visible: true })}
+          onMouseLeave={() => setTooltip({ visible: false })}
+        >
+          <Icon type="info" fill={colors.blue['500']} />
+          <AnimatePresence>
+            {tooltip.visible && (
+              <TooltipMotion
+                {...TOOLTIP_MOTION}
+                data-testid="extraction-limit-hint"
+              >
+                <Tooltip hasArrow={false} mode="dark">
+                  {t('query_creator_interval.tooltip')}
+                </Tooltip>
+              </TooltipMotion>
+            )}
+          </AnimatePresence>
+        </TooltipContainer>
+      </TitleWrapper>
       <IntervalContainer>
         <DropableContainer
           variant="secondary"

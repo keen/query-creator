@@ -2,7 +2,7 @@ import { OrderBy } from '../../types';
 
 export const ORDER_OPTIONS = [
   {
-    label: 'result',
+    label: 'Result of analysis',
     value: 'result',
   },
 ];

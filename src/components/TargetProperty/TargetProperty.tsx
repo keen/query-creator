@@ -4,11 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { AnimatePresence } from 'framer-motion';
 import { Dropdown, Tooltip } from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
+import { Icon } from '@keen.io/icons';
+import { colors } from '@keen.io/colors';
 
 import {
   Container,
   PropertyOverflow,
+  TitleWrapper,
   TooltipMotion,
+  TooltipContainer,
 } from './TargetProperty.styles';
 import { createTree } from '../../utils';
 
@@ -23,11 +27,13 @@ import { getEventPath } from '../../utils';
 import { getCollectionSchema, getSchemas } from '../../modules/events';
 
 import { TOOLTIP_MOTION } from '../../constants';
-import { SEPARATOR } from './constants';
+import { SEPARATOR, NUM_ANALYSIS } from './constants';
 
-import { AppState } from '../../types';
+import { AppState, Analysis as AnalysisType } from '../../types';
 
 type Props = {
+  /** Current analysis */
+  analysis?: AnalysisType;
   /** Events collection identifer */
   collection: string;
   /** Change event handler */
@@ -41,6 +47,7 @@ type Props = {
 };
 
 const TargetProperty: FC<Props> = ({
+  analysis,
   collection,
   onChange,
   property,
@@ -65,7 +72,11 @@ const TargetProperty: FC<Props> = ({
 
   const [propertiesTree, setPropertiesTree] = useState(null);
   const [isOpen, setOpen] = useState(false);
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+  });
   const containerRef = useRef(null);
+  const isAvailable = analysis && collection && NUM_ANALYSIS.includes(analysis);
 
   const { searchHandler, searchPhrase, clearSearchPhrase } = useSearch<{
     path: string;
@@ -115,13 +126,39 @@ const TargetProperty: FC<Props> = ({
       onMouseLeave={() => !collection && showHint(false)}
       ref={containerRef}
     >
-      <Title
-        isDisabled={!collection}
-        onClick={() => !isOpen && setOpen(true)}
-        hasError={hasError}
-      >
-        {t('query_creator_target_property.label')}
-      </Title>
+      <TitleWrapper>
+        <Title
+          isDisabled={!collection}
+          onClick={() => !isOpen && setOpen(true)}
+          hasError={hasError}
+        >
+          {t('query_creator_target_property.label')}
+        </Title>
+        {isAvailable && (
+          <TooltipContainer
+            onMouseEnter={() => setTooltip({ visible: true })}
+            onMouseLeave={() => setTooltip({ visible: false })}
+          >
+            <Icon type="info" fill={colors.blue['500']} />
+            <AnimatePresence>
+              {tooltip.visible && (
+                <TooltipMotion
+                  {...TOOLTIP_MOTION}
+                  data-testid="extraction-limit-hint"
+                >
+                  <Tooltip hasArrow={false} mode="dark">
+                    {t('query_creator_target_property.tooltip_start')}
+                    <strong>
+                      {t('query_creator_target_property.tooltip_bold')}
+                    </strong>{' '}
+                    {t('query_creator_target_property.tooltip_end')}
+                  </Tooltip>
+                </TooltipMotion>
+              )}
+            </AnimatePresence>
+          </TooltipContainer>
+        )}
+      </TitleWrapper>
       <DropableContainer
         hasError={hasError}
         variant={variant}

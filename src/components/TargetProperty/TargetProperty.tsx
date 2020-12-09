@@ -15,6 +15,7 @@ import {
   SubtitleIcon,
   TooltipMotion,
   TooltipMotionIcon,
+  TooltipMotionIconBold,
   TooltipContainer,
 } from './TargetProperty.styles';
 import { createTree } from '../../utils';
@@ -79,8 +80,7 @@ const TargetProperty: FC<Props> = ({
     visible: false,
   });
   const containerRef = useRef(null);
-  const isAvailable =
-    analysis && !collection && NUM_ANALYSIS.includes(analysis);
+  const isAvailable = analysis && NUM_ANALYSIS.includes(analysis);
 
   const { searchHandler, searchPhrase, clearSearchPhrase } = useSearch<{
     path: string;
@@ -157,9 +157,9 @@ const TargetProperty: FC<Props> = ({
                 >
                   <Tooltip hasArrow={false} mode="dark">
                     {t('query_creator_target_property.tooltip_start')}
-                    <strong>
+                    <TooltipMotionIconBold>
                       {t('query_creator_target_property.tooltip_bold')}
-                    </strong>{' '}
+                    </TooltipMotionIconBold>{' '}
                     {t('query_creator_target_property.tooltip_end')}
                   </Tooltip>
                 </TooltipMotionIcon>
@@ -210,7 +210,7 @@ const TargetProperty: FC<Props> = ({
           />
         )}
       </Dropdown>
-      {!collection && (
+      {!collection && !tooltip.visible && (
         <AnimatePresence>
           {hint && (
             <TooltipMotion

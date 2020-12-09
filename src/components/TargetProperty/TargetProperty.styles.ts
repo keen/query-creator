@@ -47,6 +47,11 @@ export const TooltipMotionIcon = styled(motion.div)`
   z-index: ${UI_LAYERS.tooltip};
 `;
 
+export const TooltipMotionIconBold = styled.div`
+  display: inline;
+  font-family: 'Lato Bold', sans-serif;
+`;
+
 export const TooltipContainer = styled.div`
   display: inline-block;
   margin-left: 5px;

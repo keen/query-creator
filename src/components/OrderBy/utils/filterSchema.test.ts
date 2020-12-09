@@ -15,8 +15,8 @@ test('filters schema when groupBy is provided', () => {
 
   expect(filteredSchema).toMatchInlineSnapshot(`
     Object {
+      "query_creator_order_by.order_options_label": "any",
       "reference.value": "num",
-      "result": "any",
       "users": "list",
     }
   `);
@@ -48,7 +48,7 @@ test('filters schema when groupBy and orderBy are provided', () => {
 
   expect(filteredSchema).toMatchInlineSnapshot(`
     Object {
-      "result": "any",
+      "query_creator_order_by.order_options_label": "any",
       "users": "list",
     }
   `);

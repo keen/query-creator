@@ -84,6 +84,7 @@ const App: FC<Props> = () => {
       {showField('targetProperty', analysis) && (
         <MenuItem>
           <TargetProperty
+            analysis={analysis}
             collection={collection}
             property={targetProperty}
             onChange={(property) => {

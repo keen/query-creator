@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/keen/query-creator/compare/v1.0.11...v1.1.0) (2020-12-09)
+
+
+### Features
+
+* 🎸 Interval and target property tooltips added ([3052119](https://github.com/keen/query-creator/commit/30521195fd04057d8dd16ea57225536355a709d7))
+
 ### [1.0.11](https://github.com/keen/query-creator/compare/v1.0.10...v1.0.11) (2020-11-25)
 
 

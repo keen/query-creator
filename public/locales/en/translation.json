@@ -128,7 +128,8 @@
     "tooltip": "so we know what properties are available",
     "define": "Define",
     "group_by": "group by",
-    "order_result": "first to order the result"
+    "order_result": "first to order the result",
+    "order_options_label": "Result of analysis"
   },
   "query_creator_order_by_property": {
     "placeholder": "property",

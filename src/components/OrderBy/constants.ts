@@ -1,8 +1,11 @@
 import { OrderBy } from '../../types';
+import { useTranslation } from 'react-i18next';
+
+const { t } = useTranslation();
 
 export const ORDER_OPTIONS = [
   {
-    label: 'Result of analysis',
+    label: t('query_creator_order_by.order_options_label'),
     value: 'result',
   },
 ];

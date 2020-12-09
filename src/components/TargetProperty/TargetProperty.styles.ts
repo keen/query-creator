@@ -14,7 +14,7 @@ export const TitleWrapper = styled.div`
 `;
 
 export const Subtitle = styled.div`
-  font-family: Lato medium, sans-serif;
+  font-family: 'Lato Regular', sans-serif;
   font-size: 14px;
   color: ${transparentize(0.5, colors.black[100])};
   display: flex;

@@ -18,9 +18,9 @@ export const ActionContainer = styled.div<{ hasSpacing: boolean }>`
     `};
 `;
 
-export const Wrapper = styled.div<{ isDisabled: boolean}>`
+export const Wrapper = styled.div<{ isDisabled: boolean }>`
   position: relative;
-  display: ${props => props.isDisabled ? 'inline-block' : 'block'};
+  display: ${(props) => (props.isDisabled ? 'inline-block' : 'block')};
 `;
 
 export const TooltipMotion = styled(motion.div)`

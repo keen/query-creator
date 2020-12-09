@@ -1,4 +1,11 @@
-import React, { FC, useCallback, useState, useEffect, useMemo, useRef } from 'react';
+import React, {
+  FC,
+  useCallback,
+  useState,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Input, Tooltip } from '@keen.io/ui-core';

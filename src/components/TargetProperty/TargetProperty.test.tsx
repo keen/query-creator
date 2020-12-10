@@ -231,3 +231,36 @@ test('should render tooltip', async () => {
     ).toBeInTheDocument();
   });
 });
+
+test('should render tooltip with hint icon', async () => {
+  const collectionSchema = { date: 'String', userId: 'String' };
+  const storeState = {
+    query: {
+      targetProperty: 'date',
+    },
+    events: {
+      schemas: {
+        purchases: {
+          schema: collectionSchema,
+          tree: createTree(collectionSchema),
+          list: createCollection(collectionSchema),
+        },
+      },
+    },
+  };
+
+  const {
+    wrapper: { getByText, getByTestId },
+  } = render(storeState, {
+    analysis: 'maximum',
+  });
+
+  const wrapper = getByTestId('hint-icon-wrapper');
+  fireEvent.mouseEnter(wrapper);
+
+  waitFor(() => {
+    expect(
+      getByText('query_creator_target_property.tooltip_bold')
+    ).toBeInTheDocument();
+  });
+});

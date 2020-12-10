@@ -23,7 +23,7 @@ export const Subtitle = styled.div`
 `;
 
 export const SubtitleIcon = styled.div`
-  transform: translateX(5px) translateY(0);
+  transform: translateX(5px) translateY(2px);
 `;
 
 export const PropertyOverflow = styled.div`

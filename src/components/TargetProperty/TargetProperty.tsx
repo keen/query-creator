@@ -140,6 +140,7 @@ const TargetProperty: FC<Props> = ({
         </Title>
         {isAvailable && (
           <TooltipContainer
+            data-testid="hint-icon-wrapper"
             onMouseEnter={() => setTooltip({ visible: true })}
             onMouseLeave={() => setTooltip({ visible: false })}
           >

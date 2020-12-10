@@ -31,7 +31,7 @@ import { getEventPath } from '../../utils';
 import { getCollectionSchema, getSchemas } from '../../modules/events';
 
 import { TOOLTIP_MOTION } from '../../constants';
-import { SEPARATOR, NUM_ANALYSIS } from './constants';
+import { SEPARATOR, NUM_ANALYSIS, NUM_ANALYSIS_MAP } from './constants';
 
 import { AppState, Analysis as AnalysisType } from '../../types';
 
@@ -154,7 +154,9 @@ const TargetProperty: FC<Props> = ({
               {tooltip.visible && (
                 <TooltipMotionIcon {...TOOLTIP_MOTION}>
                   <Tooltip hasArrow={false} mode="dark">
-                    {t('query_creator_target_property.tooltip_start')}
+                    {t('query_creator_target_property.tooltip_start', {
+                      analysis: NUM_ANALYSIS_MAP[analysis],
+                    })}
                     <TooltipMotionIconBold>
                       {t('query_creator_target_property.tooltip_bold')}
                     </TooltipMotionIconBold>{' '}

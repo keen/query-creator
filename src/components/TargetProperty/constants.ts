@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 export const SEPARATOR = '.';
 
 export const NUM_ANALYSIS = [
@@ -8,3 +9,12 @@ export const NUM_ANALYSIS = [
   'sum',
   'standard_deviation',
 ];
+
+export const NUM_ANALYSIS_MAP = {
+  average: 'Average',
+  minimum: 'Minimum',
+  maximum: 'Maximum',
+  median: 'Median',
+  sum: 'Sum',
+  standard_deviation: 'Standard_deviation',
+};

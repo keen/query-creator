@@ -260,7 +260,7 @@ test('should render tooltip with hint icon', async () => {
 
   waitFor(() => {
     expect(
-      getByText('query_creator_target_property.tooltip_start')
+      getByText('query_creator_target_property.tooltip_bold')
     ).toBeInTheDocument();
   });
 });

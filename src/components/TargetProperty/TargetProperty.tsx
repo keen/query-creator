@@ -145,17 +145,14 @@ const TargetProperty: FC<Props> = ({
             onMouseLeave={() => setTooltip({ visible: false })}
           >
             <Subtitle>
-              Numbers required
+              {t('query_creator_target_property.subtitle')}
               <SubtitleIcon>
                 <Icon type="info" fill={colors.blue['500']} />
               </SubtitleIcon>
             </Subtitle>
             <AnimatePresence>
               {tooltip.visible && (
-                <TooltipMotionIcon
-                  {...TOOLTIP_MOTION}
-                  data-testid="extraction-limit-hint"
-                >
+                <TooltipMotionIcon {...TOOLTIP_MOTION}>
                   <Tooltip hasArrow={false} mode="dark">
                     {t('query_creator_target_property.tooltip_start')}
                     <TooltipMotionIconBold>

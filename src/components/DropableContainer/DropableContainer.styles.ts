@@ -8,7 +8,7 @@ import { Variant } from './types';
 const placeholderMixin = () => css`
   font-size: 14px;
   line-height: 17px;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lato Regular', sans-serif;
   color: ${transparentize(0.5, colors.black[300])};
 `;
 

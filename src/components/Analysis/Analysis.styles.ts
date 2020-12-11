@@ -28,7 +28,7 @@ export const TooltipContainer = styled(motion.div)<{
 }>`
   font-size: 13px;
   line-height: 17px;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lato Regular', sans-serif;
   width: 160px;
 
   position: absolute;

@@ -1,13 +1,15 @@
 const setValue = (obj: Record<string, any>, path: string, value: string) => {
   const keys = path.split('.');
   let objectCopy = obj;
-
   while (keys.length - 1) {
     const key = keys.shift();
     if (!(key in objectCopy)) objectCopy[key] = {};
     objectCopy = objectCopy[key];
   }
-  objectCopy[keys[0]] = [path, value];
+
+  const isExist = keys[0] in obj;
+  const key = isExist ? `${keys[0]} (node)` : keys[0];
+  objectCopy[key] = [path, value];
 };
 
 /**

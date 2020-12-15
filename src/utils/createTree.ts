@@ -1,13 +1,26 @@
+const getFromPath = (
+  dataObject: Record<string, any>,
+  selector: (string | number)[]
+) =>
+  selector.reduce((acc, key) => {
+    if (acc === null) return dataObject[key];
+    if (typeof acc === 'object' && acc !== null) return acc[key];
+    return acc;
+  }, null);
+
 const setValue = (obj: Record<string, any>, path: string, value: string) => {
   const keys = path.split('.');
   let objectCopy = obj;
+
+  const isPathExist = getFromPath(objectCopy, keys);
+
   while (keys.length - 1) {
     const key = keys.shift();
     if (!(key in objectCopy)) objectCopy[key] = {};
     objectCopy = objectCopy[key];
   }
 
-  const isExist = keys[0] in obj;
+  const isExist = isPathExist;
   const key = isExist ? `${keys[0]} (node)` : keys[0];
   objectCopy[key] = [path, value];
 };

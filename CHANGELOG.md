@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.6](https://github.com/keen/query-creator/compare/v1.1.5...v1.1.6) (2020-12-15)
+
+
+### Bug Fixes
+
+* 🐛 filter list values ([794162b](https://github.com/keen/query-creator/commit/794162b6d1f96f24f147787d9e59e1ba29b6e066))
+
 ### [1.1.5](https://github.com/keen/query-creator/compare/v1.1.4...v1.1.5) (2020-12-15)
 
 ### [1.1.4](https://github.com/keen/query-creator/compare/v1.1.3...v1.1.4) (2020-12-15)

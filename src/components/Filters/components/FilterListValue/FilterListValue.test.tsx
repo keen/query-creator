@@ -8,6 +8,7 @@ const render = (overProps: any = {}) => {
   const props = {
     onChange: jest.fn(),
     items: [],
+    propertyType: 'String',
     ...overProps,
   };
 
@@ -28,7 +29,7 @@ test('renders the current value', () => {
   expect(getByText('category, 1')).toBeInTheDocument();
 });
 
-test('allows user to add value to the list', () => {
+test('allows user to add "string" value to the list', () => {
   const {
     wrapper: { getByTestId },
     props,
@@ -44,6 +45,60 @@ test('allows user to add value to the list', () => {
   });
 
   expect(props.onChange).toHaveBeenCalledWith(['category']);
+});
+
+test('allows user to add "numeric" value to the list', () => {
+  const {
+    wrapper: { getByTestId },
+    props,
+  } = render({ propertyType: 'Number' });
+
+  const container = getByTestId('dropable-container');
+  fireEvent.click(container);
+
+  const input = getByTestId('list-input');
+  fireEvent.keyPress(input, {
+    keyCode: KEYBOARD_KEYS.ENTER,
+    target: { value: '1000' },
+  });
+
+  expect(props.onChange).toHaveBeenCalledWith([1000]);
+});
+
+test('allows user to add number to "list" property type', () => {
+  const {
+    wrapper: { getByTestId },
+    props,
+  } = render({ propertyType: 'List' });
+
+  const container = getByTestId('dropable-container');
+  fireEvent.click(container);
+
+  const input = getByTestId('list-input');
+  fireEvent.keyPress(input, {
+    keyCode: KEYBOARD_KEYS.ENTER,
+    target: { value: '10' },
+  });
+
+  expect(props.onChange).toHaveBeenCalledWith([10]);
+});
+
+test('allows user to add string to "list" property type', () => {
+  const {
+    wrapper: { getByTestId },
+    props,
+  } = render({ propertyType: 'List' });
+
+  const container = getByTestId('dropable-container');
+  fireEvent.click(container);
+
+  const input = getByTestId('list-input');
+  fireEvent.keyPress(input, {
+    keyCode: KEYBOARD_KEYS.ENTER,
+    target: { value: 'marketing' },
+  });
+
+  expect(props.onChange).toHaveBeenCalledWith(['marketing']);
 });
 
 test('do not allows user to add already existing value to the list', () => {

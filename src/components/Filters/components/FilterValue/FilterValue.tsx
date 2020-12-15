@@ -49,7 +49,13 @@ const getValueComponent = ({
     case 'null-placeholder':
       return null;
     case 'list':
-      return <FilterListValue items={value as string[]} onChange={onChange} />;
+      return (
+        <FilterListValue
+          items={value as string[]}
+          propertyType={propertyType}
+          onChange={onChange}
+        />
+      );
     case 'datepicker':
       return (
         <DatePickerContainer>

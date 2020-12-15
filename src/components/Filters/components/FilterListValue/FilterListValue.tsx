@@ -14,6 +14,7 @@ import DropableContainer from '../../../DropableContainer';
 import PropertyGroup from '../../../PropertyGroup';
 
 import Value from './Value';
+import { Property as PropertyType } from '../../../../types';
 
 import { getEventPath } from '../../../../utils';
 
@@ -25,9 +26,11 @@ type Props = {
   items: Array<string | number>;
   /** Change event handler */
   onChange: (value: Array<string | number>) => void;
+  /** Type of property */
+  propertyType: PropertyType;
 };
 
-const FilterListValue: FC<Props> = ({ items, onChange }) => {
+const FilterListValue: FC<Props> = ({ items, propertyType, onChange }) => {
   const { t } = useTranslation();
   const containerRef = useRef(null);
   const [editMode, setEditMode] = useState(false);
@@ -66,12 +69,21 @@ const FilterListValue: FC<Props> = ({ items, onChange }) => {
             onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
               if (e.charCode === KEYBOARD_KEYS.ENTER) {
                 e.preventDefault();
-                const eventValue = parseFloat(e.currentTarget.value);
-                const value = Number.isNaN(eventValue)
-                  ? e.currentTarget.value
-                  : eventValue;
+                let value: string | number;
 
-                if (!items.includes(value)) {
+                if (propertyType === 'String') {
+                  value = e.currentTarget.value;
+                } else if (propertyType === 'Number') {
+                  const eventValue = parseFloat(e.currentTarget.value);
+                  value = Number.isNaN(eventValue) ? undefined : eventValue;
+                } else if (propertyType === 'List') {
+                  const isNumericValue = /^\d+$/;
+                  value = isNumericValue.test(e.currentTarget.value)
+                    ? parseFloat(e.currentTarget.value)
+                    : e.currentTarget.value;
+                }
+
+                if (value && !items.includes(value)) {
                   onChange([...items, value]);
                 }
 

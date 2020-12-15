@@ -20,8 +20,7 @@ const setValue = (obj: Record<string, any>, path: string, value: string) => {
     objectCopy = objectCopy[key];
   }
 
-  const isExist = isPathExist;
-  const key = isExist ? `${keys[0]} (node)` : keys[0];
+  const key = isPathExist ? `${keys[0]} (node)` : keys[0];
   objectCopy[key] = [path, value];
 };
 

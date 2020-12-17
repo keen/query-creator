@@ -8,12 +8,7 @@ const getFromPath = (
     return acc;
   }, null);
 
-const setValue = (
-  obj: Record<string, any>,
-  path: string,
-  value: string,
-  pathMap?: Record<string, any>
-) => {
+const setValue = (obj: Record<string, any>, path: string, value: string) => {
   const keys = path.split('.');
   let objectCopy = obj;
 
@@ -26,8 +21,7 @@ const setValue = (
   }
 
   const key = isPathExist ? `${keys[0]} (node)` : keys[0];
-  const mappedKey = pathMap && pathMap[key] ? pathMap[key] : key;
-  objectCopy[mappedKey] = [path, value];
+  objectCopy[key] = [path, value];
 };
 
 /**
@@ -41,15 +35,12 @@ const setValue = (
  * @return tree object
  *
  */
-export const createTree = (
-  properties: Record<string, any>,
-  pathMap?: Record<string, any>
-) =>
+export const createTree = (properties: Record<string, any>) =>
   Object.keys(properties)
     .sort()
     .reverse()
     .reduce((acc, key) => {
       const propertyType = properties[key];
-      setValue(acc, key, propertyType, pathMap);
+      setValue(acc, key, propertyType);
       return acc;
     }, {});

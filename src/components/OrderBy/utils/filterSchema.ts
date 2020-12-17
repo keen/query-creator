@@ -5,10 +5,7 @@ export const filterSchema = (
   groups: string[],
   orderBy?: OrderBySettings[]
 ) => {
-  const initialItem = {
-    result: 'any',
-  };
-  const obj = { ...initialItem };
+  const obj = {};
   groups.forEach((group) => {
     obj[group] = schema[group];
   });

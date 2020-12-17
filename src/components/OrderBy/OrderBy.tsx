@@ -74,8 +74,8 @@ const OrderBy: FC<Props> = ({ collection }) => {
 
   const filteredSchema = filterSchema(schema, groups, orderBy);
 
-  const pathMap = {
-    result: t('query_creator_order_by.order_options_label'),
+  const resultObject = {
+    [t('query_creator_order_by.order_options_label')]: ['result', 'any'],
   };
 
   const { searchHandler } = useSearch<{
@@ -90,7 +90,7 @@ const OrderBy: FC<Props> = ({ collection }) => {
           searchTree[path] = type;
         });
         setSearchPhrase(phrase);
-        setPropertiesTree(createTree(searchTree, pathMap));
+        setPropertiesTree({ ...createTree(searchTree), ...resultObject });
         setTreeExpand(true);
       } else {
         setTreeExpand(false);
@@ -201,8 +201,8 @@ const OrderBy: FC<Props> = ({ collection }) => {
                 <OrderByContainer key={id}>
                   <OrderByProperty
                     property={
-                      pathMap && pathMap[propertyName]
-                        ? pathMap[propertyName]
+                      propertyName === 'result'
+                        ? t('query_creator_order_by.order_options_label')
                         : propertyName
                     }
                     orderDirection={direction}
@@ -210,7 +210,7 @@ const OrderBy: FC<Props> = ({ collection }) => {
                     properties={
                       propertiesTree
                         ? propertiesTree
-                        : createTree(filteredSchema, pathMap)
+                        : { ...createTree(filteredSchema), ...resultObject }
                     }
                     onSelectDirection={(value: OrderDirection) => {
                       const orderSettings = {

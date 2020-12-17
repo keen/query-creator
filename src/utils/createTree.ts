@@ -31,7 +31,6 @@ const setValue = (obj: Record<string, any>, path: string, value: string) => {
  * and properties of list type
  *
  * @param properties - schema properties
- * @param pathMap - object to map path names for UI
  * @return tree object
  *
  */

@@ -43,6 +43,31 @@ const FilterListValue: FC<Props> = ({ items, propertyType, onChange }) => {
     [items, onChange]
   );
 
+  const updateListHandler = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      const isNumericValue = /^\d+$/;
+      const initialValue = e.currentTarget.value;
+
+      let value: string | number;
+
+      if (propertyType === 'String') {
+        value = initialValue;
+      } else if (propertyType === 'Number') {
+        const eventValue = parseFloat(initialValue);
+        value = Number.isNaN(eventValue) ? undefined : eventValue;
+      } else if (propertyType === 'List') {
+        value = isNumericValue.test(initialValue)
+          ? parseFloat(initialValue)
+          : initialValue;
+      }
+
+      if (value && !items.includes(value)) {
+        onChange([...items, value]);
+      }
+    },
+    [propertyType, items]
+  );
+
   return (
     <Container ref={containerRef}>
       <DropableContainer
@@ -66,28 +91,11 @@ const FilterListValue: FC<Props> = ({ items, propertyType, onChange }) => {
             variant="solid"
             data-testid="list-input"
             placeholder={t('query_creator_filter_list_value.input_placeholder')}
-            onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
-              if (e.charCode === KEYBOARD_KEYS.ENTER) {
-                e.preventDefault();
-                let value: string | number;
-
-                if (propertyType === 'String') {
-                  value = e.currentTarget.value;
-                } else if (propertyType === 'Number') {
-                  const eventValue = parseFloat(e.currentTarget.value);
-                  value = Number.isNaN(eventValue) ? undefined : eventValue;
-                } else if (propertyType === 'List') {
-                  const isNumericValue = /^\d+$/;
-                  value = isNumericValue.test(e.currentTarget.value)
-                    ? parseFloat(e.currentTarget.value)
-                    : e.currentTarget.value;
-                }
-
-                if (value && !items.includes(value)) {
-                  onChange([...items, value]);
-                }
-
-                e.currentTarget.value = '';
+            onKeyPress={(event: React.KeyboardEvent<HTMLInputElement>) => {
+              if (event.charCode === KEYBOARD_KEYS.ENTER) {
+                event.preventDefault();
+                updateListHandler(event);
+                event.currentTarget.value = '';
               }
             }}
           />

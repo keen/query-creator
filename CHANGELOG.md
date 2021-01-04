@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.7](https://github.com/keen/query-creator/compare/v1.1.6...v1.1.7) (2021-01-04)
+
+
+### Bug Fixes
+
+* 🐛 Order by fix for mapping result ([e45f795](https://github.com/keen/query-creator/commit/e45f795cda47132d6cbb6ee049b319e1e925c6b2))
+* 🐛 Remove obsolete param ([45c19d7](https://github.com/keen/query-creator/commit/45c19d76ed361d7edf8dc26508f03bcab1cbd2a0))
+
 ### [1.1.6](https://github.com/keen/query-creator/compare/v1.1.5...v1.1.6) (2020-12-15)
 
 

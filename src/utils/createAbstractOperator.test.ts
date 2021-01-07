@@ -8,6 +8,7 @@ test('creates "is_null" operator based on filter settings', () => {
     propertyValue: null,
     operator: 'eq' as Operator,
   };
+
   const operator = createAbstractOperator(filter);
 
   expect(operator).toEqual('is_null');

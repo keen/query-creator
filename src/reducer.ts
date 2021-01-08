@@ -8,4 +8,5 @@ export default combineReducers({
   query: queryReducer,
   events: eventsReducer,
   chartSettings: chartSettingsReducer,
+  lastAction: (_state, action) => action,
 });

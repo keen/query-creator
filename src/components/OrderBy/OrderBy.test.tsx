@@ -74,7 +74,7 @@ test('allows user to set order by property', () => {
             },
           ],
         },
-        "type": "@query-creator/SET_ORDER_BY",
+        "type": "@query/SET_ORDER_BY",
       },
     ]
   `);
@@ -111,7 +111,7 @@ test('allows user to set order by direction', () => {
             },
           ],
         },
-        "type": "@query-creator/SET_ORDER_BY",
+        "type": "@query/SET_ORDER_BY",
       },
     ]
   `);
@@ -139,7 +139,7 @@ test('allows user to remove order by settings', () => {
         "payload": Object {
           "orderBy": undefined,
         },
-        "type": "@query-creator/SET_ORDER_BY",
+        "type": "@query/SET_ORDER_BY",
       },
     ]
   `);

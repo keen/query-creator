@@ -43,7 +43,7 @@ test('set supported interval', () => {
         "payload": Object {
           "interval": "weekly",
         },
-        "type": "@query-creator/SET_INTERVAL",
+        "type": "@query/SET_INTERVAL",
       },
     ]
   `);
@@ -71,7 +71,7 @@ test('set custom interval', () => {
         "payload": Object {
           "interval": "every_30_days",
         },
-        "type": "@query-creator/SET_INTERVAL",
+        "type": "@query/SET_INTERVAL",
       },
     ]
   `);
@@ -96,7 +96,7 @@ test('reset interval settings by clicking action button', () => {
         "payload": Object {
           "interval": undefined,
         },
-        "type": "@query-creator/SET_INTERVAL",
+        "type": "@query/SET_INTERVAL",
       },
     ]
   `);
@@ -119,7 +119,7 @@ test('reset interval settings', () => {
         "payload": Object {
           "interval": undefined,
         },
-        "type": "@query-creator/SET_INTERVAL",
+        "type": "@query/SET_INTERVAL",
       },
     ]
   `);

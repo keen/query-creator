@@ -68,7 +68,7 @@ test('allows user to change extraction limit', () => {
         "payload": Object {
           "limit": 200,
         },
-        "type": "@query-creator/SET_EXTRACTION_LIMIT",
+        "type": "@query/SET_EXTRACTION_LIMIT",
       },
     ]
   `);
@@ -106,7 +106,7 @@ test('allows user to add extraction properties', () => {
             },
           ],
         },
-        "type": "@query-creator/SET_PROPERTY_NAMES",
+        "type": "@query/SET_PROPERTY_NAMES",
       },
     ]
   `);
@@ -142,7 +142,7 @@ test('allows user to edit extraction properties', () => {
             },
           ],
         },
-        "type": "@query-creator/SET_PROPERTY_NAMES",
+        "type": "@query/SET_PROPERTY_NAMES",
       },
     ]
   `);
@@ -171,7 +171,7 @@ test('allows user to remove extraction properties', () => {
         "payload": Object {
           "propertyNames": undefined,
         },
-        "type": "@query-creator/SET_PROPERTY_NAMES",
+        "type": "@query/SET_PROPERTY_NAMES",
       },
     ]
   `);

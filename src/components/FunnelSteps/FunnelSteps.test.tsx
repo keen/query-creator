@@ -60,7 +60,7 @@ test('allows user to add funnel step', () => {
         "payload": Object {
           "id": "id",
         },
-        "type": "@query-creator/ADD_FUNNEL_STEP",
+        "type": "@query/ADD_FUNNEL_STEP",
       },
     ]
   `);
@@ -79,7 +79,7 @@ test('resets funnel steps', () => {
         "payload": Object {
           "steps": Array [],
         },
-        "type": "@query-creator/SET_FUNNEL_STEPS",
+        "type": "@query/SET_FUNNEL_STEPS",
       },
     ]
   `);

@@ -24,6 +24,7 @@ import {
   NEW_QUERY_EVENT,
   SET_CHART_SETTINGS,
   UPDATE_VISUALIZATION_TYPE,
+  QUERY_UPDATE_ACTION,
 } from './constants';
 
 declare global {
@@ -105,7 +106,11 @@ class QueryCreator extends React.PureComponent<Props> {
     this.storeSubscription = this.store.subscribe(() => {
       const state = this.store.getState();
       const query = getQuery(state);
-      if (onUpdateQuery) {
+
+      if (
+        onUpdateQuery &&
+        state.lastAction.type.includes(QUERY_UPDATE_ACTION)
+      ) {
         if (this.updateQueryTrigger) clearTimeout(this.updateQueryTrigger);
         this.updateQueryTrigger = setTimeout(() => {
           onUpdateQuery(transformToQuery(query));

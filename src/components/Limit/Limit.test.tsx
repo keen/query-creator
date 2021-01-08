@@ -46,7 +46,7 @@ test('allows user to set limit', () => {
         "payload": Object {
           "limit": 80,
         },
-        "type": "@query-creator/SET_LIMIT",
+        "type": "@query/SET_LIMIT",
       },
     ]
   `);
@@ -73,7 +73,7 @@ test('allows user to set limit', () => {
         "payload": Object {
           "limit": 80,
         },
-        "type": "@query-creator/SET_LIMIT",
+        "type": "@query/SET_LIMIT",
       },
     ]
   `);
@@ -130,7 +130,7 @@ test('allows user to remove limit', () => {
         "payload": Object {
           "limit": undefined,
         },
-        "type": "@query-creator/SET_LIMIT",
+        "type": "@query/SET_LIMIT",
       },
     ]
   `);

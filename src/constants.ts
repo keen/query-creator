@@ -13,6 +13,7 @@ export const UPDATE_VISUALIZATION_TYPE =
 export const DEFAULT_ANALYSIS = 'count';
 
 export const UPDATE_TIMEOUT = 0;
+export const QUERY_UPDATE_ACTION = '@query';
 
 export const KEYBOARD_KEYS = {
   UP: 38,

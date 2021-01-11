@@ -1,3 +1,4 @@
+import { ReducerState as AppReducerState } from './modules/app';
 import { ReducerState as QueryReducerState } from './modules/query';
 import { ReducerState as EventsReducerState } from './modules/events';
 import { ReducerState as ChartSettingsReducerState } from './modules/chartSettings';
@@ -17,6 +18,7 @@ export type Analysis =
   | 'select_unique';
 
 export type AppState = {
+  app: AppReducerState;
   query: QueryReducerState;
   events: EventsReducerState;
   chartSettings: ChartSettingsReducerState;

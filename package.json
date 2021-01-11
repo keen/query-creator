@@ -1,7 +1,7 @@
 {
   "name": "@keen.io/query-creator",
   "description": "Query Creator",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "src/index.ts",

@@ -1,6 +1,7 @@
 import {
   APP_START,
   STORE_SCHEMAS,
+  SET_QUERY_READINESS,
   FETCH_PROJECT_DETAILS,
   FETCH_PROJECT_DETAILS_SUCCESS,
   FETCH_PROJECT_DETAILS_ERROR,
@@ -14,6 +15,13 @@ export const appStart = (): AppActions => ({
 
 export const storeSchemas = (): AppActions => ({
   type: STORE_SCHEMAS,
+});
+
+export const setQueryReadiness = (isQueryReady: boolean): AppActions => ({
+  type: SET_QUERY_READINESS,
+  payload: {
+    isQueryReady,
+  },
 });
 
 export const fetchProjectDetails = (): AppActions => ({

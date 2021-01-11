@@ -13,7 +13,7 @@ import rootReducer from './reducer';
 import { rehydrateState } from './rehydrateState';
 import { AppContext } from './contexts';
 
-import { appStart } from './modules/app';
+import { appStart, getQueryReadiness } from './modules/app';
 import { getQuery, serializeQuery, resetQuery } from './modules/query';
 import { updateChartSettings } from './modules/chartSettings';
 import { transformToQuery, transformQueryToCamelCase } from './utils';
@@ -43,7 +43,7 @@ type Props = {
   /** Modal container selector */
   modalContainer: string;
   /** Update query event handler */
-  onUpdateQuery?: (query: Record<string, any>) => void;
+  onUpdateQuery?: (query: Record<string, any>, isQueryReady: boolean) => void;
   /** Update chart settings handler */
   onUpdateChartSettings: (chartSettings: Record<string, any>) => void;
   /** Host name */
@@ -57,7 +57,6 @@ class QueryCreator extends React.PureComponent<Props> {
   pubsub: PubSub;
 
   /** Event loop update query tick */
-  // updateQueryTrigger: NodeJS.Timeout;
   updateQueryTrigger: any;
 
   setQuerySubscription: () => void;
@@ -105,6 +104,8 @@ class QueryCreator extends React.PureComponent<Props> {
     const { onUpdateQuery } = this.props;
     this.storeSubscription = this.store.subscribe(() => {
       const state = this.store.getState();
+
+      const isQueryReady = getQueryReadiness(state);
       const query = getQuery(state);
 
       if (
@@ -113,7 +114,7 @@ class QueryCreator extends React.PureComponent<Props> {
       ) {
         if (this.updateQueryTrigger) clearTimeout(this.updateQueryTrigger);
         this.updateQueryTrigger = setTimeout(() => {
-          onUpdateQuery(transformToQuery(query));
+          onUpdateQuery(transformToQuery(query), isQueryReady);
         }, UPDATE_TIMEOUT);
       }
     });

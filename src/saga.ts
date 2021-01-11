@@ -14,6 +14,7 @@ import {
 import moment from 'moment-timezone';
 
 import {
+  setQueryReadiness,
   fetchProjectDetails,
   fetchProjectDetailsSuccess,
   fetchProjectDetailsError,
@@ -236,6 +237,7 @@ function* serializeQuery(action: SerializeQueryAction) {
   const {
     payload: { query },
   } = action;
+  yield put(setQueryReadiness(false));
   const schemas = yield select(getSchemas);
 
   const { filters, orderBy, steps, propertyNames, ...rest } = query;
@@ -279,6 +281,8 @@ function* serializeQuery(action: SerializeQueryAction) {
   if (orderBy) {
     yield fork(transformOrderBy, orderBy);
   }
+
+  yield put(setQueryReadiness(true));
 }
 
 function* updateGroupBy(action: SetGroupByAction) {

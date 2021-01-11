@@ -1,5 +1,6 @@
 import {
   SERIALIZE_QUERY,
+  POST_PROCESSING_FINISHED,
   SET_QUERY,
   SELECT_EVENT_COLLECTION,
   SELECT_ANALYSIS,
@@ -56,6 +57,10 @@ export const serializeQuery = (query: Partial<InitialQuery>): QueryActions => ({
   payload: {
     query,
   },
+});
+
+export const postProcessingFinished = (): QueryActions => ({
+  type: POST_PROCESSING_FINISHED,
 });
 
 export const resetQuery = (): QueryActions => ({

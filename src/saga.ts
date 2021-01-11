@@ -35,6 +35,7 @@ import {
   setOrderBy,
   setFilters,
   setQuery,
+  postProcessingFinished,
   SerializeQueryAction,
   SelectTimezoneAction,
   SelectEventCollectionAction,
@@ -69,7 +70,7 @@ import {
   serializePropertyNames,
 } from './serializers';
 
-import { createTree, createCollection } from './utils';
+import { createTree, createCollection, useQueryPostProcessing } from './utils';
 
 import { Filter, OrderBy, FunnelStep } from './types';
 import { SetGroupByAction } from './modules/query/types';
@@ -237,8 +238,9 @@ function* serializeQuery(action: SerializeQueryAction) {
   const {
     payload: { query },
   } = action;
-  yield put(setQueryReadiness(false));
   const schemas = yield select(getSchemas);
+  const usePostProcessing = useQueryPostProcessing(query);
+  yield put(setQueryReadiness(!usePostProcessing));
 
   const { filters, orderBy, steps, propertyNames, ...rest } = query;
   yield put(setQuery(rest));
@@ -282,7 +284,10 @@ function* serializeQuery(action: SerializeQueryAction) {
     yield fork(transformOrderBy, orderBy);
   }
 
-  yield put(setQueryReadiness(true));
+  if (usePostProcessing) {
+    yield put(setQueryReadiness(true));
+    yield put(postProcessingFinished());
+  }
 }
 
 function* updateGroupBy(action: SetGroupByAction) {

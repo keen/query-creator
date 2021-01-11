@@ -1,5 +1,6 @@
 import {
   SERIALIZE_QUERY,
+  POST_PROCESSING_FINISHED,
   SET_QUERY,
   SELECT_EVENT_COLLECTION,
   SELECT_ANALYSIS,
@@ -63,6 +64,10 @@ export type ReducerState = {
 export type InitialQuery = Omit<ReducerState, 'propertyNames'> & {
   propertyNames?: string | string[];
 };
+
+export interface PostProcessingFinishedAction {
+  type: typeof POST_PROCESSING_FINISHED;
+}
 
 export interface SetQueryAction {
   type: typeof SET_QUERY;
@@ -278,6 +283,7 @@ export interface UpdateFunnelStepTimezoneAction {
 export type QueryActions =
   | SerializeQueryAction
   | SetQueryAction
+  | PostProcessingFinishedAction
   | ResetQueryAction
   | SelectEventCollectionAction
   | SelectAnalysisAction

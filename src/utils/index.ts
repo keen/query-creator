@@ -9,11 +9,13 @@ import { showField } from './showField';
 import { transformQueryToCamelCase } from './transformQueryToCamelCase';
 import { transformToQuery } from './transformToQuery';
 import { getInterval } from './getInterval';
+import { useQueryPostProcessing } from './useQueryPostProcessing';
 
 export {
   inferFilterType,
   createAbstractOperator,
   use12HoursDateFormat,
+  useQueryPostProcessing,
   getEventPath,
   mutateArray,
   createCollection,

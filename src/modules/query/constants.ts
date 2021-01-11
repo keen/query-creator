@@ -2,6 +2,7 @@ import { FunnelStep } from '../../types';
 
 export const SET_QUERY = '@query/SET_QUERY';
 export const SERIALIZE_QUERY = '@query/SERIALIZE_QUERY';
+export const POST_PROCESSING_FINISHED = '@query/POST_PROCESSING_FINISHED';
 export const RESET_QUERY = '@query/RESET_QUERY';
 export const SELECT_EVENT_COLLECTION = '@query/SELECT_EVENT_COLLECTION';
 export const SELECT_ANALYSIS = '@query/SELECT_ANALYSIS';

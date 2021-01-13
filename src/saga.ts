@@ -41,6 +41,7 @@ import {
   SelectEventCollectionAction,
   SelectFunnelStepEventCollectionAction,
   UpdateFunnelStepTimezoneAction,
+  DEFAULT_TIMEZONE,
   SET_GROUP_BY,
   SERIALIZE_QUERY,
   SELECT_TIMEZONE,
@@ -132,7 +133,7 @@ function* fetchSchema(action: FetchCollectionSchemaAction) {
   }
 }
 
-function* selectCollection(action: SelectEventCollectionAction) {
+export function* selectCollection(action: SelectEventCollectionAction) {
   const collection = action.payload.name;
   if (collection) {
     const schemas = yield select(getSchemas);
@@ -178,7 +179,7 @@ function* storeEventSchemas() {
   window.__QUERY_CREATOR_SCHEMAS__ = schemas;
 }
 
-function* transformFilters(collection: string, filters: Filter[]) {
+export function* transformFilters(collection: string, filters: Filter[]) {
   let schemas = yield select(getSchemas);
   let collectionSchema = schemas[collection];
 
@@ -199,7 +200,7 @@ function* transformFilters(collection: string, filters: Filter[]) {
   yield put(setFilters(filtersSettings));
 }
 
-function* transformStepFilters(
+export function* transformStepFilters(
   collection: string,
   filters: Filter[],
   stepId: string
@@ -224,12 +225,12 @@ function* transformStepFilters(
   yield put(setFunnelStepFilters(stepId, filtersSettings));
 }
 
-function* transformOrderBy(orderBy: string | OrderBy | OrderBy[]) {
+export function* transformOrderBy(orderBy: string | OrderBy | OrderBy[]) {
   const orderBySettings = serializeOrderBy(orderBy);
   yield put(setOrderBy(orderBySettings));
 }
 
-function* transformPropertyNames(propertyNames: string | string[]) {
+export function* transformPropertyNames(propertyNames: string | string[]) {
   const propertiesSettings = serializePropertyNames(propertyNames);
   yield put(setPropertyNames(propertiesSettings));
 }
@@ -242,8 +243,16 @@ function* serializeQuery(action: SerializeQueryAction) {
   const usePostProcessing = useQueryPostProcessing(query);
   yield put(setQueryReadiness(!usePostProcessing));
 
-  const { filters, orderBy, steps, propertyNames, ...rest } = query;
-  yield put(setQuery(rest));
+  const { filters, orderBy, steps, propertyNames, ...querySettings } = query;
+  const initialQuery = {
+    ...querySettings,
+  };
+
+  if (!query.timezone) {
+    initialQuery.timezone = DEFAULT_TIMEZONE;
+  }
+
+  yield put(setQuery(initialQuery));
 
   if (query.eventCollection && !schemas[query.eventCollection]) {
     yield put(fetchCollectionSchema(query.eventCollection));

@@ -142,8 +142,6 @@ export type Timezones =
   | 'Pacific/Auckland'
   | 'UTC';
 
-export type TabTypes = 'default' | 'large';
-
 export type TranslationsSettings = {
   backend?: {
     loadPath?: string;

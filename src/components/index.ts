@@ -14,7 +14,6 @@ import Filters from './Filters';
 import QueryArguments from './QueryArguments';
 import Card from './Card';
 import RadioGroup from './RadioGroup';
-import Tabs from './Tabs';
 import Title from './Title';
 import TooltipContent from './TooltipContent';
 
@@ -36,6 +35,5 @@ export {
   QueryArguments,
   RadioGroup,
   Title,
-  Tabs,
   TooltipContent,
 };

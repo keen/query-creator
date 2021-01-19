@@ -2,12 +2,11 @@ import React, { FC, useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence } from 'framer-motion';
-import { ActionButton, Dropdown, Tooltip } from '@keen.io/ui-core';
+import { ActionButton, Dropdown, Tooltip, Tabs } from '@keen.io/ui-core';
 import { Icon } from '@keen.io/icons';
 import { colors } from '@keen.io/colors';
 
 import Title from '../Title';
-import Tabs from '../Tabs';
 import DropableContainer from '../DropableContainer';
 import SupportedInterval from '../SupportedInterval';
 import CustomInterval from '../CustomInterval';

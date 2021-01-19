@@ -15,8 +15,8 @@ class App extends React.Component<Props> {
     createI18n(this.props.translations);
   }
 
-  onUpdateQuery(query) {
-    console.log(query);
+  onUpdateQuery(query, isQueryReady) {
+    console.log(query, isQueryReady);
   }
 
   onUpdateChartSettings(chartSettings) {

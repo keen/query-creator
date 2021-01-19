@@ -9,6 +9,7 @@ import {
   fork,
   spawn,
   take,
+  join,
   put,
 } from 'redux-saga/effects';
 import moment from 'moment-timezone';
@@ -235,12 +236,22 @@ export function* transformPropertyNames(propertyNames: string | string[]) {
   yield put(setPropertyNames(propertiesSettings));
 }
 
+/**
+ * Flow responsible for serializing query and asynchronous post processing
+ * parts that required additional translations or data from API.
+ *
+ * @param query - query structure
+ * @return void
+ *
+ */
 function* serializeQuery(action: SerializeQueryAction) {
   const {
     payload: { query },
   } = action;
   const schemas = yield select(getSchemas);
   const usePostProcessing = useQueryPostProcessing(query);
+  const transformTasks = [];
+
   yield put(setQueryReadiness(!usePostProcessing));
 
   const { filters, orderBy, steps, propertyNames, ...querySettings } = query;
@@ -263,11 +274,13 @@ function* serializeQuery(action: SerializeQueryAction) {
     yield put(setFunnelSteps(transformedSteps));
 
     if (stepsFilters && stepsFilters.length) {
-      yield all(
+      const stepFiltersTask = yield all(
         stepsFilters.map(({ eventCollection, filters, id }) =>
           fork(transformStepFilters, eventCollection, filters, id)
         )
       );
+
+      transformTasks.push(...stepFiltersTask);
     }
 
     const schemasToFetch = steps
@@ -282,18 +295,26 @@ function* serializeQuery(action: SerializeQueryAction) {
   }
 
   if (propertyNames) {
-    yield fork(transformPropertyNames, propertyNames);
+    const propertyTask = yield fork(transformPropertyNames, propertyNames);
+    transformTasks.push(propertyTask);
   }
 
   if (filters) {
-    yield fork(transformFilters, query.eventCollection, filters);
+    const filtersTask = yield fork(
+      transformFilters,
+      query.eventCollection,
+      filters
+    );
+    transformTasks.push(filtersTask);
   }
 
   if (orderBy) {
-    yield fork(transformOrderBy, orderBy);
+    const orderByTask = yield fork(transformOrderBy, orderBy);
+    transformTasks.push(orderByTask);
   }
 
   if (usePostProcessing) {
+    yield join(transformTasks);
     yield put(setQueryReadiness(true));
     yield put(postProcessingFinished());
   }

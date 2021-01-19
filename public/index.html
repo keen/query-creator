@@ -15,5 +15,68 @@
 <body class="dev-body">
   <div id="root"></div>
   <div id="modal-root"></div>
+  <button id="set-query">Set Query</button>
 </body>
+<script type="text/javascript">
+  const button = document.getElementById('set-query');
+
+  const query = {
+    analysis_type: "count",
+    event_collection: "logins",
+    filters: [
+      {operator: "contains", property_type: "String", property_value: "John", property_name: "name"}
+    ],
+    group_by: ["name"],
+    order_by: [{property_name: "result", direction: "DESC"}],
+    interval: undefined,
+    limit: undefined,
+    timeframe: "this_14_days",
+    timezone: "UTC",
+  };
+
+  const funnelQuery = {
+    analysis_type: "funnel",
+    steps: [{
+      actor_property: "name",
+      event_collection: "logins",
+      filters: [
+        {operator: "contains", property_type: "String", property_value: "John", property_name: "name"}
+      ],
+      inverted: false,
+      optional: false,
+      timeframe: "this_14_days",
+      timezone: undefined,
+      with_actors: false,
+    }, {
+      actor_property: "url",
+      event_collection: "pageviews",
+      filters: [
+        {operator: "contains", property_type: "String", property_value: "/home", property_name: "url"}
+      ],
+      inverted: false,
+      optional: false,
+      timeframe: "this_14_days",
+      timezone: undefined,
+      with_actors: false,
+    }],
+  };
+
+  const extractionQuery = {
+    analysis_type: "extraction",
+    event_collection: "logins",
+    property_names: ["name"],
+    filters: [
+      {operator: "contains", property_type: "String", property_value: "John", property_name: "name"}
+    ],
+    limit: 2000,
+    timeframe: "this_14_days",
+    timezone: "UTC",
+  };
+
+  button.addEventListener('click', () => {
+    window.KeenPubSub.publish('@query-creator/set-query', {
+      query,
+    });
+  });
+</script>
 </html>

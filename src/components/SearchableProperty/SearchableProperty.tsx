@@ -23,6 +23,7 @@ import EmptySearch from '../EmptySearch';
 import PropertiesTree from '../PropertiesTree';
 
 import { SearchContext } from '../../contexts';
+import { Icon } from '@keen.io/icons';
 
 type Props = {
   /** Properties tree */
@@ -83,12 +84,14 @@ const SearchableProperty: FC<Props> = ({
   }, [isEditAllowed, editMode]);
 
   return (
-    <Container
-      ref={containerRef}
-      onClick={() => !editMode && setEditMode(true)}
-      data-testid="searchable-property"
-    >
+    <Container ref={containerRef} data-testid="searchable-property">
       <PropertyGroup isActive={editMode}>
+        <StyledPropertyItem
+          className="drag-handle"
+          onClick={() => setEditMode(false)}
+        >
+          <Icon type="drag" fill={colors.blue[100]} width={13} />
+        </StyledPropertyItem>
         <PropertyItem>
           <Property
             property={property}

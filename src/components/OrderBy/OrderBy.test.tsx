@@ -184,3 +184,17 @@ test('should render tooltip with notification about the event stream', async () 
     expect(getByText('query_creator_order_by.tooltip')).toBeInTheDocument();
   });
 });
+
+test('should render property with drag-handle class', () => {
+  const storeState = {
+    query: {
+      groupBy: ['country', 'city'],
+      orderBy: [{ ...DEFAULT_ORDER_SETTINGS, id: 'id' }],
+    },
+  };
+  const {
+    wrapper: { container },
+  } = render(storeState, { collection: 'collection' });
+  const [handle] = container.getElementsByClassName('drag-handle');
+  expect(handle).toBeInTheDocument();
+});

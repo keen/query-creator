@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/keen/query-creator/compare/v1.2.3...v1.3.0) (2021-02-03)
+
+
+### Features
+
+* 🎸 Added drag handle to draggable properties ([051f8a1](https://github.com/keen/query-creator/commit/051f8a1a51c15049f5bfb39fb521cc76e559dfde)), closes [#FEE-359](https://github.com/keen/query-creator/issues/FEE-359)
+
+
+### Bug Fixes
+
+* 🐛 Broken extraction test fixed ([cc1426b](https://github.com/keen/query-creator/commit/cc1426bac428ebda4e02e48ebc6a7ad54384269e))
+
 ### [1.2.3](https://github.com/keen/query-creator/compare/v1.2.2...v1.2.3) (2021-01-19)
 
 ### [1.2.2](https://github.com/keen/query-creator/compare/v1.2.1...v1.2.2) (2021-01-13)

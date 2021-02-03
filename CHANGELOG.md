@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/keen/query-creator/compare/v1.3.0...v1.3.1) (2021-02-03)
+
+
+### Bug Fixes
+
+* 🐛 Cursor style changed in drag-handle class ([f4b0927](https://github.com/keen/query-creator/commit/f4b09275666c7a563b8d44f6d67e1f7fab519fbb))
+
 ## [1.3.0](https://github.com/keen/query-creator/compare/v1.2.3...v1.3.0) (2021-02-03)
 
 

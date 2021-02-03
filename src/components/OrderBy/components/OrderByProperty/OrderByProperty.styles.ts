@@ -17,7 +17,7 @@ export const StyledPropertyItem = styled(PropertyItem)`
   background: none;
 
   &.drag-handle {
-    cursor: pointer;
+    cursor: grab;
     display: flex;
     align-items: center;
     padding: 0 10px;

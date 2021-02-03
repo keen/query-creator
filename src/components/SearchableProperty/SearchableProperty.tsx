@@ -84,7 +84,11 @@ const SearchableProperty: FC<Props> = ({
   }, [isEditAllowed, editMode]);
 
   return (
-    <Container ref={containerRef} data-testid="searchable-property">
+    <Container
+      ref={containerRef}
+      data-testid="searchable-property"
+      onClick={() => !editMode && setEditMode(true)}
+    >
       <PropertyGroup isActive={editMode}>
         <StyledPropertyItem
           className="drag-handle"
@@ -94,6 +98,7 @@ const SearchableProperty: FC<Props> = ({
         </StyledPropertyItem>
         <PropertyItem>
           <Property
+            data-testid="searchable-property-placeholder"
             property={property}
             editMode={editMode}
             placeholder={t('query_creator_searchable_property.placeholder')}

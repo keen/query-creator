@@ -12,11 +12,9 @@ export const GroupSettings = styled.div`
   margin-bottom: 10px;
 
   &[draggable='true'] {
-    cursor: grabbing;
-  }
-
-  &[draggable='false'] {
-    cursor: grab;
+    .drag-handle {
+      cursor: grabbing;
+    }
   }
 
   &:last-child {

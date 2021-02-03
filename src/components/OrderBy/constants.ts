@@ -22,5 +22,4 @@ export const DEFAULT_ORDER_SETTINGS = {
   direction: 'ASC',
 } as OrderBy;
 
-export const DRAG_DELAY = 250;
 export const DRAG_ANIMATION_TIME = 100;

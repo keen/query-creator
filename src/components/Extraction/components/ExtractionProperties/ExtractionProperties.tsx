@@ -24,7 +24,7 @@ import { getCollectionSchema } from '../../../../modules/events';
 import { createTree, mutateArray } from '../../../../utils';
 
 import { TOOLTIP_MOTION } from '../../../../constants';
-import { DRAG_DELAY, DRAG_ANIMATION_TIME } from './constants';
+import { DRAG_ANIMATION_TIME } from './constants';
 
 import { AppState, ExtractionProperty } from '../../../../types';
 
@@ -115,8 +115,8 @@ const ExtractionProperties: FC<Props> = ({
     let dragGhost;
     new Sortable(sortableRef.current, {
       animation: DRAG_ANIMATION_TIME,
-      delay: DRAG_DELAY,
       filter: '.add-button',
+      handle: '.drag-handle',
       onStart: () => {
         setDragMode(true);
         setTreeExpand(false);

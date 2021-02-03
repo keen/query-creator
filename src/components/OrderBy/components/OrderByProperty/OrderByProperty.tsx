@@ -10,6 +10,7 @@ import { ActionButton, Dropdown } from '@keen.io/ui-core';
 import { transparentize } from 'polished';
 import { useTranslation } from 'react-i18next';
 import { colors } from '@keen.io/colors';
+import { Icon } from '@keen.io/icons';
 
 import {
   Container,
@@ -94,6 +95,9 @@ const OrderByProperty: FC<Props> = ({
   return (
     <Container ref={containerRef} data-testid="orderBy-property">
       <PropertyGroup isActive={editMode}>
+        <StyledPropertyItem className="drag-handle">
+          <Icon type="drag" fill={colors.blue[100]} width={13} />
+        </StyledPropertyItem>
         <PropertyItem
           onClick={() => !editMode && setEditMode(true)}
           data-testid="orderBy-property-item"

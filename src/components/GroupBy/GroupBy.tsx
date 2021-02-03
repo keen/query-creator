@@ -49,7 +49,7 @@ import {
 import { getCollectionSchema } from '../../modules/events';
 
 import { TOOLTIP_MOTION } from '../../constants';
-import { DRAG_DELAY, DRAG_ANIMATION_TIME } from './constants';
+import { DRAG_ANIMATION_TIME } from './constants';
 
 import { AppState } from '../../types';
 
@@ -153,8 +153,8 @@ const GroupBy: FC<Props> = ({ collection }) => {
     let dragGhost;
     new Sortable(sortableRef.current, {
       animation: DRAG_ANIMATION_TIME,
-      delay: DRAG_DELAY,
       filter: '.add-button',
+      handle: '.drag-handle',
       onStart: () => {
         setDragMode(true);
         setTreeExpand(false);

@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
     "downlevelIteration": true,
+    "declaration": true,
     "noUnusedParameters": false,
     "noUnusedLocals": true,
     "removeComments": true,
@@ -14,8 +15,8 @@
 		"esModuleInterop": true,
     "module": "esnext",
     "jsx": "react",
-		"typeRoots": [ "./types", "./node_modules/@types"]
-	},
+	"typeRoots": [ "./types", "./node_modules/@types"],
+    },
   "include": [
 		"./src/**/*"
   ],

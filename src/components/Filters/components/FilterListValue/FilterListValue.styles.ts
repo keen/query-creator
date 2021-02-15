@@ -28,5 +28,5 @@ export const List = styled.div<LayoutProps>`
   flex-wrap: wrap;
 
   overflow: auto;
-  ${layout}
+  ${layout};
 `;

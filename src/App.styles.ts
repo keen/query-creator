@@ -16,8 +16,8 @@ export const ModifiersSettings = styled.div<FlexDirectionProps>`
 `;
 
 export const ModifiersItem = styled.div<LayoutProps & SpaceProps>`
-  ${layout}
-  ${space}
+  ${layout};
+  ${space};
 `;
 
 export const LimitContainer = styled.div`

@@ -25,7 +25,7 @@ export const Wrapper = styled.div<LayoutProps>`
   align-items: center;
   padding: 10px 0 20px 0;
 
-  ${layout}
+  ${layout};
 
   ${SmallItem} + ${SmallItem},
   ${Item} + ${SmallItem} {

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { layout, LayoutProps } from 'styled-system';
 
 export const Container = styled.div`
   position: relative;
@@ -22,7 +23,10 @@ export const ListItem = styled.div`
   margin-right: 10px;
 `;
 
-export const List = styled.div`
+export const List = styled.div<LayoutProps>`
   display: flex;
   flex-wrap: wrap;
+
+  overflow: auto;
+  ${layout};
 `;

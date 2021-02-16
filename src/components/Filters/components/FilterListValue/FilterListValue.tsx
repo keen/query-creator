@@ -18,7 +18,7 @@ import { Property as PropertyType } from '../../../../types';
 
 import { getEventPath } from '../../../../utils';
 
-import { SEPARATOR } from './constants';
+import { SEPARATOR, MAX_LIST_HEIGHT } from './constants';
 import { KEYBOARD_KEYS } from '../../../../constants';
 
 type Props = {
@@ -99,7 +99,7 @@ const FilterListValue: FC<Props> = ({ items, propertyType, onChange }) => {
               }
             }}
           />
-          <List>
+          <List maxHeight={MAX_LIST_HEIGHT}>
             {items.map((value, idx) => (
               <ListItem key={idx}>
                 <PropertyGroup isActive={false}>

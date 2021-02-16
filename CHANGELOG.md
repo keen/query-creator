@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.3](https://github.com/keen/query-creator/compare/v1.3.2...v1.3.3) (2021-02-16)
+
+
+### Bug Fixes
+
+* 🐛 add scroll to <FilterListValue> ([31e5a03](https://github.com/keen/query-creator/commit/31e5a03f0b3753b3960ed3dabd2b11ca2f904174))
+
 ### [1.3.2](https://github.com/keen/query-creator/compare/v1.3.1...v1.3.2) (2021-02-04)
 
 

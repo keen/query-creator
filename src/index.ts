@@ -7,6 +7,7 @@ import {
 } from './constants';
 import { TIMEZONES } from './components/Timezone/constants';
 import { getTimezoneValue } from './components/Timezone/utils/getTimezoneValue';
+import { transformToQuery } from './utils';
 import { Timeframe, Timezones } from './types';
 
 export default QueryCreator;
@@ -19,4 +20,5 @@ export {
   Timeframe,
   Timezones,
   getTimezoneValue,
+  transformToQuery,
 };

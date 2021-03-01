@@ -9,7 +9,7 @@ Array [
     "inverted": false,
     "optional": false,
     "timeframe": "this_14_days",
-    "timezone": undefined,
+    "timezone": "UTC",
     "withActors": false,
   },
   Object {
@@ -20,7 +20,7 @@ Array [
     "inverted": false,
     "optional": false,
     "timeframe": "this_14_days",
-    "timezone": undefined,
+    "timezone": "UTC",
     "withActors": false,
   },
 ]
@@ -44,7 +44,7 @@ Array [
     "inverted": false,
     "optional": false,
     "timeframe": "this_14_days",
-    "timezone": undefined,
+    "timezone": "UTC",
     "withActors": false,
   },
 ]
@@ -60,7 +60,7 @@ Array [
     "inverted": false,
     "optional": false,
     "timeframe": "this_14_days",
-    "timezone": undefined,
+    "timezone": "UTC",
     "withActors": false,
   },
   Object {
@@ -71,7 +71,7 @@ Array [
     "inverted": false,
     "optional": false,
     "timeframe": "this_14_days",
-    "timezone": undefined,
+    "timezone": "UTC",
     "withActors": false,
   },
 ]
@@ -87,7 +87,7 @@ Array [
     "inverted": false,
     "optional": false,
     "timeframe": "previous_1_year",
-    "timezone": undefined,
+    "timezone": "UTC",
     "withActors": false,
   },
   Object {
@@ -98,7 +98,7 @@ Array [
     "inverted": false,
     "optional": false,
     "timeframe": "previous_1_year",
-    "timezone": undefined,
+    "timezone": "UTC",
     "withActors": false,
   },
 ]
@@ -122,7 +122,7 @@ Array [
     "inverted": false,
     "optional": false,
     "timeframe": "this_14_days",
-    "timezone": undefined,
+    "timezone": "UTC",
     "withActors": false,
   },
 ]
@@ -138,7 +138,7 @@ Array [
     "inverted": false,
     "optional": false,
     "timeframe": "this_14_days",
-    "timezone": undefined,
+    "timezone": "UTC",
     "withActors": true,
   },
 ]
@@ -162,7 +162,7 @@ Array [
     "inverted": false,
     "optional": false,
     "timeframe": "this_14_days",
-    "timezone": undefined,
+    "timezone": "UTC",
     "withActors": false,
   },
 ]

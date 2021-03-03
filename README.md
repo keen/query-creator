@@ -31,6 +31,18 @@ yarn add query-creator
   onUpdateChartSettings={(chartSettings) => {}}
 />
 ```
+## Build
+
+The `@keen.io/dashboard-creator` use two step build to address issues with CSS specificity.
+
+##### Typescript
+
+First stage is responsible for transpilation Typescript code to `esnext` and emiting type declarations.
+
+##### Babel
+
+Second stage is responsible for code transpilation based on supported browserlist defined in `package.json` file and increasing `styled-components` css specificity by using plugins from `.babelrc` file.
+Generator functions transformations are disabled so applications that use this package should take care of it on their own. 
 
 ### npm scripts
 

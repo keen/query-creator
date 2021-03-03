@@ -28,26 +28,26 @@ export const TooltipContainer = styled(motion.div)<Props>`
     css`
       left: ${(props: Props) => -props.tooltipWidth / 2 + props.width / 2}px;
       top: ${(props) => -props.tooltipHeight - props.height / 2}px;
-    `}
+    `};
 
   ${(props) =>
     props.position === 'bottom' &&
     css`
       left: ${(props: Props) => -props.tooltipWidth / 2 + props.width / 2}px;
       top: ${(props) => props.height * 1.5}px;
-    `}
+    `};
 
   ${(props) =>
     props.position === 'left' &&
     css`
       left: ${(props: Props) => -props.tooltipWidth - props.width / 2}px;
       top: ${(props) => -props.tooltipHeight / 2 + props.height / 2}px;
-    `}
+    `};
 
   ${(props) =>
     props.position === 'right' &&
     css`
       left: ${(props: Props) => props.width * 1.5}px;
       top: ${(props) => -props.tooltipHeight / 2 + props.height / 2}px;
-    `}
+    `};
 `;

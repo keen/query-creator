@@ -31,5 +31,5 @@ export const inputMixin = () => css`
 `;
 
 export const Input = styled.input`
-  ${inputMixin()}
+  ${inputMixin()};
 `;

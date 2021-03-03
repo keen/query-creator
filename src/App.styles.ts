@@ -12,7 +12,7 @@ export const ModifiersSettings = styled.div<FlexDirectionProps>`
   display: flex;
   margin-bottom: 20px;
 
-  ${flexbox}
+  ${flexbox};
 `;
 
 export const ModifiersItem = styled.div<LayoutProps & SpaceProps>`

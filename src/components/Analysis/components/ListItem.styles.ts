@@ -26,7 +26,7 @@ export const Container = styled.li<{
     props.isActive &&
     css`
       background: ${transparentize(0.8, colors.green[100])};
-    `}
+    `};
 `;
 
 export const Hint = styled.div`

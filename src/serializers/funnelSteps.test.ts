@@ -52,7 +52,7 @@ test('serializes funnel steps', () => {
           "inverted": false,
           "optional": false,
           "timeframe": "this_14_days",
-          "timezone": undefined,
+          "timezone": "UTC",
           "withActors": false,
         },
       ],

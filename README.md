@@ -33,7 +33,7 @@ yarn add query-creator
 ```
 ## Build
 
-The `@keen.io/dashboard-creator` use two step build to address issues with CSS specificity.
+The `@keen.io/query-creator` use two step build to address issues with CSS specificity.
 
 ##### Typescript
 

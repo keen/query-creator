@@ -1,24 +1,31 @@
 {
-	"compilerOptions": {
+  "compilerOptions": {
     "downlevelIteration": true,
     "declaration": true,
     "noUnusedParameters": false,
     "noUnusedLocals": true,
     "removeComments": true,
-		"target": "es6",
-    "outDir": "./dist",
-		"moduleResolution": "node",
-		"allowJs": true,
+    "target": "esnext",
+    "outDir": "./lib",
+    "declarationDir": "./typings",
+    "moduleResolution": "node",
+    "allowJs": true,
     "resolveJsonModule": true,
-		"importHelpers": true,
-		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true,
+    "importHelpers": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "module": "esnext",
     "jsx": "react",
-	"typeRoots": [ "./types", "./node_modules/@types"],
-    },
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types"
+    ]
+  },
   "include": [
-		"./src/**/*"
+    "./src/**/*"
   ],
-		"exclude": ["node_modules", "typings"]
+  "exclude": [
+    "node_modules",
+    "typings"
+  ]
 }

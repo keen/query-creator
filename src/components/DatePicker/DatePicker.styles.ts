@@ -175,7 +175,7 @@ export const TimeContainer = styled.div`
   }
 
   .rc-time-picker .rc-time-picker-input {
-    ${inputMixin()}
+    ${inputMixin()};
   }
 `;
 
@@ -1070,7 +1070,7 @@ export const DateContainer = styled.div`
   }
 
   .DateInput_input {
-    ${inputMixin()}
+    ${inputMixin()};
   }
 
   .DateInput_fang {

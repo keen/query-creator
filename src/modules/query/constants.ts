@@ -51,7 +51,7 @@ export const DEFAULT_FUNNEL_STEP: FunnelStep = {
   eventCollection: undefined,
   actorProperty: undefined,
   timeframe: DEFAULT_TIMEFRAME,
-  timezone: undefined,
+  timezone: DEFAULT_TIMEZONE,
   filters: [],
   inverted: false,
   optional: false,

@@ -31,7 +31,7 @@ export const IntervalButton = styled.div<{
       : css`
           background: ${colors.white[400]};
           font-family: Lato Medium, sans-serif;
-        `}
+        `};
 
   &:hover {
     background: ${transparentize(0.3, colors.green[100])};

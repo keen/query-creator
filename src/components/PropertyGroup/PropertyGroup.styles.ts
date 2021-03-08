@@ -21,7 +21,7 @@ export const Container = styled.div<{
     props.isActive &&
     css`
       box-shadow: 0 0 3px 1px rgba(29, 39, 41, 0.15);
-    `}
+    `};
 
   ${PropertyItem} + ${PropertyItem} {
     border-left: solid 1px ${colors.white[500]};

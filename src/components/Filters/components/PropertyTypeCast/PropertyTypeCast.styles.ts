@@ -35,16 +35,16 @@ export const DropableContainer = styled.div<{
     css`
       color: ${colors.black[100]};
       background: ${colors.gray[200]};
-    `}
+    `};
 
   ${(props) =>
     props.editMode &&
     css`
       background: ${colors.white[300]};
       color: ${transparentize(0.3, colors.black[100])};
-    `}
+    `};
 
-  transition: color, background .2s linear;
+  transition: color, background 0.2s linear;
 `;
 
 export const WarningMessage = styled.div`

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.4](https://github.com/keen/query-creator/compare/v1.3.3...v1.3.4) (2021-03-08)
+
+
+### Bug Fixes
+
+* 🐛 Tsconfig typo fixed ([643b0d9](https://github.com/keen/query-creator/commit/643b0d920fcf5cd2efacd167fafaeea7d5c77e56))
+
 ### [1.3.3](https://github.com/keen/query-creator/compare/v1.3.2...v1.3.3) (2021-02-16)
 
 

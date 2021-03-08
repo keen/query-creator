@@ -35,7 +35,7 @@ import { setOrderBy, getGroupBy, getOrderBy } from '../../modules/query';
 import { getCollectionSchema } from '../../modules/events';
 
 import { TOOLTIP_MOTION } from '../../constants';
-import { DRAG_ANIMATION_TIME, DRAG_DELAY } from './constants';
+import { DRAG_ANIMATION_TIME } from './constants';
 
 import { AppState, OrderBy as OrderBySettings } from '../../types';
 import { OrderDirection } from './types';
@@ -141,8 +141,8 @@ const OrderBy: FC<Props> = ({ collection }) => {
     let dragGhost;
     new Sortable(sortableRef.current, {
       animation: DRAG_ANIMATION_TIME,
-      delay: DRAG_DELAY,
       filter: '.add-button',
+      handle: '.drag-handle',
       onStart: () => {
         setDragMode(true);
         setTreeExpand(false);

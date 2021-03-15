@@ -40,3 +40,10 @@ export const TooltipContainer = styled.div`
   position: relative;
   cursor: pointer;
 `;
+
+export const DropdownWrapper = styled.div`
+  width: 300px;
+  position: absolute;
+  bottom: 148px;
+  right: -170px;
+`;

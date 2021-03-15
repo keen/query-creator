@@ -1,3 +1,5 @@
+import { Timezones, Timeframe } from '@keen.io/query';
+
 import {
   SERIALIZE_QUERY,
   POST_PROCESSING_FINISHED,
@@ -35,14 +37,7 @@ import {
 } from './constants';
 
 import { QueryActions, ReducerState as Query, InitialQuery } from './types';
-import {
-  Timezones,
-  Timeframe,
-  OrderBy,
-  FunnelStep,
-  ExtractionProperty,
-  Filter,
-} from '../../types';
+import { OrderBy, FunnelStep, ExtractionProperty, Filter } from '../../types';
 import { Analysis } from '../../types';
 
 export const setQuery = (query: Partial<Query>): QueryActions => ({

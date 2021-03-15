@@ -1,10 +1,9 @@
 import React, { FC, memo } from 'react';
 import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
+import { Timezones } from '@keen.io/query';
 
 import { Container, Separator } from './AbsoluteTimeLabel.styles';
-
-import { Timezones } from '../../types';
 
 type Props = {
   /** Start date in ISO format */

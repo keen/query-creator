@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { TitleComponent } from '@keen.io/ui-core';
 
 import {
   Container,
@@ -8,8 +9,6 @@ import {
   FilteredExtraction,
   ClearProperties,
 } from './ExtractionTitle.styles';
-
-import Title from '../../../Title';
 
 type Props = {
   /** Extracting all properties indicator */
@@ -29,7 +28,9 @@ const ExtractionTitle: FC<Props> = ({
 
   return (
     <Container>
-      <Title isDisabled={isDisabled}>{t('extraction.title')}</Title>
+      <TitleComponent isDisabled={isDisabled}>
+        {t('extraction.title')}
+      </TitleComponent>
       {!isDisabled && (
         <MessageContainer>
           {isFullExtraction ? (

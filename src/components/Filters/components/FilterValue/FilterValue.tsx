@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Input } from '@keen.io/ui-core';
+import { Input, DatePicker } from '@keen.io/ui-core';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 
@@ -9,7 +9,6 @@ import Property from '../../../Property';
 import PropertyGroup, { PropertyItem } from '../../../PropertyGroup';
 import FilterListValue from '../FilterListValue';
 import GeoCoordinates from '../GeoCoordinates';
-import DatePicker from '../../../DatePicker';
 import FilterBoolean from '../FilterBoolean';
 
 import { TYPES_CONFIG } from '../../constants';

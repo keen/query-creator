@@ -7,7 +7,13 @@ import React, {
   useMemo,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dropdown, ScrollWrapper, Tooltip } from '@keen.io/ui-core';
+import {
+  Dropdown,
+  ScrollWrapper,
+  Tooltip,
+  DropableContainer,
+  TitleComponent,
+} from '@keen.io/ui-core';
 
 import { ListItem } from './components';
 import {
@@ -17,9 +23,6 @@ import {
   AnalysisTitle,
   TooltipContainer,
 } from './Analysis.styles';
-
-import Title from '../Title';
-import DropableContainer from '../DropableContainer';
 
 import { transformName } from './utils';
 
@@ -130,9 +133,9 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
 
   return (
     <Container>
-      <Title onClick={() => setOpen(true)}>
+      <TitleComponent onClick={() => setOpen(true)}>
         {t('query_creator_analysis.label')}
-      </Title>
+      </TitleComponent>
       <DropableContainer
         onClick={() => !isOpen && setOpen(true)}
         placeholder={t('query_creator_analysis.placeholder')}

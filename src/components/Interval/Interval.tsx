@@ -2,12 +2,17 @@ import React, { FC, useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence } from 'framer-motion';
-import { ActionButton, Dropdown, Tooltip, Tabs } from '@keen.io/ui-core';
+import {
+  ActionButton,
+  Dropdown,
+  Tooltip,
+  Tabs,
+  DropableContainer,
+  TitleComponent,
+} from '@keen.io/ui-core';
 import { Icon } from '@keen.io/icons';
 import { colors } from '@keen.io/colors';
 
-import Title from '../Title';
-import DropableContainer from '../DropableContainer';
 import SupportedInterval from '../SupportedInterval';
 import CustomInterval from '../CustomInterval';
 
@@ -73,9 +78,9 @@ const Interval: FC<Props> = () => {
   return (
     <Container ref={containerRef}>
       <TitleWrapper>
-        <Title onClick={() => !isOpen && setOpen(true)}>
+        <TitleComponent onClick={() => !isOpen && setOpen(true)}>
           {t('query_creator_interval.label')}
-        </Title>
+        </TitleComponent>
         <TooltipContainer
           onMouseEnter={() => setTooltip({ visible: true })}
           onMouseLeave={() => setTooltip({ visible: false })}

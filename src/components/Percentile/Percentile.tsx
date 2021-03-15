@@ -1,9 +1,7 @@
 import React, { FC, useState, useEffect, useCallback, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Tooltip, Input } from '@keen.io/ui-core';
-
-import Title from '../Title';
+import { Tooltip, Input, TitleComponent } from '@keen.io/ui-core';
 
 import { Container, TooltipContainer } from './Percentile.styles';
 
@@ -71,7 +69,7 @@ const Percentile: FC<Props> = ({ value, onReset, onChange }) => {
           </TooltipContainer>
         )}
       </AnimatePresence>
-      <Title>{t('query_creator_percentile.label')}</Title>
+      <TitleComponent>{t('query_creator_percentile.label')}</TitleComponent>
       <Input
         type="number"
         variant="solid"

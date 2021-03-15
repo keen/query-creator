@@ -1,3 +1,5 @@
+import { Timezones, Timeframe } from '@keen.io/query';
+
 import {
   SERIALIZE_QUERY,
   POST_PROCESSING_FINISHED,
@@ -34,14 +36,7 @@ import {
   REMOVE_FILTER,
 } from './constants';
 
-import {
-  Timezones,
-  Timeframe,
-  OrderBy,
-  ExtractionProperty,
-  FunnelStep,
-  Filter,
-} from '../../types';
+import { OrderBy, ExtractionProperty, FunnelStep, Filter } from '../../types';
 import { Analysis } from '../../types';
 
 export type ReducerState = {

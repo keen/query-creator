@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { TimePeriod } from '@keen.io/ui-core';
 
 import { parseCustomInterval } from './utils/parseCustomInterval';
 
 import { Container } from './CustomInterval.styles';
-
-import TimePeriod from '../TimePeriod';
 
 import { EVERY } from './constants';
 

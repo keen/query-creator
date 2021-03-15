@@ -21,6 +21,7 @@ import {
   DropdownContainer,
   TooltipMotion,
   TooltipContainer,
+  DropdownWrapper,
 } from './Interval.styles';
 
 import { getInterval, setInterval } from '../../modules/query';
@@ -70,6 +71,12 @@ const Interval: FC<Props> = () => {
     },
   ];
 
+  const dropdownMotion = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0, left: -20 },
+  };
+
   return (
     <Container ref={containerRef}>
       <TitleWrapper>
@@ -117,30 +124,35 @@ const Interval: FC<Props> = () => {
           />
         )}
       </IntervalContainer>
-      <Dropdown isOpen={isOpen}>
-        <Tabs
-          activeTab={customInterval ? CUSTOM_TAB : STANDARD_TAB}
-          onClick={(tabId) => {
-            tabId === STANDARD_TAB
-              ? dispatch(setInterval(DEFAULT_STANDARD_INTERVAL))
-              : dispatch(setInterval(DEFAULT_CUSTOM_INTERVAL));
-          }}
-          tabs={TABS_SETTINGS}
-        />
-        <DropdownContainer>
-          {customInterval ? (
-            <CustomInterval interval={interval} onChange={changeHandler} />
-          ) : (
-            <SupportedInterval
-              interval={interval}
-              onChange={(interval) => {
-                changeHandler(interval);
-                setOpen(false);
+      <DropdownWrapper>
+        <Dropdown isOpen={isOpen} motion={dropdownMotion}>
+          {isOpen && (
+            <Tabs
+              activeTab={customInterval ? CUSTOM_TAB : STANDARD_TAB}
+              onClick={(tabId) => {
+                tabId === STANDARD_TAB
+                  ? dispatch(setInterval(DEFAULT_STANDARD_INTERVAL))
+                  : dispatch(setInterval(DEFAULT_CUSTOM_INTERVAL));
               }}
+              tabs={TABS_SETTINGS}
             />
           )}
-        </DropdownContainer>
-      </Dropdown>
+
+          <DropdownContainer>
+            {customInterval ? (
+              <CustomInterval interval={interval} onChange={changeHandler} />
+            ) : (
+              <SupportedInterval
+                interval={interval}
+                onChange={(interval) => {
+                  changeHandler(interval);
+                  setOpen(false);
+                }}
+              />
+            )}
+          </DropdownContainer>
+        </Dropdown>
+      </DropdownWrapper>
     </Container>
   );
 };

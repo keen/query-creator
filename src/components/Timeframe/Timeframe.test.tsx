@@ -67,3 +67,14 @@ test('should call "onReset" handler', () => {
 
   expect(props.onReset).toHaveBeenCalled();
 });
+
+test('should render notification', () => {
+  const {
+    wrapper: { getByText, getByTestId },
+  } = render();
+
+  const propertyContainer = getByTestId('dropable-container');
+  fireEvent.click(propertyContainer);
+
+  expect(getByText('query_creator_timeframe.notification')).toBeInTheDocument();
+});

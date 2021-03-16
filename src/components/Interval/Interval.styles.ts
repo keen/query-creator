@@ -5,7 +5,6 @@ import { UI_LAYERS } from '@keen.io/ui-core';
 
 export const Container = styled.div`
   position: relative;
-  width: 285px;
 `;
 
 export const TitleWrapper = styled.div`
@@ -14,11 +13,9 @@ export const TitleWrapper = styled.div`
 `;
 
 export const IntervalContainer = styled.div`
-  display: flex;
-
-  div + button {
-    margin-left: 10px;
-  }
+  position: relative;
+  width: 150px;
+  margin-right: 10px;
 `;
 
 export const DropdownContainer = styled.div`
@@ -41,9 +38,6 @@ export const TooltipContainer = styled.div`
   cursor: pointer;
 `;
 
-export const DropdownWrapper = styled.div`
-  width: 300px;
-  position: absolute;
-  bottom: 148px;
-  right: -170px;
+export const IntervalManagement = styled.div`
+  display: flex;
 `;

@@ -22,11 +22,11 @@ import { getEventPath } from '../../utils';
 
 import {
   Container,
+  IntervalManagement,
   IntervalContainer,
   DropdownContainer,
   TooltipMotion,
   TooltipContainer,
-  DropdownWrapper,
 } from './Interval.styles';
 
 import { getInterval, setInterval } from '../../modules/query';
@@ -77,9 +77,9 @@ const Interval: FC<Props> = () => {
   ];
 
   const dropdownMotion = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0, left: -20 },
+    initial: { opacity: 0, left: '120%', bottom: 0, width: 300 },
+    animate: { opacity: 1, left: '100%' },
+    exit: { opacity: 0, left: '120%' },
   };
 
   return (
@@ -107,57 +107,57 @@ const Interval: FC<Props> = () => {
           </AnimatePresence>
         </TooltipContainer>
       </TitleWrapper>
-      <IntervalContainer>
-        <DropableContainer
-          variant="secondary"
-          placeholder="Set interval"
-          onClick={() => !isOpen && setOpen(true)}
-          isActive={isOpen}
-          value={interval}
-          onDefocus={(event: any) => {
-            if (!getEventPath(event)?.includes(containerRef.current)) {
-              setOpen(false);
-            }
-          }}
-        >
-          {interval && transformInterval(interval)}
-        </DropableContainer>
+      <IntervalManagement>
+        <IntervalContainer>
+          <DropableContainer
+            variant="secondary"
+            placeholder="Set interval"
+            onClick={() => !isOpen && setOpen(true)}
+            isActive={isOpen}
+            value={interval}
+            onDefocus={(event: any) => {
+              if (!getEventPath(event)?.includes(containerRef.current)) {
+                setOpen(false);
+              }
+            }}
+          >
+            {interval && transformInterval(interval)}
+          </DropableContainer>
+          <Dropdown isOpen={isOpen} motion={dropdownMotion} fullWidth>
+            {isOpen && (
+              <Tabs
+                activeTab={customInterval ? CUSTOM_TAB : STANDARD_TAB}
+                onClick={(tabId) => {
+                  tabId === STANDARD_TAB
+                    ? dispatch(setInterval(DEFAULT_STANDARD_INTERVAL))
+                    : dispatch(setInterval(DEFAULT_CUSTOM_INTERVAL));
+                }}
+                tabs={TABS_SETTINGS}
+              />
+            )}
+
+            <DropdownContainer>
+              {customInterval ? (
+                <CustomInterval interval={interval} onChange={changeHandler} />
+              ) : (
+                <SupportedInterval
+                  interval={interval}
+                  onChange={(interval) => {
+                    changeHandler(interval);
+                    setOpen(false);
+                  }}
+                />
+              )}
+            </DropdownContainer>
+          </Dropdown>
+        </IntervalContainer>
         {interval && (
           <ActionButton
             action="remove"
             onClick={() => dispatch(setInterval(undefined))}
           />
         )}
-      </IntervalContainer>
-      <DropdownWrapper>
-        <Dropdown isOpen={isOpen} motion={dropdownMotion}>
-          {isOpen && (
-            <Tabs
-              activeTab={customInterval ? CUSTOM_TAB : STANDARD_TAB}
-              onClick={(tabId) => {
-                tabId === STANDARD_TAB
-                  ? dispatch(setInterval(DEFAULT_STANDARD_INTERVAL))
-                  : dispatch(setInterval(DEFAULT_CUSTOM_INTERVAL));
-              }}
-              tabs={TABS_SETTINGS}
-            />
-          )}
-
-          <DropdownContainer>
-            {customInterval ? (
-              <CustomInterval interval={interval} onChange={changeHandler} />
-            ) : (
-              <SupportedInterval
-                interval={interval}
-                onChange={(interval) => {
-                  changeHandler(interval);
-                  setOpen(false);
-                }}
-              />
-            )}
-          </DropdownContainer>
-        </Dropdown>
-      </DropdownWrapper>
+      </IntervalManagement>
     </Container>
   );
 };

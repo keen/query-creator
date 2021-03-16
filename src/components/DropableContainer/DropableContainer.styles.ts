@@ -42,7 +42,6 @@ export const Container = styled.div<{
   font-size: 14px;
   line-height: 17px;
   font-family: 'Lato Regular', sans-serif;
-  width: 150px;
   justify-content: center;
   position: relative;
 

@@ -41,3 +41,8 @@ export const TooltipContainer = styled.div`
 export const IntervalManagement = styled.div`
   display: flex;
 `;
+
+export const TextCenter = styled.div`
+  text-align: center;
+  flex: 1;
+`;

@@ -22,6 +22,7 @@ import {
   DropdownContainer,
   TooltipMotion,
   TooltipContainer,
+  TextCenter,
 } from './Interval.styles';
 
 import { getInterval, setInterval } from '../../modules/query';
@@ -72,9 +73,9 @@ const Interval: FC<Props> = () => {
   ];
 
   const dropdownMotion = {
-    initial: { opacity: 0, left: '120%', bottom: 0, width: 300 },
-    animate: { opacity: 1, left: '100%' },
-    exit: { opacity: 0, left: '120%' },
+    initial: { opacity: 0, left: '100%', bottom: 0, width: 300, x: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0, x: 20 },
   };
 
   return (
@@ -116,7 +117,7 @@ const Interval: FC<Props> = () => {
               }
             }}
           >
-            {interval && transformInterval(interval)}
+            <TextCenter>{interval && transformInterval(interval)}</TextCenter>
           </DropableContainer>
           <Dropdown isOpen={isOpen} motion={dropdownMotion} fullWidth>
             {isOpen && (

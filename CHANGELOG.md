@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/keen/query-creator/compare/v1.3.4...v1.4.0) (2021-03-16)
+
+
+### Features
+
+* 🎸 add timezone notification ([bacf77d](https://github.com/keen/query-creator/commit/bacf77d9fa469314aebef8633a851c5703da01d1))
+
 ### [1.3.4](https://github.com/keen/query-creator/compare/v1.3.3...v1.3.4) (2021-03-08)
 
 

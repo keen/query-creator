@@ -10,3 +10,13 @@ export const SettingsContainer = styled.div`
   border-top: solid 1px ${colors.white[300]};
   border-bottom: solid 1px ${colors.white[300]};
 `;
+
+export const Notification = styled.div`
+  margin-top: 10px;
+  padding: 0 15px;
+  color: ${colors.black[100]};
+  font-family: 'Lato Regular', sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: right;
+`;

@@ -40,7 +40,8 @@
   "query_creator_timeframe": {
     "label": "Timeframe",
     "relative": "Relative",
-    "absolute": "Absolute"
+    "absolute": "Absolute",
+    "notification": "(Charts display time in UTC)"
   },
   "absolute_time": {
     "start_date": "From",

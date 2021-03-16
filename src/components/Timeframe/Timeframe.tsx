@@ -2,7 +2,7 @@ import React, { FC, useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dropdown, Tabs } from '@keen.io/ui-core';
 
-import { Container, SettingsContainer } from './Timeframe.styles';
+import { Container, SettingsContainer, Notification } from './Timeframe.styles';
 
 import Title from '../Title';
 import DropableContainer, { Variant } from '../DropableContainer';
@@ -127,6 +127,7 @@ const Timeframe: FC<Props> = ({
             />
           )}
         </SettingsContainer>
+        <Notification>{t('query_creator_timeframe.notification')}</Notification>
         <Timezone
           timezone={timezoneValue}
           onChange={(timezone) => onTimezoneChange(timezone)}

@@ -3,7 +3,6 @@ import Analysis from './Analysis';
 import TargetProperty from './TargetProperty';
 import EventCollection from './EventCollection';
 import Timeframe from './Timeframe';
-import Timezone from './Timezone';
 import GroupBy from './GroupBy';
 import OrderBy from './OrderBy';
 import Interval from './Interval';
@@ -14,7 +13,6 @@ import Filters from './Filters';
 import QueryArguments from './QueryArguments';
 import Card from './Card';
 import RadioGroup from './RadioGroup';
-import Title from './Title';
 import TooltipContent from './TooltipContent';
 
 export {
@@ -27,13 +25,11 @@ export {
   Interval,
   TargetProperty,
   Timeframe,
-  Timezone,
   Limit,
   EventCollection,
   FunnelSteps,
   Filters,
   QueryArguments,
   RadioGroup,
-  Title,
   TooltipContent,
 };

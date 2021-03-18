@@ -13,7 +13,7 @@ import shallowEqual from 'shallowequal';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence } from 'framer-motion';
 
-import { ActionButton, Tooltip } from '@keen.io/ui-core';
+import { ActionButton, Tooltip, TitleComponent } from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
 
 import TooltipContent from '../TooltipContent';
@@ -25,7 +25,6 @@ import {
 } from './GroupBy.styles';
 
 import SearchableProperty from '../SearchableProperty';
-import Title from '../Title';
 
 import {
   addGroup,
@@ -191,9 +190,9 @@ const GroupBy: FC<Props> = ({ collection }) => {
 
   return (
     <>
-      <Title isDisabled={!eventCollection}>
+      <TitleComponent isDisabled={!eventCollection}>
         {t('query_creator_group_by.title')}
-      </Title>
+      </TitleComponent>
       <Section
         data-testid="group-by-wrapper"
         onMouseEnter={() => !eventCollection && showHint(true)}

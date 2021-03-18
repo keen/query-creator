@@ -1,9 +1,10 @@
 import React, { FC, useState } from 'react';
-import { Dropdown } from '@keen.io/ui-core';
-
-import DropableContainer from '../../../DropableContainer';
-import DropdownList from '../../../DropdownList';
-import DropdownListContainer from '../../../DropdownListContainer';
+import {
+  Dropdown,
+  DropableContainer,
+  DropdownList,
+  DropdownListContainer,
+} from '@keen.io/ui-core';
 
 import { Container, OrderList, DropableWrapper } from './DirectionList.styles';
 

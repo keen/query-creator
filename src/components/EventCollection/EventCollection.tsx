@@ -8,16 +8,19 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { Dropdown } from '@keen.io/ui-core';
+import {
+  Dropdown,
+  DropableContainer,
+  DropableContainerVariant as Variant,
+  DropdownList,
+  DropdownListContainer,
+  TitleComponent,
+} from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
 
 import { Container } from './EventCollection.styles';
 
-import Title from '../Title';
 import EmptySearch from '../EmptySearch';
-import DropdownList from '../DropdownList';
-import DropdownListContainer from '../DropdownListContainer';
-import DropableContainer, { Variant } from '../DropableContainer';
 
 import { getEventsCollections } from '../../modules/events';
 
@@ -137,13 +140,13 @@ const EventCollection: FC<Props> = ({
 
   return (
     <Container>
-      <Title
+      <TitleComponent
         data-testid="event-collection-title"
         onClick={() => setOpen(true)}
         hasError={hasError}
       >
         {t('query_creator_event_collection.label')}
-      </Title>
+      </TitleComponent>
       <DropableContainer
         variant={variant}
         hasError={hasError}

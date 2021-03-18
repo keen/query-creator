@@ -12,14 +12,13 @@ import { v4 as uuid } from 'uuid';
 import Sortable from 'sortablejs';
 import { AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { ActionButton, Tooltip } from '@keen.io/ui-core';
+import { ActionButton, Tooltip, TitleComponent } from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
 
 import { SearchContext } from '../../contexts';
 
 import { createTree } from '../../utils';
 
-import Title from '../Title';
 import TooltipContent from '../TooltipContent';
 import { OrderByProperty } from './components';
 import {
@@ -186,9 +185,9 @@ const OrderBy: FC<Props> = ({ collection }) => {
 
   return (
     <>
-      <Title isDisabled={!showOrderOptions}>
+      <TitleComponent isDisabled={!showOrderOptions}>
         {t('query_creator_order_by.title')}
-      </Title>
+      </TitleComponent>
       <Section
         data-testid="order-by-wrapper"
         onMouseEnter={() => !showOrderOptions && showHint(true)}

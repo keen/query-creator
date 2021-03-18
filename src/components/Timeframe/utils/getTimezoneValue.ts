@@ -1,7 +1,7 @@
-import { Timezones } from '../../../types';
+import { Timezones } from '@keen.io/query';
+import { TIMEZONES } from '@keen.io/ui-core';
 
 import { DEFAULT_TIMEZONE } from '../../../modules/query';
-import { TIMEZONES } from '../constants';
 
 export const getTimezoneValue = (timezone?: number | Timezones) => {
   if (typeof timezone === 'string') return timezone;

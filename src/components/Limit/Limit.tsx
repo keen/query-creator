@@ -2,9 +2,8 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence } from 'framer-motion';
-import { Input, Tooltip } from '@keen.io/ui-core';
+import { Input, Tooltip, TitleComponent } from '@keen.io/ui-core';
 
-import Title from '../Title';
 import TooltipContent from '../TooltipContent';
 import { Wrapper, TooltipMotion } from './Limit.styles';
 
@@ -52,7 +51,9 @@ const Limit: FC<Props> = ({ collection }) => {
 
   return (
     <>
-      <Title isDisabled={isDisabled}>{t('query_creator_limit.label')}</Title>
+      <TitleComponent isDisabled={isDisabled}>
+        {t('query_creator_limit.label')}
+      </TitleComponent>
       <Wrapper
         data-testid="limit-wrapper"
         onMouseEnter={() => isDisabled && showHint(true)}

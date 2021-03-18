@@ -2,9 +2,10 @@ import React, { FC, useCallback, useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { transparentize } from 'polished';
 import { useTranslation } from 'react-i18next';
-import { Label, Checkbox, Input } from '@keen.io/ui-core';
+import { Label, Checkbox, Input, TitleComponent } from '@keen.io/ui-core';
 import { Icon } from '@keen.io/icons';
 import { colors } from '@keen.io/colors';
+import { Timezones, Timeframe as TimeframeType } from '@keen.io/query';
 
 import {
   CardWrapper,
@@ -23,7 +24,6 @@ import {
   Incomplete,
 } from './FunnelStep.styles';
 
-import Title from '../Title';
 import EventCollection from '../EventCollection';
 import TargetProperty from '../TargetProperty';
 import Timeframe from '../Timeframe';
@@ -38,12 +38,7 @@ import {
   removeFunnelStepFilter,
 } from '../../modules/query';
 
-import {
-  FunnelStep,
-  Timeframe as TimeframeType,
-  Filter,
-  Timezones,
-} from '../../types';
+import { FunnelStep, Filter } from '../../types';
 
 type Props = {
   /** Funnel step index */
@@ -233,7 +228,9 @@ const FunnelStep: FC<Props> = ({
           </Wrapper>
           <Wrapper>
             <Item>
-              <Title>{t('query_creator_funnel_step.step_label')}</Title>
+              <TitleComponent>
+                {t('query_creator_funnel_step.step_label')}
+              </TitleComponent>
               <Input
                 type="text"
                 variant="solid"

@@ -27,6 +27,8 @@ import {
   DropdownContainer,
   TooltipMotion,
   TooltipContainer,
+  StyledPlaceholder,
+  TextCenter,
 } from './Interval.styles';
 
 import { getInterval, setInterval } from '../../modules/query';
@@ -111,7 +113,9 @@ const Interval: FC<Props> = () => {
         <IntervalContainer>
           <DropableContainer
             variant="secondary"
-            placeholder="Set interval"
+            placeholder={() => (
+              <StyledPlaceholder>Set interval</StyledPlaceholder>
+            )}
             onClick={() => !isOpen && setOpen(true)}
             isActive={isOpen}
             value={interval}
@@ -121,7 +125,7 @@ const Interval: FC<Props> = () => {
               }
             }}
           >
-            {interval && transformInterval(interval)}
+            <TextCenter>{interval && transformInterval(interval)}</TextCenter>
           </DropableContainer>
           <Dropdown isOpen={isOpen} motion={dropdownMotion} fullWidth>
             {isOpen && (

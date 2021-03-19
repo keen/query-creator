@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { colors } from '@keen.io/colors';
 import { UI_LAYERS } from '@keen.io/ui-core';
+import { transparentize } from 'polished';
 
 export const Container = styled.div`
   position: relative;
@@ -40,4 +41,14 @@ export const TooltipContainer = styled.div`
 
 export const IntervalManagement = styled.div`
   display: flex;
+`;
+
+export const StyledPlaceholder = styled.div`
+  color: ${transparentize(0.5, colors.black[300])};
+  text-align: center;
+  width: 100%;
+`;
+export const TextCenter = styled.div`
+  text-align: center;
+  flex: 1;
 `;

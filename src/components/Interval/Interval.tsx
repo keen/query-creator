@@ -77,9 +77,9 @@ const Interval: FC<Props> = () => {
   ];
 
   const dropdownMotion = {
-    initial: { opacity: 0, left: '100%', bottom: 0, width: 300, x: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0, x: 20 },
+    initial: { opacity: 0, bottom: 0, left: '120%', width: 300 },
+    animate: { opacity: 1, left: '100%' },
+    exit: { opacity: 0, left: '120%' },
   };
 
   return (

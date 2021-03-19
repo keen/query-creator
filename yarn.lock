@@ -1672,6 +1672,11 @@
   resolved "https://registry.yarnpkg.com/@keen.io/query/-/query-1.0.4.tgz#957258e58500609921df34c3330bfdb911970527"
   integrity sha512-dg6xaOekE88H5KTwtwJHyVK7ouQztgFQctSveW63Z22MyLS9R8+A3uELA/xJEk0EnLGjlmSsjXqiXZ8aflsFXA==
 
+"@keen.io/query@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@keen.io/query/-/query-1.1.0.tgz#1ec53c4de832b537aba894a619cd4a4d24e1722b"
+  integrity sha512-FvnSOrRYAxEpUn7SIpQmelV2v3MiOYUBiuhS3LEShA5beph6BavdtDEY8Ei2P7QFDAm5D/52ccsUXIWOYJ9QjQ==
+
 "@keen.io/react-hooks@^1.0.1":
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/@keen.io/react-hooks/-/react-hooks-1.0.7.tgz#d0dd69e8328fc768fbf2514d6493e6a22de02c7c"
@@ -1680,14 +1685,14 @@
     d3-array "^2.7.1"
     fuse.js "^6.4.1"
 
-"@keen.io/ui-core@^2.5.10":
-  version "2.15.2"
-  resolved "https://registry.yarnpkg.com/@keen.io/ui-core/-/ui-core-2.15.2.tgz#720bc0d910b699166bfa283c74de63bac7601e98"
-  integrity sha512-oTos1c323CZFm9/cnrOCeZJMGVrukVUkJ2DPx2dBA1GIZpvEOpSDoX/SJNULL+CyCvDZuSjSjl5xyxfv21APBw==
+"@keen.io/ui-core@^2.12.0":
+  version "2.15.5"
+  resolved "https://registry.yarnpkg.com/@keen.io/ui-core/-/ui-core-2.15.5.tgz#5fa222c7d315538f015153e8fd7288a40f3a5e7b"
+  integrity sha512-cVtekvKiFZwjhqbpFzr8hmzW1DiupdQ8wHw+NiTbNLzs95t38jav4d5ditooQBQM2iPtCG2q+/n3UTCdQmYwCg==
   dependencies:
     "@keen.io/colors" "^1.1.0"
     "@keen.io/icons" "^1.4.0"
-    "@keen.io/query" "^1.0.4"
+    "@keen.io/query" "^1.1.0"
     color "^3.1.2"
     framer-motion "^1.11.1"
     fuse.js "^6.4.1"

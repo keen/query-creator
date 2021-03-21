@@ -1667,15 +1667,10 @@
   resolved "https://registry.yarnpkg.com/@keen.io/pubsub/-/pubsub-1.1.1.tgz#80dcb09a849ec665d279234c014e6815e1d075c0"
   integrity sha512-S9zhZNDSwsL6WXOtFqeZ3+vOdCzykL7pYifRm9dZ7ivLe/frAeyqIQsfRA8Z52DPnRN7d+gKbWrJtlZM22ErjQ==
 
-"@keen.io/query@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@keen.io/query/-/query-1.0.4.tgz#957258e58500609921df34c3330bfdb911970527"
-  integrity sha512-dg6xaOekE88H5KTwtwJHyVK7ouQztgFQctSveW63Z22MyLS9R8+A3uELA/xJEk0EnLGjlmSsjXqiXZ8aflsFXA==
-
-"@keen.io/query@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@keen.io/query/-/query-1.1.0.tgz#1ec53c4de832b537aba894a619cd4a4d24e1722b"
-  integrity sha512-FvnSOrRYAxEpUn7SIpQmelV2v3MiOYUBiuhS3LEShA5beph6BavdtDEY8Ei2P7QFDAm5D/52ccsUXIWOYJ9QjQ==
+"@keen.io/query@^1.0.4", "@keen.io/query@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@keen.io/query/-/query-1.1.1.tgz#be1d7ea6bb5685a9bd3cb8ee5dd12041724c9a45"
+  integrity sha512-EbnA1loFdcmCGXDjCz1MKAAUmEhHXB+y/Qkr7kHfQWjkeO0AYX73Qzriq5acF0pHeiHOkhJzJ/alMwO+Bxxk+w==
 
 "@keen.io/react-hooks@^1.0.1":
   version "1.0.7"
@@ -1686,17 +1681,16 @@
     fuse.js "^6.4.1"
 
 "@keen.io/ui-core@^2.12.0":
-  version "2.15.5"
-  resolved "https://registry.yarnpkg.com/@keen.io/ui-core/-/ui-core-2.15.5.tgz#5fa222c7d315538f015153e8fd7288a40f3a5e7b"
-  integrity sha512-cVtekvKiFZwjhqbpFzr8hmzW1DiupdQ8wHw+NiTbNLzs95t38jav4d5ditooQBQM2iPtCG2q+/n3UTCdQmYwCg==
+  version "2.15.6"
+  resolved "https://registry.yarnpkg.com/@keen.io/ui-core/-/ui-core-2.15.6.tgz#c44dc3d09e6f3a164ebda68305fae5f287479e36"
+  integrity sha512-dT2qYkd8ysPJtijP1vVQ54+k6WgkgY2wUUnWw2XmV2xFEdTH0nOhQl3IunFksjCnZIP9TLOUsrL9K5rBn7mXIw==
   dependencies:
     "@keen.io/colors" "^1.1.0"
     "@keen.io/icons" "^1.4.0"
-    "@keen.io/query" "^1.1.0"
+    "@keen.io/query" "^1.1.1"
     color "^3.1.2"
     framer-motion "^1.11.1"
     fuse.js "^6.4.1"
-    moment-timezone "^0.5.32"
     polished "^3.4.4"
     rc-time-picker "^3.7.3"
     react-column-resizer "^1.1.9"
@@ -8988,7 +8982,7 @@ modify-values@^1.0.0:
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-moment-timezone@^0.5.31, moment-timezone@^0.5.32:
+moment-timezone@^0.5.31:
   version "0.5.33"
   resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.33.tgz#b252fd6bb57f341c9b59a5ab61a8e51a73bbd22c"
   integrity sha512-PTc2vcT8K9J5/9rDEPe5czSIKgLoGsH8UNpA4qZTVw0Vd/Uz19geE9abbIOQKaAQFcnQ3v5YEXrbSc5BpshH+w==

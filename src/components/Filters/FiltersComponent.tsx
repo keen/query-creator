@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { useSearch } from '@keen.io/react-hooks';
+import { createTree } from '@keen.io/ui-core';
 
 import { Operator } from './Filters.styles';
 
@@ -12,7 +13,6 @@ import Badge from '../Badge';
 import { getCollectionSchema } from '../../modules/events';
 import { SearchContext } from '../../contexts';
 
-import { createTree } from '../../utils';
 import { setOperator, setDefaultValue } from './utils';
 
 import { AND_OPERATOR } from './constants';

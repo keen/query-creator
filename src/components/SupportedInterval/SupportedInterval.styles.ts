@@ -3,7 +3,7 @@ import { transparentize } from 'polished';
 import { colors } from '@keen.io/colors';
 
 export const Container = styled.div`
-  padding: 15px 9px 9px 9px;
+  padding: 9px 9px 9px 9px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -13,7 +13,7 @@ export const Container = styled.div`
 export const IntervalButton = styled.div<{
   isActive: boolean;
 }>`
-  flex: 1 0 35%;
+  flex: 1 0 22%;
   text-align: center;
   padding: 10px;
   font-size: 14px;

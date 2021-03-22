@@ -1,6 +1,6 @@
 import React, { FC, useState, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dropdown, Input } from '@keen.io/ui-core';
+import { Dropdown, Input, DropableContainer } from '@keen.io/ui-core';
 
 import {
   Container,
@@ -10,7 +10,6 @@ import {
   ItemContainer,
 } from './FilterListValue.styles';
 
-import DropableContainer from '../../../DropableContainer';
 import PropertyGroup from '../../../PropertyGroup';
 
 import Value from './Value';

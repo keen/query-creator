@@ -1,11 +1,8 @@
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dropdown } from '@keen.io/ui-core';
+import { Dropdown, DropableContainer, DropdownList } from '@keen.io/ui-core';
 
 import { Container } from './FilterBoolean.styles';
-
-import DropableContainer from '../../../DropableContainer';
-import DropdownList from '../../../DropdownList';
 
 import { TRUE_LABEL, FALSE_LABEL, OPTIONS } from './constants';
 

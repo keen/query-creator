@@ -1,25 +1,30 @@
 import React, { FC, useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dropdown, Tabs } from '@keen.io/ui-core';
+import {
+  Dropdown,
+  Tabs,
+  DropableContainer,
+  DropableContainerVariant as Variant,
+  RelativeTime,
+  convertRelativeTime,
+  AbsoluteTime,
+  getDefaultAbsoluteTime,
+  TIME_PICKER_CLASS,
+  Timezone,
+  TitleComponent,
+} from '@keen.io/ui-core';
+import { Timezones, Timeframe as TimeframeType } from '@keen.io/query';
 
 import { Container, SettingsContainer, Notification } from './Timeframe.styles';
 
-import Title from '../Title';
-import DropableContainer, { Variant } from '../DropableContainer';
-import AbsoluteTime, { TIME_PICKER_CLASS } from '../AbsoluteTime';
 import AbsoluteTimeLabel from '../AbsoluteTimeLabel';
-import RelativeTime from '../RelativeTime';
 import RelativeTimeLabel from '../RelativeTimeLabel';
-import Timezone, { getTimezoneValue } from '../Timezone';
 
-import { getDefaultAbsoluteTime } from './utils/getDefaultAbsoluteTime';
-import { convertRelativeTime } from './utils/convertRelativeTime';
+import { getTimezoneValue } from './utils';
 import { getEventPath } from '../../utils';
 
 import { ABSOLUTE_TAB, RELATIVE_TAB } from './constants';
 import { DEFAULT_TIMEFRAME } from '../../modules/query';
-
-import { Timeframe as TimeframeType, Timezones } from '../../types';
 
 type Props = {
   /** Unique identifer */
@@ -71,9 +76,9 @@ const Timeframe: FC<Props> = ({
 
   return (
     <Container ref={containerRef}>
-      <Title onClick={() => !isOpen && setOpen(true)}>
+      <TitleComponent onClick={() => !isOpen && setOpen(true)}>
         {t('query_creator_timeframe.label')}
-      </Title>
+      </TitleComponent>
       <DropableContainer
         variant={variant}
         onClick={() => !isOpen && setOpen(true)}
@@ -116,6 +121,16 @@ const Timeframe: FC<Props> = ({
           {typeof value === 'string' ? (
             <RelativeTime
               onChange={onTimeframeChange}
+              timeLabel={t('query_creator_relative_time.time_label')}
+              unitsPlaceholderLabel={t(
+                'query_creator_relative_time.units_placeholder'
+              )}
+              relativityTitleForTodayLabel={t(
+                'query_creator_relative_time.relativity_title_for_today'
+              )}
+              relativityTitleLabel={t(
+                'query_creator_relative_time.relativity_title'
+              )}
               {...convertRelativeTime(value)}
             />
           ) : (
@@ -124,6 +139,8 @@ const Timeframe: FC<Props> = ({
               {...value}
               timezone={timezoneValue}
               onChange={onTimeframeChange}
+              startDateLabel={t('absolute_time.start_date')}
+              endDateLabel={t('absolute_time.end_date')}
             />
           )}
         </SettingsContainer>
@@ -131,6 +148,8 @@ const Timeframe: FC<Props> = ({
         <Timezone
           timezone={timezoneValue}
           onChange={(timezone) => onTimezoneChange(timezone)}
+          timezoneLabel={t('query_creator_timezone.label')}
+          timezonePlaceholderLabel={t('query_creator_timezone.placeholder')}
         />
       </Dropdown>
     </Container>

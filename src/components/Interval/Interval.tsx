@@ -2,12 +2,17 @@ import React, { FC, useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence } from 'framer-motion';
-import { ActionButton, Dropdown, Tooltip, Tabs } from '@keen.io/ui-core';
+import {
+  ActionButton,
+  Dropdown,
+  Tooltip,
+  Tabs,
+  DropableContainer,
+  TitleComponent,
+} from '@keen.io/ui-core';
 import { Icon } from '@keen.io/icons';
 import { colors } from '@keen.io/colors';
 
-import Title from '../Title';
-import DropableContainer from '../DropableContainer';
 import SupportedInterval from '../SupportedInterval';
 import CustomInterval from '../CustomInterval';
 
@@ -17,10 +22,13 @@ import { getEventPath } from '../../utils';
 
 import {
   Container,
+  IntervalManagement,
   IntervalContainer,
   DropdownContainer,
   TooltipMotion,
   TooltipContainer,
+  StyledPlaceholder,
+  TextCenter,
 } from './Interval.styles';
 
 import { getInterval, setInterval } from '../../modules/query';
@@ -70,12 +78,18 @@ const Interval: FC<Props> = () => {
     },
   ];
 
+  const dropdownMotion = {
+    initial: { opacity: 0, bottom: 0, left: '100%', width: 300, x: 20 },
+    animate: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: 20 },
+  };
+
   return (
     <Container ref={containerRef}>
       <TitleWrapper>
-        <Title onClick={() => !isOpen && setOpen(true)}>
+        <TitleComponent onClick={() => !isOpen && setOpen(true)}>
           {t('query_creator_interval.label')}
-        </Title>
+        </TitleComponent>
         <TooltipContainer
           onMouseEnter={() => setTooltip({ visible: true })}
           onMouseLeave={() => setTooltip({ visible: false })}
@@ -95,52 +109,58 @@ const Interval: FC<Props> = () => {
           </AnimatePresence>
         </TooltipContainer>
       </TitleWrapper>
-      <IntervalContainer>
-        <DropableContainer
-          variant="secondary"
-          placeholder="Set interval"
-          onClick={() => !isOpen && setOpen(true)}
-          isActive={isOpen}
-          value={interval}
-          onDefocus={(event: any) => {
-            if (!getEventPath(event)?.includes(containerRef.current)) {
-              setOpen(false);
-            }
-          }}
-        >
-          {interval && transformInterval(interval)}
-        </DropableContainer>
+      <IntervalManagement>
+        <IntervalContainer>
+          <DropableContainer
+            variant="secondary"
+            placeholder={() => (
+              <StyledPlaceholder>Set interval</StyledPlaceholder>
+            )}
+            onClick={() => !isOpen && setOpen(true)}
+            isActive={isOpen}
+            value={interval}
+            onDefocus={(event: any) => {
+              if (!getEventPath(event)?.includes(containerRef.current)) {
+                setOpen(false);
+              }
+            }}
+          >
+            <TextCenter>{interval && transformInterval(interval)}</TextCenter>
+          </DropableContainer>
+          <Dropdown isOpen={isOpen} motion={dropdownMotion} fullWidth>
+            {isOpen && (
+              <Tabs
+                activeTab={customInterval ? CUSTOM_TAB : STANDARD_TAB}
+                onClick={(tabId) => {
+                  tabId === STANDARD_TAB
+                    ? dispatch(setInterval(DEFAULT_STANDARD_INTERVAL))
+                    : dispatch(setInterval(DEFAULT_CUSTOM_INTERVAL));
+                }}
+                tabs={TABS_SETTINGS}
+              />
+            )}
+            <DropdownContainer>
+              {customInterval ? (
+                <CustomInterval interval={interval} onChange={changeHandler} />
+              ) : (
+                <SupportedInterval
+                  interval={interval}
+                  onChange={(interval) => {
+                    changeHandler(interval);
+                    setOpen(false);
+                  }}
+                />
+              )}
+            </DropdownContainer>
+          </Dropdown>
+        </IntervalContainer>
         {interval && (
           <ActionButton
             action="remove"
             onClick={() => dispatch(setInterval(undefined))}
           />
         )}
-      </IntervalContainer>
-      <Dropdown isOpen={isOpen}>
-        <Tabs
-          activeTab={customInterval ? CUSTOM_TAB : STANDARD_TAB}
-          onClick={(tabId) => {
-            tabId === STANDARD_TAB
-              ? dispatch(setInterval(DEFAULT_STANDARD_INTERVAL))
-              : dispatch(setInterval(DEFAULT_CUSTOM_INTERVAL));
-          }}
-          tabs={TABS_SETTINGS}
-        />
-        <DropdownContainer>
-          {customInterval ? (
-            <CustomInterval interval={interval} onChange={changeHandler} />
-          ) : (
-            <SupportedInterval
-              interval={interval}
-              onChange={(interval) => {
-                changeHandler(interval);
-                setOpen(false);
-              }}
-            />
-          )}
-        </DropdownContainer>
-      </Dropdown>
+      </IntervalManagement>
     </Container>
   );
 };

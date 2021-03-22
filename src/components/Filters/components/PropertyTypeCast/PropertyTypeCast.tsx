@@ -7,7 +7,11 @@ import React, {
   useEffect,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dropdown } from '@keen.io/ui-core';
+import {
+  Dropdown,
+  DropdownListContainer,
+  DropdownList,
+} from '@keen.io/ui-core';
 
 import {
   Container,
@@ -19,9 +23,6 @@ import {
 } from './PropertyTypeCast.styles';
 
 import FiltersContext from '../../FiltersContext';
-
-import DropdownList from '../../../DropdownList';
-import DropdownListContainer from '../../../DropdownListContainer';
 
 import { createOptions } from './utils';
 

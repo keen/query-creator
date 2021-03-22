@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Input, Tooltip } from '@keen.io/ui-core';
+import { Input, Tooltip, TitleComponent } from '@keen.io/ui-core';
 import { Icon } from '@keen.io/icons';
 import { colors } from '@keen.io/colors';
 import { AnimatePresence } from 'framer-motion';
@@ -23,7 +23,6 @@ import {
 } from './Extraction.styles';
 
 import { ExtractionProperties } from './components';
-import Title from '../Title';
 
 import {
   setPropertyNames,
@@ -96,7 +95,7 @@ const Extraction: FC<Props> = ({ collection }) => {
       />
       <LimitContainer>
         <TitleWrapper>
-          <Title>{t('extraction.limit_label')}</Title>
+          <TitleComponent>{t('extraction.limit_label')}</TitleComponent>
           <TooltipContainer
             onMouseEnter={() => setTooltip({ visible: true })}
             onMouseLeave={() => setTooltip({ visible: false })}

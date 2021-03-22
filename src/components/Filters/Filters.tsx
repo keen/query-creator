@@ -3,9 +3,7 @@ import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence } from 'framer-motion';
-import { ActionButton, Tooltip } from '@keen.io/ui-core';
-
-import Title from '../Title';
+import { ActionButton, Tooltip, TitleComponent } from '@keen.io/ui-core';
 
 import FiltersComponent from './FiltersComponent';
 import TooltipContent from '../TooltipContent';
@@ -51,9 +49,9 @@ const Filters: FC<Props> = ({
 
   return (
     <>
-      <Title isDisabled={!collection}>
+      <TitleComponent isDisabled={!collection}>
         {t('query_creator_filters.filters')}
-      </Title>
+      </TitleComponent>
       <Wrapper
         onMouseEnter={() => !collection && showHint(true)}
         onMouseLeave={() => !collection && showHint(false)}

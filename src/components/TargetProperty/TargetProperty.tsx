@@ -2,7 +2,13 @@ import React, { FC, useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence } from 'framer-motion';
-import { Dropdown, Tooltip } from '@keen.io/ui-core';
+import {
+  Dropdown,
+  Tooltip,
+  DropableContainer,
+  DropableContainerVariant as Variant,
+  TitleComponent,
+} from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
 import { Icon } from '@keen.io/icons';
 import { colors } from '@keen.io/colors';
@@ -21,11 +27,9 @@ import {
 import { createTree } from '../../utils';
 
 import TooltipContent from '../TooltipContent';
-import Title from '../Title';
 import EmptySearch from '../EmptySearch';
 import PropertyPath from '../PropertyPath';
 import PropertiesTree from '../PropertiesTree';
-import DropableContainer, { Variant } from '../DropableContainer';
 
 import { getEventPath } from '../../utils';
 import { getCollectionSchema, getSchemas } from '../../modules/events';
@@ -131,13 +135,13 @@ const TargetProperty: FC<Props> = ({
       ref={containerRef}
     >
       <TitleWrapper>
-        <Title
+        <TitleComponent
           isDisabled={!collection}
           onClick={() => !isOpen && setOpen(true)}
           hasError={hasError}
         >
           {t('query_creator_target_property.label')}
-        </Title>
+        </TitleComponent>
         {isAvailable && (
           <TooltipContainer
             data-testid="hint-icon-wrapper"

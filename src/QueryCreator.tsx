@@ -14,10 +14,15 @@ import { rehydrateState } from './rehydrateState';
 import { AppContext } from './contexts';
 
 import { appStart, getQueryReadiness } from './modules/app';
-import { getQuery, serializeQuery, resetQuery } from './modules/query';
+import {
+  getQuery,
+  serializeQuery,
+  resetQuery,
+  selectTimezone,
+} from './modules/query';
 import { updateChartSettings } from './modules/chartSettings';
 import { transformToQuery, transformQueryToCamelCase } from './utils';
-
+import { timezoneActions } from './modules/timezone';
 import {
   UPDATE_TIMEOUT,
   SET_QUERY_EVENT,
@@ -48,6 +53,10 @@ type Props = {
   onUpdateChartSettings: (chartSettings: Record<string, any>) => void;
   /** Host name */
   host?: string;
+  /** Default timezone for query */
+  defaultTimezoneForQuery?: string;
+  /** Disable timezone selection flag */
+  disableTimezoneSelection?: boolean;
 };
 
 class QueryCreator extends React.PureComponent<Props> {
@@ -87,12 +96,25 @@ class QueryCreator extends React.PureComponent<Props> {
     );
 
     sagaMiddleware.run(rootSaga);
+
     this.store.dispatch(appStart());
+
+    if (this.props.defaultTimezoneForQuery) {
+      this.store.dispatch(
+        timezoneActions.setDefaultTimezone(this.props.defaultTimezoneForQuery)
+      );
+      this.store.dispatch(selectTimezone(this.props.defaultTimezoneForQuery));
+    }
+    this.store.dispatch(
+      timezoneActions.setTimezoneSelectionDisabled(
+        !!this.props.disableTimezoneSelection
+      )
+    );
 
     this.pubsub = getPubSub();
 
     this.runQueryListener();
-    this.subscribeSetQuery();
+    this.subscribeSetQuery(this.props.defaultTimezoneForQuery);
   }
 
   componentWillUnmount() {
@@ -113,6 +135,7 @@ class QueryCreator extends React.PureComponent<Props> {
         state.lastAction.type.includes(QUERY_UPDATE_ACTION)
       ) {
         if (this.updateQueryTrigger) clearTimeout(this.updateQueryTrigger);
+
         this.updateQueryTrigger = setTimeout(() => {
           onUpdateQuery(transformToQuery(query), isQueryReady);
         }, UPDATE_TIMEOUT);
@@ -120,12 +143,12 @@ class QueryCreator extends React.PureComponent<Props> {
     });
   };
 
-  subscribeSetQuery = () => {
+  subscribeSetQuery = (defaultTimezoneForQuery: string) => {
     this.setQuerySubscription = this.pubsub.subscribe(
       (eventName: string, meta: any) => {
         switch (eventName) {
           case NEW_QUERY_EVENT:
-            this.store.dispatch(resetQuery());
+            this.store.dispatch(resetQuery(defaultTimezoneForQuery));
             break;
           case SET_QUERY_EVENT:
             const { query } = meta;

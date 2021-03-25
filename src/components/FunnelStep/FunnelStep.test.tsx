@@ -25,6 +25,7 @@ const state = {
     loadingSchemas: [],
     schemas: {},
   },
+  timezone: {},
 };
 
 const store = mockStore({ ...state });

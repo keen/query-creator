@@ -80,6 +80,9 @@ export interface SerializeQueryAction {
 
 export interface ResetQueryAction {
   type: typeof RESET_QUERY;
+  payload: {
+    defaultTimezoneForQuery: string;
+  };
 }
 
 export interface AddFilterAction {
@@ -132,7 +135,7 @@ export interface SelectTargetPropertyAction {
 export interface SelectTimezoneAction {
   type: typeof SELECT_TIMEZONE;
   payload: {
-    timezone: Timezones;
+    timezone: string;
   };
 }
 
@@ -196,6 +199,7 @@ export interface AddFunnelStepAction {
   type: typeof ADD_FUNNEL_STEP;
   payload: {
     id: string;
+    defaultTimezone: string;
   };
 }
 

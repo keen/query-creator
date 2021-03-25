@@ -2,6 +2,18 @@ import React from 'react';
 import { render as rtlRender, fireEvent } from '@testing-library/react';
 
 import Timeframe from './Timeframe';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
+
+const mockStore = configureStore([]);
+
+const state = {
+  timezone: {
+    timezoneSelectionDisabled: false,
+  },
+};
+
+const store = mockStore({ ...state });
 
 const render = (overProps: any = {}) => {
   const props = {
@@ -13,7 +25,11 @@ const render = (overProps: any = {}) => {
     ...overProps,
   };
 
-  const wrapper = rtlRender(<Timeframe {...props} />);
+  const wrapper = rtlRender(
+    <Provider store={store}>
+      <Timeframe {...props} />
+    </Provider>
+  );
 
   return {
     props,

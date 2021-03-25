@@ -35,11 +35,13 @@ import { AppContext } from '../../contexts';
 import { AppState } from '../../types';
 
 import { DRAG_ANIMATION_TIME } from './constants';
+import { getDefaultTimezone } from '../../modules/timezone';
 
 const FunnelSteps: FC<{}> = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const steps = useSelector(getFunnelSteps);
+  const defaultTimezone = useSelector(getDefaultTimezone);
   const stepLabels = useSelector((state: AppState) => {
     const { stepLabels: funnelStepsLabels } = getChartSettings(state);
     if (funnelStepsLabels) return funnelStepsLabels;
@@ -169,7 +171,7 @@ const FunnelSteps: FC<{}> = () => {
         data-testid="add-step-button"
         onClick={() => {
           const stepId = uuid();
-          dispatch(addFunnelStep(stepId));
+          dispatch(addFunnelStep(stepId, defaultTimezone));
           setStepVisible(stepId);
         }}
       >

@@ -4,6 +4,7 @@ import { ReducerState as AppReducerState } from './modules/app';
 import { ReducerState as QueryReducerState } from './modules/query';
 import { ReducerState as EventsReducerState } from './modules/events';
 import { ReducerState as ChartSettingsReducerState } from './modules/chartSettings';
+import { ReducerState as TimezoneReducerState } from './modules/timezone';
 
 export type Analysis =
   | 'sum'
@@ -24,6 +25,7 @@ export type AppState = {
   query: QueryReducerState;
   events: EventsReducerState;
   chartSettings: ChartSettingsReducerState;
+  timezone: TimezoneReducerState;
 };
 
 export type CreatorFields =

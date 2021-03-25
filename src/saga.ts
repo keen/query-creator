@@ -42,7 +42,6 @@ import {
   SelectEventCollectionAction,
   SelectFunnelStepEventCollectionAction,
   UpdateFunnelStepTimezoneAction,
-  DEFAULT_TIMEZONE,
   SET_GROUP_BY,
   SERIALIZE_QUERY,
   SELECT_TIMEZONE,
@@ -76,9 +75,11 @@ import { createTree, createCollection, useQueryPostProcessing } from './utils';
 
 import { Filter, OrderBy, FunnelStep } from './types';
 import { SetGroupByAction } from './modules/query/types';
+import { getDefaultTimezone, timezoneActions } from './modules/timezone';
 
 function* appStart() {
   yield put(fetchProjectDetails());
+  yield put(timezoneActions.fetchTimezones());
 }
 
 function* fetchProject() {
@@ -95,6 +96,175 @@ function* fetchProject() {
     yield put(setEventsCollections(collections));
   } catch (err) {
     yield put(fetchProjectDetailsError(err));
+  }
+}
+
+function* fetchTimezones() {
+  try {
+    // todo fetch timezones when api ready
+    const mock = [
+      {
+        name: 'Pacific/Apia',
+        utc_offset: '+14:00',
+      },
+      {
+        name: 'Pacific/Kiritimati',
+        utc_offset: '+14:00',
+      },
+      {
+        name: 'Etc/GMT-14',
+        utc_offset: '+14:00',
+      },
+      {
+        name: 'NZ-CHAT',
+        utc_offset: '+13:45',
+      },
+      {
+        name: 'Pacific/Chatham',
+        utc_offset: '+13:45',
+      },
+      {
+        name: 'Pacific/Fakaofo',
+        utc_offset: '+13:00',
+      },
+      {
+        name: 'Antarctica/McMurdo',
+        utc_offset: '+13:00',
+      },
+      {
+        name: 'Pacific/Enderbury',
+        utc_offset: '+13:00',
+      },
+      {
+        name: 'NZ',
+        utc_offset: '+13:00',
+      },
+      {
+        name: 'Antarctica/South_Pole',
+        utc_offset: '+13:00',
+      },
+      {
+        name: 'Pacific/Auckland',
+        utc_offset: '+13:00',
+      },
+      {
+        name: 'Pacific/Tongatapu',
+        utc_offset: '+13:00',
+      },
+      {
+        name: 'Etc/GMT-13',
+        utc_offset: '+13:00',
+      },
+      {
+        name: 'Pacific/Kwajalein',
+        utc_offset: '+12:00',
+      },
+      {
+        name: 'Pacific/Wallis',
+        utc_offset: '+12:00',
+      },
+      {
+        name: 'Pacific/Fiji',
+        utc_offset: '+12:00',
+      },
+      {
+        name: 'Pacific/Funafuti',
+        utc_offset: '+12:00',
+      },
+      {
+        name: 'Pacific/Nauru',
+        utc_offset: '+12:00',
+      },
+      {
+        name: 'Kwajalein',
+        utc_offset: '+12:00',
+      },
+      {
+        name: 'Pacific/Wake',
+        utc_offset: '+12:00',
+      },
+      {
+        name: 'Pacific/Norfolk',
+        utc_offset: '+12:00',
+      },
+      {
+        name: 'Pacific/Tarawa',
+        utc_offset: '+12:00',
+      },
+      {
+        name: 'Asia/Kamchatka',
+        utc_offset: '+12:00',
+      },
+      {
+        name: 'Etc/GMT-12',
+        utc_offset: '+12:00',
+      },
+      {
+        name: 'Asia/Anadyr',
+        utc_offset: '+12:00',
+      },
+      {
+        name: 'Pacific/Majuro',
+        utc_offset: '+12:00',
+      },
+      {
+        name: 'Australia/Hobart',
+        utc_offset: '+11:00',
+      },
+      {
+        name: 'Australia/Tasmania',
+        utc_offset: '+11:00',
+      },
+      {
+        name: 'Australia/ACT',
+        utc_offset: '+11:00',
+      },
+      {
+        name: 'Pacific/Ponape',
+        utc_offset: '+11:00',
+      },
+      {
+        name: 'Pacific/Bougainville',
+        utc_offset: '+11:00',
+      },
+      {
+        name: 'Australia/Victoria',
+        utc_offset: '+11:00',
+      },
+      {
+        name: 'Antarctica/Macquarie',
+        utc_offset: '+11:00',
+      },
+      {
+        name: 'Australia/Canberra',
+        utc_offset: '+11:00',
+      },
+      {
+        name: 'Australia/Currie',
+        utc_offset: '+11:00',
+      },
+      {
+        name: 'Australia/Lord_Howe',
+        utc_offset: '+11:00',
+      },
+      {
+        name: 'Australia/NSW',
+        utc_offset: '+11:00',
+      },
+      {
+        name: 'Pacific/Pohnpei',
+        utc_offset: '+11:00',
+      },
+    ];
+
+    const mockResponse = mock.map((timezone) => ({
+      name: timezone.name,
+      utcOffset: timezone.utc_offset,
+    }));
+
+    yield put(timezoneActions.setTimezones(mockResponse));
+  } catch (err) {
+    console.error(err);
   }
 }
 
@@ -248,6 +418,7 @@ function* serializeQuery(action: SerializeQueryAction) {
   const {
     payload: { query },
   } = action;
+
   const schemas = yield select(getSchemas);
   const usePostProcessing = useQueryPostProcessing(query);
   const transformTasks = [];
@@ -259,8 +430,9 @@ function* serializeQuery(action: SerializeQueryAction) {
     ...querySettings,
   };
 
+  const defaultTimezone = yield select(getDefaultTimezone);
   if (!query.timezone) {
-    initialQuery.timezone = DEFAULT_TIMEZONE;
+    initialQuery.timezone = defaultTimezone;
   }
 
   yield put(setQuery(initialQuery));
@@ -372,6 +544,7 @@ function* watcher() {
   );
   yield takeLatest(SET_GROUP_BY, updateGroupBy);
   yield takeLatest(UPDATE_FUNNEL_STEP_TIMEZONE, updateFunnelStepTimezone);
+  yield takeLatest(timezoneActions.fetchTimezones.type, fetchTimezones);
 }
 
 export default function* rootSaga() {

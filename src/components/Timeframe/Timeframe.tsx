@@ -25,6 +25,8 @@ import { getEventPath } from '../../utils';
 
 import { ABSOLUTE_TAB, RELATIVE_TAB } from './constants';
 import { DEFAULT_TIMEFRAME } from '../../modules/query';
+import { useSelector } from 'react-redux';
+import { getTimezoneSelectionDisabled } from '../../modules/timezone';
 
 type Props = {
   /** Unique identifer */
@@ -55,6 +57,7 @@ const Timeframe: FC<Props> = ({
   const { t } = useTranslation();
   const [isOpen, setOpen] = useState(false);
   const containerRef = useRef(null);
+  const timezoneSelectionDisabled = useSelector(getTimezoneSelectionDisabled);
 
   useEffect(() => {
     return () => {
@@ -145,6 +148,8 @@ const Timeframe: FC<Props> = ({
           )}
         </SettingsContainer>
         <Notification>{t('query_creator_timeframe.notification')}</Notification>
+        {/*todo make ui changes when mockups ready*/}
+        {timezoneSelectionDisabled}
         <Timezone
           timezone={timezoneValue}
           onChange={(timezone) => onTimezoneChange(timezone)}

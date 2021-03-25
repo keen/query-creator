@@ -58,8 +58,11 @@ export const postProcessingFinished = (): QueryActions => ({
   type: POST_PROCESSING_FINISHED,
 });
 
-export const resetQuery = (): QueryActions => ({
+export const resetQuery = (defaultTimezoneForQuery: string): QueryActions => ({
   type: RESET_QUERY,
+  payload: {
+    defaultTimezoneForQuery,
+  },
 });
 
 export const addFilter = (id: string): QueryActions => ({
@@ -112,7 +115,7 @@ export const selectTargetProperty = (property: string): QueryActions => ({
   },
 });
 
-export const selectTimezone = (timezone: Timezones): QueryActions => ({
+export const selectTimezone = (timezone: string): QueryActions => ({
   type: SELECT_TIMEZONE,
   payload: {
     timezone,
@@ -179,10 +182,14 @@ export const setFilters = (filters: Filter[]): QueryActions => ({
   },
 });
 
-export const addFunnelStep = (id: string): QueryActions => ({
+export const addFunnelStep = (
+  id: string,
+  defaultTimezone: string
+): QueryActions => ({
   type: ADD_FUNNEL_STEP,
   payload: {
     id,
+    defaultTimezone,
   },
 });
 

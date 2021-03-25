@@ -7,11 +7,10 @@ import React, {
   useEffect,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dropdown } from '@keen.io/ui-core';
+import { Dropdown, EmptySearch } from '@keen.io/ui-core';
 
 import { Container, DropdownContent } from './FilterProperty.styles';
 
-import EmptySearch from '../../../EmptySearch';
 import PropertyGroup, { PropertyItem } from '../../../PropertyGroup';
 import Property from '../../../Property';
 import PropertiesTree from '../../../PropertiesTree';

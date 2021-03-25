@@ -8,6 +8,7 @@ import {
   DropableContainer,
   DropableContainerVariant as Variant,
   TitleComponent,
+  EmptySearch,
 } from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
 import { Icon } from '@keen.io/icons';
@@ -27,7 +28,6 @@ import {
 import { createTree } from '../../utils';
 
 import TooltipContent from '../TooltipContent';
-import EmptySearch from '../EmptySearch';
 import PropertyPath from '../PropertyPath';
 import PropertiesTree from '../PropertiesTree';
 

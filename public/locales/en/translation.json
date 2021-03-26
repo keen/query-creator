@@ -161,6 +161,7 @@
   },
   "query_creator_timezone": {
     "placeholder": "Select timezone",
+    "selection_disabled_description": "Timezone for your metrics is the same as your site configuration.",
     "label": "Timezone"
   },
   "query_creator_extraction_properties": {

@@ -7,15 +7,14 @@ import { Provider } from 'react-redux';
 
 const mockStore = configureStore([]);
 
-const state = {
-  timezone: {
-    timezoneSelectionDisabled: false,
-  },
-};
-
-const store = mockStore({ ...state });
-
-const render = (overProps: any = {}) => {
+const render = (overProps: any = {}, overStoreState: any = {}) => {
+  const state = {
+    timezone: {
+      timezoneSelectionDisabled: false,
+    },
+    ...overStoreState,
+  };
+  const store = mockStore({ ...state });
   const props = {
     id: 'id',
     onTimeframeChange: jest.fn(),
@@ -93,4 +92,45 @@ test('should render notification', () => {
   fireEvent.click(propertyContainer);
 
   expect(getByText('query_creator_timeframe.notification')).toBeInTheDocument();
+});
+
+test('should not render tooltip on timezone section hover when timezone selection is enabled', async () => {
+  const {
+    wrapper: { getByTestId, queryByText },
+  } = render();
+
+  const propertyContainer = getByTestId('dropable-container');
+  fireEvent.click(propertyContainer);
+
+  const timezoneContainer = getByTestId('timezone-container');
+  fireEvent.mouseOver(timezoneContainer);
+
+  const testId = await queryByText(
+    'query_creator_timezone.selection_disabled_description'
+  );
+  expect(testId).not.toBeInTheDocument();
+});
+
+test('should render tooltip on timezone section hover when timezone selection is disabled', async () => {
+  const {
+    wrapper: { getByTestId, queryByText },
+  } = render(
+    {},
+    {
+      timezone: {
+        timezoneSelectionDisabled: true,
+      },
+    }
+  );
+
+  const propertyContainer = getByTestId('dropable-container');
+  fireEvent.click(propertyContainer);
+
+  const timezoneContainer = getByTestId('timezone-container');
+  fireEvent.mouseOver(timezoneContainer);
+
+  const testId = await queryByText(
+    'query_creator_timezone.selection_disabled_description'
+  );
+  expect(testId).toBeInTheDocument();
 });

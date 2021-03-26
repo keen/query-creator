@@ -1,5 +1,8 @@
 import React, { FC, useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useSelector } from 'react-redux';
+
 import {
   Dropdown,
   Tabs,
@@ -12,6 +15,8 @@ import {
   TIME_PICKER_CLASS,
   Timezone,
   TitleComponent,
+  UI_LAYERS,
+  Tooltip,
 } from '@keen.io/ui-core';
 import { Timezones, Timeframe as TimeframeType } from '@keen.io/query';
 
@@ -25,8 +30,8 @@ import { getEventPath } from '../../utils';
 
 import { ABSOLUTE_TAB, RELATIVE_TAB } from './constants';
 import { DEFAULT_TIMEFRAME } from '../../modules/query';
-import { useSelector } from 'react-redux';
 import { getTimezoneSelectionDisabled } from '../../modules/timezone';
+import { TOOLTIP_MOTION } from '../../constants';
 
 type Props = {
   /** Unique identifer */
@@ -58,6 +63,12 @@ const Timeframe: FC<Props> = ({
   const [isOpen, setOpen] = useState(false);
   const containerRef = useRef(null);
   const timezoneSelectionDisabled = useSelector(getTimezoneSelectionDisabled);
+
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+
+  const timezoneContainerRef = useRef<HTMLDivElement>(null);
+  const requestFrameRef = React.useRef(null);
 
   useEffect(() => {
     return () => {
@@ -147,15 +158,64 @@ const Timeframe: FC<Props> = ({
             />
           )}
         </SettingsContainer>
-        <Notification>{t('query_creator_timeframe.notification')}</Notification>
-        {/*todo make ui changes when mockups ready*/}
-        {timezoneSelectionDisabled}
-        <Timezone
-          timezone={timezoneValue}
-          onChange={(timezone) => onTimezoneChange(timezone)}
-          timezoneLabel={t('query_creator_timezone.label')}
-          timezonePlaceholderLabel={t('query_creator_timezone.placeholder')}
-        />
+        <div
+          data-testid="timezone-container"
+          ref={timezoneContainerRef}
+          onMouseEnter={(e) => {
+            setTooltipVisible(true);
+            setTooltipPosition({ x: e.clientX, y: e.clientY });
+          }}
+          onMouseMove={(e) => {
+            const mousePosition = { x: e.clientX, y: e.clientY };
+            if (requestFrameRef.current)
+              cancelAnimationFrame(requestFrameRef.current);
+            requestFrameRef.current = requestAnimationFrame(() => {
+              setTooltipPosition(mousePosition);
+            });
+          }}
+          onMouseLeave={() => {
+            setTooltipVisible(false);
+          }}
+        >
+          <Notification>
+            {t('query_creator_timeframe.notification')}
+          </Notification>
+          <Timezone
+            timezone={timezoneValue}
+            onChange={(timezone) => onTimezoneChange(timezone)}
+            timezoneLabel={t('query_creator_timezone.label')}
+            timezonePlaceholderLabel={t('query_creator_timezone.placeholder')}
+          />
+          {timezoneSelectionDisabled && tooltipVisible && (
+            <AnimatePresence>
+              <motion.div
+                {...TOOLTIP_MOTION}
+                initial={{
+                  opacity: 0,
+                  x: tooltipPosition.x,
+                  y: tooltipPosition.y,
+                  top: 0,
+                  left: 0,
+                }}
+                animate={{
+                  x: tooltipPosition.x,
+                  y: tooltipPosition.y,
+                  opacity: 1,
+                }}
+                style={{
+                  position: 'fixed',
+                  pointerEvents: 'none',
+                  zIndex: UI_LAYERS.tooltip,
+                  width: 225,
+                }}
+              >
+                <Tooltip hasArrow={false} fontSize={12}>
+                  {t('query_creator_timezone.selection_disabled_description')}
+                </Tooltip>
+              </motion.div>
+            </AnimatePresence>
+          )}
+        </div>
       </Dropdown>
     </Container>
   );

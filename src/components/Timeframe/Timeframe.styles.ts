@@ -12,8 +12,7 @@ export const SettingsContainer = styled.div`
 `;
 
 export const Notification = styled.div`
-  margin-top: 10px;
-  padding: 0 15px;
+  padding: 10px 15px 0;
   color: ${colors.black[100]};
   font-family: 'Lato Regular', sans-serif;
   font-size: 14px;

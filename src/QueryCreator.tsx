@@ -14,15 +14,10 @@ import { rehydrateState } from './rehydrateState';
 import { AppContext } from './contexts';
 
 import { appStart, getQueryReadiness } from './modules/app';
-import {
-  getQuery,
-  serializeQuery,
-  resetQuery,
-  selectTimezone,
-} from './modules/query';
+import { getQuery, serializeQuery, resetQuery } from './modules/query';
 import { updateChartSettings } from './modules/chartSettings';
 import { transformToQuery, transformQueryToCamelCase } from './utils';
-import { timezoneActions } from './modules/timezone';
+
 import {
   UPDATE_TIMEOUT,
   SET_QUERY_EVENT,
@@ -31,6 +26,7 @@ import {
   UPDATE_VISUALIZATION_TYPE,
   QUERY_UPDATE_ACTION,
 } from './constants';
+import { createConfiguration } from '../createConfiguration';
 
 declare global {
   interface Window {
@@ -89,9 +85,15 @@ class QueryCreator extends React.PureComponent<Props> {
     });
 
     const preloadedState = rehydrateState();
+    const initialState = createConfiguration(
+      preloadedState,
+      this.props.defaultTimezoneForQuery,
+      !!this.props.disableTimezoneSelection
+    );
+
     this.store = createStore(
       rootReducer,
-      preloadedState,
+      initialState,
       applyMiddleware(sagaMiddleware)
     );
 
@@ -99,22 +101,10 @@ class QueryCreator extends React.PureComponent<Props> {
 
     this.store.dispatch(appStart());
 
-    if (this.props.defaultTimezoneForQuery) {
-      this.store.dispatch(
-        timezoneActions.setDefaultTimezone(this.props.defaultTimezoneForQuery)
-      );
-      this.store.dispatch(selectTimezone(this.props.defaultTimezoneForQuery));
-    }
-    this.store.dispatch(
-      timezoneActions.setTimezoneSelectionDisabled(
-        !!this.props.disableTimezoneSelection
-      )
-    );
-
     this.pubsub = getPubSub();
 
     this.runQueryListener();
-    this.subscribeSetQuery(this.props.defaultTimezoneForQuery);
+    this.subscribeSetQuery();
   }
 
   componentWillUnmount() {
@@ -143,11 +133,14 @@ class QueryCreator extends React.PureComponent<Props> {
     });
   };
 
-  subscribeSetQuery = (defaultTimezoneForQuery: string) => {
+  subscribeSetQuery = () => {
     this.setQuerySubscription = this.pubsub.subscribe(
       (eventName: string, meta: any) => {
         switch (eventName) {
           case NEW_QUERY_EVENT:
+            const {
+              timezone: { defaultTimezoneForQuery },
+            } = this.store.getState();
             this.store.dispatch(resetQuery(defaultTimezoneForQuery));
             break;
           case SET_QUERY_EVENT:

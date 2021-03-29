@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.2](https://github.com/keen/query-creator/compare/v1.4.1...v1.4.2) (2021-03-29)
+
+
+### Bug Fixes
+
+* 🐛 TS2742 The inferred type cannot be named without ref ([2f6d4a2](https://github.com/keen/query-creator/commit/2f6d4a23994587121eda05db7d06b1962217f5ff))
+
 ### [1.4.1](https://github.com/keen/query-creator/compare/v1.4.0...v1.4.1) (2021-03-22)
 
 ## [1.4.0](https://github.com/keen/query-creator/compare/v1.3.4...v1.4.0) (2021-03-16)

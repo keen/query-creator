@@ -7,7 +7,12 @@ import React, {
   useCallback,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActionButton, Dropdown, PropertiesTree } from '@keen.io/ui-core';
+import {
+  ActionButton,
+  Dropdown,
+  EmptySearch,
+  PropertiesTree,
+} from '@keen.io/ui-core';
 import { transparentize } from 'polished';
 import { colors } from '@keen.io/colors';
 
@@ -19,7 +24,6 @@ import {
 
 import PropertyGroup, { PropertyItem } from '../PropertyGroup';
 import Property from '../Property';
-import EmptySearch from '../EmptySearch';
 
 import { SearchContext, AppContext } from '../../contexts';
 import { Icon } from '@keen.io/icons';

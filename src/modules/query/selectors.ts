@@ -1,8 +1,9 @@
-import { AppState } from '../../types';
+import { AppState, Analysis } from '../../types';
 
 export const getQuery = (state: AppState) => state.query;
 
-export const getAnalysis = (state: AppState) => state.query.analysisType;
+export const getAnalysis = (state: AppState): Analysis =>
+  state.query.analysisType;
 
 export const getEventCollection = (state: AppState) =>
   state.query.eventCollection;

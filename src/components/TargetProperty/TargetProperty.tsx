@@ -8,6 +8,7 @@ import {
   DropableContainer,
   DropableContainerVariant as Variant,
   TitleComponent,
+  EmptySearch,
   PropertiesTree,
   createTree,
 } from '@keen.io/ui-core';
@@ -28,7 +29,6 @@ import {
 } from './TargetProperty.styles';
 
 import TooltipContent from '../TooltipContent';
-import EmptySearch from '../EmptySearch';
 import PropertyPath from '../PropertyPath';
 
 import { getEventPath } from '../../utils';

@@ -7,7 +7,12 @@ import React, {
   useCallback,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActionButton, Dropdown, EmptySearch } from '@keen.io/ui-core';
+import {
+  ActionButton,
+  Dropdown,
+  EmptySearch,
+  PropertiesTree,
+} from '@keen.io/ui-core';
 import { transparentize } from 'polished';
 import { colors } from '@keen.io/colors';
 
@@ -19,9 +24,8 @@ import {
 
 import PropertyGroup, { PropertyItem } from '../PropertyGroup';
 import Property from '../Property';
-import PropertiesTree from '../PropertiesTree';
 
-import { SearchContext } from '../../contexts';
+import { SearchContext, AppContext } from '../../contexts';
 import { Icon } from '@keen.io/icons';
 
 type Props = {
@@ -55,6 +59,7 @@ const SearchableProperty: FC<Props> = ({
   const containerRef = useRef(null);
 
   const { expandTree, searchPropertiesPhrase } = useContext(SearchContext);
+  const { modalContainer } = useContext(AppContext);
 
   const isEmptySearch =
     searchPropertiesPhrase && properties && !Object.keys(properties).length;
@@ -127,6 +132,7 @@ const SearchableProperty: FC<Props> = ({
             />
           ) : (
             <PropertiesTree
+              modalContainer={modalContainer}
               expanded={expandTree}
               activeProperty={property}
               properties={properties}

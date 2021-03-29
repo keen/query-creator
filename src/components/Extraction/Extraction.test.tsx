@@ -2,8 +2,9 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { render as rtlRender, fireEvent } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
+import { createTree } from '@keen.io/ui-core';
 
-import { createTree, createCollection } from '../../utils';
+import { createCollection } from '../../utils';
 import { PREVIEW_EVENTS_LIMIT } from './constants';
 import Extraction from './Extraction';
 

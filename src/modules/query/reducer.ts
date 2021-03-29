@@ -61,7 +61,7 @@ export const initialState: ReducerState = {
 export const queryReducer = (
   state: ReducerState = initialState,
   action: QueryActions
-) => {
+): ReducerState => {
   switch (action.type) {
     case ADD_FILTER:
       return {

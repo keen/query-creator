@@ -1,12 +1,11 @@
 import React from 'react';
 import { render as rtlRender, fireEvent } from '@testing-library/react';
+import { createTree } from '@keen.io/ui-core';
 
 import FilterProperty from './FilterProperty';
 
 import FiltersContext from '../../FiltersContext';
 import { SearchContext } from '../../../../contexts';
-
-import { createTree } from '../../../../utils';
 
 const schema = createTree({
   'category.id': 'String',

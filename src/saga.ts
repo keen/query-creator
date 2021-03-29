@@ -13,6 +13,7 @@ import {
   put,
 } from 'redux-saga/effects';
 import moment from 'moment-timezone';
+import { createTree } from '@keen.io/ui-core';
 
 import {
   setQueryReadiness,
@@ -72,7 +73,7 @@ import {
   serializePropertyNames,
 } from './serializers';
 
-import { createTree, createCollection, useQueryPostProcessing } from './utils';
+import { createCollection, useQueryPostProcessing } from './utils';
 
 import { Filter, OrderBy, FunnelStep } from './types';
 import { SetGroupByAction } from './modules/query/types';

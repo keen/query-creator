@@ -15,12 +15,11 @@ import {
   DropdownList,
   DropdownListContainer,
   TitleComponent,
+  EmptySearch,
 } from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
 
 import { Container } from './EventCollection.styles';
-
-import EmptySearch from '../EmptySearch';
 
 import { getEventsCollections } from '../../modules/events';
 

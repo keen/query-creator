@@ -1,10 +1,10 @@
 import React, { FC, useState, useRef, useEffect, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import Sortable from 'sortablejs';
 import { v4 as uuid } from 'uuid';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence } from 'framer-motion';
-import { ActionButton, Tooltip } from '@keen.io/ui-core';
-import { useSelector } from 'react-redux';
+import { ActionButton, Tooltip, createTree } from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
 
 import TooltipContent from '../../../TooltipContent';
@@ -21,7 +21,7 @@ import SearchableProperty from '../../../SearchableProperty';
 import { SearchContext } from '../../../../contexts';
 
 import { getCollectionSchema } from '../../../../modules/events';
-import { createTree, mutateArray } from '../../../../utils';
+import { mutateArray } from '../../../../utils';
 
 import { TOOLTIP_MOTION } from '../../../../constants';
 import { DRAG_ANIMATION_TIME } from './constants';

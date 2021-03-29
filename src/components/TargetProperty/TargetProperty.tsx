@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useRef } from 'react';
+import React, { FC, useState, useEffect, useRef, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence } from 'framer-motion';
@@ -8,6 +8,8 @@ import {
   DropableContainer,
   DropableContainerVariant as Variant,
   TitleComponent,
+  PropertiesTree,
+  createTree,
 } from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
 import { Icon } from '@keen.io/icons';
@@ -24,12 +26,10 @@ import {
   TooltipMotionIconBold,
   TooltipContainer,
 } from './TargetProperty.styles';
-import { createTree } from '../../utils';
 
 import TooltipContent from '../TooltipContent';
 import EmptySearch from '../EmptySearch';
 import PropertyPath from '../PropertyPath';
-import PropertiesTree from '../PropertiesTree';
 
 import { getEventPath } from '../../utils';
 import { getCollectionSchema, getSchemas } from '../../modules/events';
@@ -38,6 +38,8 @@ import { TOOLTIP_MOTION } from '../../constants';
 import { SEPARATOR, NUM_ANALYSIS, NUM_ANALYSIS_MAP } from './constants';
 
 import { AppState, Analysis as AnalysisType } from '../../types';
+
+import { AppContext } from '../../contexts';
 
 type Props = {
   /** Current analysis */
@@ -65,6 +67,7 @@ const TargetProperty: FC<Props> = ({
   const { t } = useTranslation();
   const [expandTree, setTreeExpand] = useState(false);
   const [hint, showHint] = useState(false);
+  const { modalContainer } = useContext(AppContext);
 
   const {
     schema: collectionSchema,
@@ -203,6 +206,7 @@ const TargetProperty: FC<Props> = ({
           />
         ) : (
           <PropertiesTree
+            modalContainer={modalContainer}
             expanded={expandTree}
             onClick={(_e, property) => {
               setOpen(false);

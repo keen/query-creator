@@ -7,10 +7,11 @@ import {
   waitFor,
 } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
+import { createTree } from '@keen.io/ui-core';
 
 import TargetProperty from './TargetProperty';
 
-import { createTree, createCollection } from '../../utils';
+import { createCollection } from '../../utils';
 
 const render = (storeState: any = {}, overProps: any = {}) => {
   const mockStore = configureStore([]);

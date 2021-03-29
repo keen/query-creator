@@ -6,8 +6,9 @@ import {
   waitFor,
 } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
+import { createTree } from '@keen.io/ui-core';
 
-import { createTree, createCollection } from '../../utils';
+import { createCollection } from '../../utils';
 
 import OrderBy from './OrderBy';
 

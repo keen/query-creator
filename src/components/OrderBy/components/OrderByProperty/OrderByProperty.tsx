@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useCallback,
 } from 'react';
-import { ActionButton, Dropdown } from '@keen.io/ui-core';
+import { ActionButton, Dropdown, PropertiesTree } from '@keen.io/ui-core';
 import { transparentize } from 'polished';
 import { useTranslation } from 'react-i18next';
 import { colors } from '@keen.io/colors';
@@ -21,10 +21,9 @@ import {
 import PropertyGroup, { PropertyItem } from '../../../PropertyGroup';
 import Property from '../../../Property';
 import EmptySearch from '../../../EmptySearch';
-import PropertiesTree from '../../../PropertiesTree';
 import DirectionList from '../DirectionList';
 
-import { SearchContext } from '../../../../contexts';
+import { SearchContext, AppContext } from '../../../../contexts';
 
 import { OrderDirection } from '../../types';
 
@@ -65,6 +64,7 @@ const OrderByProperty: FC<Props> = ({
   const containerRef = useRef(null);
 
   const { expandTree, searchPropertiesPhrase } = useContext(SearchContext);
+  const { modalContainer } = useContext(AppContext);
 
   const isEmptySearch =
     searchPropertiesPhrase && properties && !Object.keys(properties).length;
@@ -139,6 +139,7 @@ const OrderByProperty: FC<Props> = ({
             />
           ) : (
             <PropertiesTree
+              modalContainer={modalContainer}
               expanded={expandTree}
               activeProperty={property}
               properties={properties}

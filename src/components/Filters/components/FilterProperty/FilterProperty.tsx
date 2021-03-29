@@ -7,18 +7,17 @@ import React, {
   useEffect,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dropdown } from '@keen.io/ui-core';
+import { Dropdown, PropertiesTree } from '@keen.io/ui-core';
 
 import { Container, DropdownContent } from './FilterProperty.styles';
 
 import EmptySearch from '../../../EmptySearch';
 import PropertyGroup, { PropertyItem } from '../../../PropertyGroup';
 import Property from '../../../Property';
-import PropertiesTree from '../../../PropertiesTree';
 
 import PropertyTypeCast from '../PropertyTypeCast';
 
-import { SearchContext } from '../../../../contexts';
+import { SearchContext, AppContext } from '../../../../contexts';
 
 import { Property as PropertyType } from '../../../../types';
 
@@ -52,6 +51,7 @@ const FilterProperty: FC<Props> = ({
   const [editMode, setEditMode] = useState(false);
   const containerRef = useRef(null);
   const { expandTree, searchPropertiesPhrase } = useContext(SearchContext);
+  const { modalContainer } = useContext(AppContext);
 
   const isEmptySearch =
     searchPropertiesPhrase && properties && !Object.keys(properties).length;
@@ -113,6 +113,7 @@ const FilterProperty: FC<Props> = ({
             />
           ) : (
             <PropertiesTree
+              modalContainer={modalContainer}
               expanded={expandTree}
               activeProperty={property}
               properties={properties}

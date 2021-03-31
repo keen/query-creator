@@ -93,6 +93,7 @@ export const queryReducer = (
     case RESET_QUERY:
       return {
         ...initialState,
+        timezone: action.payload.defaultTimezoneForQuery,
       };
     case RESET_EXTRACTION:
       return {

@@ -144,7 +144,7 @@ const Timeframe: FC<Props> = ({
           )}
         </SettingsContainer>
         {isLoading ? (
-          <TimezoneLoader />
+          <TimezoneLoader message={t('query_creator_timezone.loading')} />
         ) : (
           <>
             {error ? (

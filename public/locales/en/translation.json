@@ -162,6 +162,7 @@
     "placeholder": "Select timezone",
     "empty_search": "No timezone found with this criteria",
     "selection_disabled_description": "Timezone for your metrics is the same as your site configuration.",
+    "loading": "Loading list of time zones",
     "label": "Timezone"
   },
   "query_creator_extraction_properties": {

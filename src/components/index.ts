@@ -14,9 +14,11 @@ import QueryArguments from './QueryArguments';
 import Card from './Card';
 import RadioGroup from './RadioGroup';
 import TooltipContent from './TooltipContent';
+import GlobalStyles from './GlobalStyles';
 
 export {
   Analysis,
+  GlobalStyles,
   Card,
   Percentile,
   Extraction,

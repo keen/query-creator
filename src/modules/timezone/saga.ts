@@ -12,12 +12,12 @@ import { timezoneSlice } from './reducer';
 function* fetchTimezonesHandler() {
   try {
     yield put(timezoneSlice.actions.setTimezonesLoading(true));
-
+    //
     // const timezonesResponse = yield fetch('https://staging-api.keen.io/timezones');
     //
-    //  console.log(timezonesResponse, 'sa');
+    // console.log(timezonesResponse, 'sa');
 
-    yield delay(1000);
+    yield delay(6000);
 
     const mock = [
       {

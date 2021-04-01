@@ -8,6 +8,7 @@ import { screenBreakpoints } from '@keen.io/ui-core';
 import KeenAnalysis from 'keen-analysis';
 
 import App from './App';
+import { GlobalStyles } from './components';
 import rootSaga from './saga';
 import rootReducer from './reducer';
 import { rehydrateState } from './rehydrateState';
@@ -91,8 +92,6 @@ class QueryCreator extends React.PureComponent<Props> {
       !!this.props.disableTimezoneSelection
     );
 
-    console.log(initialState, 'initialState');
-
     this.store = createStore(
       rootReducer,
       initialState,
@@ -168,6 +167,7 @@ class QueryCreator extends React.PureComponent<Props> {
   render() {
     return (
       <Provider store={this.store}>
+        <GlobalStyles modalContainer={this.props.modalContainer} />
         <ThemeProvider
           theme={{
             breakpoints: screenBreakpoints,

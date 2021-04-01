@@ -17,9 +17,9 @@ const AbsoluteTimeLabel: FC<Props> = memo(({ timezone, start, end }) => {
   const { t } = useTranslation();
   return (
     <Container>
-      {formatDate(start, timezone)}
+      <span>{formatDate(start, timezone)}</span>
       <Separator>{t('absolute_time_label.separator')}</Separator>
-      {formatDate(end, timezone)}
+      <span>{formatDate(end, timezone)}</span>
     </Container>
   );
 });

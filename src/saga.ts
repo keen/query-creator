@@ -208,8 +208,6 @@ function* updateFunnelStepTimezone(action: UpdateFunnelStepTimezoneAction) {
       end: setTimezoneOffset(end, timezone),
     };
 
-    console.log(timezone, timeWithZone);
-
     yield put(
       updateFunnelStep(action.payload.stepId, {
         timeframe: timeWithZone,

@@ -5,7 +5,7 @@ import { ReducerState } from './types';
 
 import { DEFAULT_TIMEZONE } from '../query';
 
-const initialState: ReducerState = {
+export const initialState: ReducerState = {
   defaultTimezoneForQuery: DEFAULT_TIMEZONE,
   isLoading: false,
   error: null,

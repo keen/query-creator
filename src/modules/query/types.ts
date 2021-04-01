@@ -1,4 +1,4 @@
-import { Timezones, Timeframe } from '@keen.io/query';
+import { Timeframe } from '@keen.io/query';
 
 import {
   SERIALIZE_QUERY,
@@ -43,7 +43,7 @@ export type ReducerState = {
   eventCollection?: string;
   targetProperty?: string;
   percentile?: number;
-  timezone?: number | Timezones;
+  timezone?: number | string;
   groupBy?: string | string[];
   orderBy?: OrderBy[];
   limit?: number;
@@ -275,7 +275,7 @@ export interface UpdateFunnelStepTimezoneAction {
   type: typeof UPDATE_FUNNEL_STEP_TIMEZONE;
   payload: {
     stepId: string;
-    timezone: Timezones;
+    timezone: string;
   };
 }
 

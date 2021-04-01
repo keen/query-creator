@@ -6,7 +6,7 @@ import {
   getTimezones,
   getTimezoneState,
 } from './selectors';
-import { timezoneSaga } from './saga';
+import { timezoneSaga } from './timezoneSaga';
 import { ReducerState } from './types';
 import { fetchTimezones } from './actions';
 

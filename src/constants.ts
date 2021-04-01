@@ -14,6 +14,7 @@ export const DEFAULT_ANALYSIS = 'count';
 
 export const UPDATE_TIMEOUT = 0;
 export const QUERY_UPDATE_ACTION = '@query';
+export const ANALYTICS_API_HOST = 'ANALYTICS_API_HOST';
 
 export const KEYBOARD_KEYS = {
   UP: 38,

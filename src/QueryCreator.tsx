@@ -26,6 +26,7 @@ import {
   SET_CHART_SETTINGS,
   UPDATE_VISUALIZATION_TYPE,
   QUERY_UPDATE_ACTION,
+  ANALYTICS_API_HOST,
 } from './constants';
 import { createConfiguration } from '../createConfiguration';
 
@@ -82,6 +83,7 @@ class QueryCreator extends React.PureComponent<Props> {
     const sagaMiddleware = createSagaMiddleware({
       context: {
         keenClient,
+        [ANALYTICS_API_HOST]: this.props.host,
       },
     });
 

@@ -12,7 +12,6 @@ import {
   join,
   put,
 } from 'redux-saga/effects';
-import { setTimezoneOffset } from '@keen.io/time-utils';
 
 import {
   setQueryReadiness,
@@ -24,13 +23,10 @@ import {
 } from './modules/app';
 
 import {
+  querySaga,
   getOrderBy,
-  getTimeframe,
-  setTimeframe,
-  getFunnelSteps,
   setFunnelSteps,
   setFunnelStepFilters,
-  updateFunnelStep,
   setPropertyNames,
   setGroupBy,
   setOrderBy,
@@ -38,16 +34,12 @@ import {
   setQuery,
   postProcessingFinished,
   SerializeQueryAction,
-  SelectTimezoneAction,
   SelectEventCollectionAction,
   SelectFunnelStepEventCollectionAction,
-  UpdateFunnelStepTimezoneAction,
   SET_GROUP_BY,
   SERIALIZE_QUERY,
-  SELECT_TIMEZONE,
   SELECT_EVENT_COLLECTION,
   SELECT_FUNNEL_STEP_EVENT_COLLECTION,
-  UPDATE_FUNNEL_STEP_TIMEZONE,
 } from './modules/query';
 
 import {
@@ -73,7 +65,7 @@ import {
 
 import { createTree, createCollection, useQueryPostProcessing } from './utils';
 
-import { Filter, OrderBy, FunnelStep } from './types';
+import { Filter, OrderBy } from './types';
 import { SetGroupByAction } from './modules/query/types';
 import {
   timezoneSaga,
@@ -164,56 +156,6 @@ function* selectFunnelStepCollection(
   const isSchemaExist = schemas[collection];
 
   if (!isSchemaExist) yield put(fetchCollectionSchema(collection));
-}
-
-/**
- * Udaptes query absolute timeframe according to timezone offset
- * @param timeframe - query timeframe
- * @return void
- *
- */
-function* selectTimezone(action: SelectTimezoneAction) {
-  const { timezone } = action.payload;
-  const timeframe = yield select(getTimeframe);
-
-  if (typeof timeframe !== 'string') {
-    const { start, end } = timeframe;
-    const timeWithZone = {
-      start: setTimezoneOffset(start, timezone),
-      end: setTimezoneOffset(end, timezone),
-    };
-    yield put(setTimeframe(timeWithZone));
-  }
-}
-
-/**
- * Updates funnel step timeframe according to timezone offset
- * @param stepId - funnel step identifier
- * @param timeframe - query timeframe
- * @return void
- *
- */
-function* updateFunnelStepTimezone(action: UpdateFunnelStepTimezoneAction) {
-  const { timezone } = action.payload;
-  const steps = yield select(getFunnelSteps);
-  const [funnelStep] = steps.filter(
-    (step: FunnelStep) => step.id === action.payload.stepId
-  );
-  const { timeframe } = funnelStep;
-
-  if (typeof timeframe !== 'string') {
-    const { start, end } = timeframe;
-    const timeWithZone = {
-      start: setTimezoneOffset(start, timezone),
-      end: setTimezoneOffset(end, timezone),
-    };
-
-    yield put(
-      updateFunnelStep(action.payload.stepId, {
-        timeframe: timeWithZone,
-      })
-    );
-  }
 }
 
 function* storeEventSchemas() {
@@ -385,7 +327,6 @@ function* watcher() {
   yield takeLatest(SERIALIZE_QUERY, serializeQuery);
   yield takeLatest(FETCH_PROJECT_DETAILS, fetchProject);
   yield takeEvery(FETCH_COLLECTION_SCHEMA, fetchSchema);
-  yield takeLatest(SELECT_TIMEZONE, selectTimezone);
   yield takeLatest(SELECT_EVENT_COLLECTION, selectCollection);
   yield takeLatest(SCHEMA_COMPUTED, storeEventSchemas);
   yield takeLatest(
@@ -393,9 +334,8 @@ function* watcher() {
     selectFunnelStepCollection
   );
   yield takeLatest(SET_GROUP_BY, updateGroupBy);
-  yield takeLatest(UPDATE_FUNNEL_STEP_TIMEZONE, updateFunnelStepTimezone);
 }
 
 export default function* rootSaga() {
-  yield all([watcher(), timezoneSaga()]);
+  yield all([watcher(), timezoneSaga(), querySaga()]);
 }

@@ -1,4 +1,5 @@
 import { Timeframe } from '@keen.io/query';
+import { createAction } from '@reduxjs/toolkit';
 
 import {
   SERIALIZE_QUERY,
@@ -115,12 +116,14 @@ export const selectTargetProperty = (property: string): QueryActions => ({
   },
 });
 
-export const selectTimezone = (timezone: string): QueryActions => ({
-  type: SELECT_TIMEZONE,
-  payload: {
-    timezone,
-  },
-});
+export const selectTimezone = createAction(
+  SELECT_TIMEZONE,
+  (timezone: string) => ({
+    payload: {
+      timezone,
+    },
+  })
+);
 
 export const setInterval = (interval: string): QueryActions => ({
   type: SET_INTERVAL,
@@ -284,13 +287,12 @@ export const removeFunnelStepFilter = (
   },
 });
 
-export const updateFunnelStepTimezone = (
-  stepId: string,
-  timezone: string
-): QueryActions => ({
-  type: UPDATE_FUNNEL_STEP_TIMEZONE,
-  payload: {
-    stepId,
-    timezone,
-  },
-});
+export const updateFunnelStepTimezone = createAction(
+  UPDATE_FUNNEL_STEP_TIMEZONE,
+  (stepId: string, timezone: string) => ({
+    payload: {
+      stepId,
+      timezone,
+    },
+  })
+);

@@ -6,6 +6,7 @@ import { Timeframe as QueryTimeframe } from '@keen.io/query';
 import {
   Dropdown,
   DropableContainer,
+  MousePositionedTooltip,
   DropableContainerVariant as Variant,
   RelativeTime,
   AbsoluteTime,
@@ -27,6 +28,7 @@ import { getTimezoneValue } from './utils';
 import { getEventPath } from '../../utils';
 
 import { getTimezoneState } from '../../modules/timezone';
+import { BodyText } from '@keen.io/typography';
 
 type Props = {
   /** Unique identifer */
@@ -150,17 +152,27 @@ const Timeframe: FC<Props> = ({
             {error ? (
               <div>error</div>
             ) : (
-              <Timezone
-                timezone={timezoneValue}
-                timezones={timezones}
-                onChange={(timezone) => onTimezoneChange(timezone)}
-                timezoneLabel={t('query_creator_timezone.label')}
-                disableSelection={timezoneSelectionDisabled}
-                emptySearchLabel={t('query_creator_timezone.empty_search')}
-                timezonePlaceholderLabel={t(
-                  'query_creator_timezone.placeholder'
+              <MousePositionedTooltip
+                renderContent={() => (
+                  <BodyText variant="body3" fontWeight={'normal'}>
+                    {t('query_creator_timezone.selection_disabled_description')}
+                  </BodyText>
                 )}
-              />
+                isActive={timezoneSelectionDisabled}
+                tooltipPortal="#modal-root"
+              >
+                <Timezone
+                  timezone={timezoneValue}
+                  timezones={timezones}
+                  onChange={(timezone) => onTimezoneChange(timezone)}
+                  timezoneLabel={t('query_creator_timezone.label')}
+                  disableSelection={timezoneSelectionDisabled}
+                  emptySearchLabel={t('query_creator_timezone.empty_search')}
+                  timezonePlaceholderLabel={t(
+                    'query_creator_timezone.placeholder'
+                  )}
+                />
+              </MousePositionedTooltip>
             )}
           </>
         )}

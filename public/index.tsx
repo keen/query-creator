@@ -36,7 +36,7 @@ class App extends React.Component<Props> {
         onUpdateQuery={this.onUpdateQuery}
         onUpdateChartSettings={this.onUpdateChartSettings}
         defaultTimezoneForQuery="Asia/Anadyr"
-        disableTimezoneSelection={false}
+        disableTimezoneSelection={true}
       />
     );
   }

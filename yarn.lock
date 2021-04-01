@@ -1712,9 +1712,9 @@
     styled-system "^5.1.5"
 
 "@keen.io/ui-core@^2.12.0":
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/@keen.io/ui-core/-/ui-core-2.18.1.tgz#7bb19c41261b33e7450f5b09f98635a25f678cc0"
-  integrity sha512-l0NRYbHOFn6kzZISkVO1g6fhzFi63VySaqhKmBAKAMvG8Rjv0r29vfPPgO+bvC/vdMlPggIeNWU7iDdUWGtRdg==
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/@keen.io/ui-core/-/ui-core-2.19.0.tgz#0c340054e131c15ccb3bdf857e526bed6043b586"
+  integrity sha512-msWcVd7G45atjqAqOrse2i0ywWgAXatExLdxN3HPe4RpcHYStQBNuhCAEOSPAWtr2cLBkzs1VfWaNgHgDPjpgQ==
   dependencies:
     "@keen.io/colors" "^1.1.0"
     "@keen.io/icons" "^1.4.0"
@@ -3810,9 +3810,9 @@ class-utils@^0.3.5:
     static-extend "^0.1.1"
 
 classnames@2.x, classnames@^2.2.6:
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
-  integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.0.tgz#19524334bad47ccd99793936b67f9be0860fe835"
+  integrity sha512-UUf/S3eeczXBjHPpSnrZ1ZyxH3KmLW8nVYFUWIZA/dixYMIQr7l94yYKxaAkmPk7HO9dlT6gFqAPZC02tTdfQw==
 
 clean-css@2.2.x:
   version "2.2.23"

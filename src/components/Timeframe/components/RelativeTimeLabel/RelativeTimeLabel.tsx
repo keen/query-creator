@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Container, IncludesToday } from './RelativeTimeLabel.styles';
 
-import { getInterval } from '../../utils';
+import { getInterval } from '../../../../utils';
 
 type Props = {
   /** Time relativity */

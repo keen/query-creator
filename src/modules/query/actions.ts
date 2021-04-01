@@ -1,4 +1,4 @@
-import { Timezones, Timeframe } from '@keen.io/query';
+import { Timeframe } from '@keen.io/query';
 
 import {
   SERIALIZE_QUERY,
@@ -286,7 +286,7 @@ export const removeFunnelStepFilter = (
 
 export const updateFunnelStepTimezone = (
   stepId: string,
-  timezone: Timezones
+  timezone: string
 ): QueryActions => ({
   type: UPDATE_FUNNEL_STEP_TIMEZONE,
   payload: {

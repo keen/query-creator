@@ -91,6 +91,8 @@ class QueryCreator extends React.PureComponent<Props> {
       !!this.props.disableTimezoneSelection
     );
 
+    console.log(initialState, 'initialState');
+
     this.store = createStore(
       rootReducer,
       initialState,

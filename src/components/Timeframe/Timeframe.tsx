@@ -1,49 +1,44 @@
 import React, { FC, useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
+import { Timeframe as QueryTimeframe } from '@keen.io/query';
 
 import {
   Dropdown,
-  Tabs,
   DropableContainer,
   DropableContainerVariant as Variant,
   RelativeTime,
-  convertRelativeTime,
   AbsoluteTime,
-  getDefaultAbsoluteTime,
-  TIME_PICKER_CLASS,
   Timezone,
   TitleComponent,
-  UI_LAYERS,
-  Tooltip,
+  convertRelativeTime,
+  TIME_PICKER_CLASS,
 } from '@keen.io/ui-core';
-import { Timezones, Timeframe as TimeframeType } from '@keen.io/query';
 
-import { Container, SettingsContainer, Notification } from './Timeframe.styles';
-
-import AbsoluteTimeLabel from '../AbsoluteTimeLabel';
-import RelativeTimeLabel from '../RelativeTimeLabel';
+import {
+  AbsoluteTimeLabel,
+  RelativeTimeLabel,
+  Navigation,
+  TimezoneLoader,
+} from './components';
+import { Container, SettingsContainer } from './Timeframe.styles';
 
 import { getTimezoneValue } from './utils';
 import { getEventPath } from '../../utils';
 
-import { ABSOLUTE_TAB, RELATIVE_TAB } from './constants';
-import { DEFAULT_TIMEFRAME } from '../../modules/query';
-import { getTimezoneSelectionDisabled } from '../../modules/timezone';
-import { TOOLTIP_MOTION } from '../../constants';
+import { getTimezoneState } from '../../modules/timezone';
 
 type Props = {
   /** Unique identifer */
   id: string;
   /** Timeframe change event handler */
-  onTimeframeChange: (timeframe: TimeframeType) => void;
+  onTimeframeChange: (timeframe: QueryTimeframe) => void;
   /** Timezone change event handler */
-  onTimezoneChange: (timezone: Timezones) => void;
+  onTimezoneChange: (timezone: string) => void;
   /** Timezone value */
-  timezone: number | Timezones;
+  timezone: number | string;
   /** Current timeframe value */
-  value: TimeframeType;
+  value: QueryTimeframe;
   /** Reset field event handler */
   onReset?: () => void;
   /** Container variant */
@@ -62,13 +57,13 @@ const Timeframe: FC<Props> = ({
   const { t } = useTranslation();
   const [isOpen, setOpen] = useState(false);
   const containerRef = useRef(null);
-  const timezoneSelectionDisabled = useSelector(getTimezoneSelectionDisabled);
-
-  const [tooltipVisible, setTooltipVisible] = useState(false);
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-
-  const timezoneContainerRef = useRef<HTMLDivElement>(null);
-  const requestFrameRef = React.useRef(null);
+  const {
+    timezones,
+    isLoading,
+    error,
+    defaultTimezoneForQuery: defaultTimezone,
+    timezoneSelectionDisabled,
+  } = useSelector(getTimezoneState);
 
   useEffect(() => {
     return () => {
@@ -76,17 +71,12 @@ const Timeframe: FC<Props> = ({
     };
   }, []);
 
-  const timezoneValue = getTimezoneValue(timezone);
-  const TABS_SETTINGS = [
-    {
-      label: t('query_creator_timeframe.relative'),
-      id: RELATIVE_TAB,
-    },
-    {
-      label: t('query_creator_timeframe.absolute'),
-      id: ABSOLUTE_TAB,
-    },
-  ];
+  const timezoneValue = getTimezoneValue({
+    timezone,
+    timezones,
+    isLoading,
+    defaultTimezone,
+  });
 
   return (
     <Container ref={containerRef}>
@@ -120,16 +110,11 @@ const Timeframe: FC<Props> = ({
         )}
       </DropableContainer>
       <Dropdown isOpen={isOpen}>
-        <Tabs
-          activeTab={typeof value === 'string' ? RELATIVE_TAB : ABSOLUTE_TAB}
-          onClick={(tabId) => {
-            if (tabId === RELATIVE_TAB) {
-              onTimeframeChange(DEFAULT_TIMEFRAME);
-            } else {
-              onTimeframeChange(getDefaultAbsoluteTime(timezoneValue));
-            }
-          }}
-          tabs={TABS_SETTINGS}
+        <Navigation
+          timeframe={value}
+          timezone={timezoneValue}
+          isDisabled={isLoading || error}
+          onTimeframeChange={onTimeframeChange}
         />
         <SettingsContainer>
           {typeof value === 'string' ? (
@@ -158,64 +143,27 @@ const Timeframe: FC<Props> = ({
             />
           )}
         </SettingsContainer>
-        <div
-          data-testid="timezone-container"
-          ref={timezoneContainerRef}
-          onMouseEnter={(e) => {
-            setTooltipVisible(true);
-            setTooltipPosition({ x: e.clientX, y: e.clientY });
-          }}
-          onMouseMove={(e) => {
-            const mousePosition = { x: e.clientX, y: e.clientY };
-            if (requestFrameRef.current)
-              cancelAnimationFrame(requestFrameRef.current);
-            requestFrameRef.current = requestAnimationFrame(() => {
-              setTooltipPosition(mousePosition);
-            });
-          }}
-          onMouseLeave={() => {
-            setTooltipVisible(false);
-          }}
-        >
-          <Notification>
-            {t('query_creator_timeframe.notification')}
-          </Notification>
-          <Timezone
-            timezone={timezoneValue}
-            onChange={(timezone) => onTimezoneChange(timezone)}
-            timezoneLabel={t('query_creator_timezone.label')}
-            timezonePlaceholderLabel={t('query_creator_timezone.placeholder')}
-          />
-          {timezoneSelectionDisabled && tooltipVisible && (
-            <AnimatePresence>
-              <motion.div
-                {...TOOLTIP_MOTION}
-                initial={{
-                  opacity: 0,
-                  x: tooltipPosition.x,
-                  y: tooltipPosition.y,
-                  top: 0,
-                  left: 0,
-                }}
-                animate={{
-                  x: tooltipPosition.x,
-                  y: tooltipPosition.y,
-                  opacity: 1,
-                }}
-                style={{
-                  position: 'fixed',
-                  pointerEvents: 'none',
-                  zIndex: UI_LAYERS.tooltip,
-                  width: 225,
-                }}
-              >
-                <Tooltip hasArrow={false} fontSize={12}>
-                  {t('query_creator_timezone.selection_disabled_description')}
-                </Tooltip>
-              </motion.div>
-            </AnimatePresence>
-          )}
-        </div>
+        {isLoading ? (
+          <TimezoneLoader />
+        ) : (
+          <>
+            {error ? (
+              <div>error</div>
+            ) : (
+              <Timezone
+                timezone={timezoneValue}
+                timezones={timezones}
+                onChange={(timezone) => onTimezoneChange(timezone)}
+                timezoneLabel={t('query_creator_timezone.label')}
+                disableSelection={timezoneSelectionDisabled}
+                emptySearchLabel={t('query_creator_timezone.empty_search')}
+                timezonePlaceholderLabel={t(
+                  'query_creator_timezone.placeholder'
+                )}
+              />
+            )}
+          </>
+        )}
       </Dropdown>
     </Container>
   );

@@ -35,7 +35,7 @@ class App extends React.Component<Props> {
         host={host}
         onUpdateQuery={this.onUpdateQuery}
         onUpdateChartSettings={this.onUpdateChartSettings}
-        defaultTimezoneForQuery="Africa/Nairobi"
+        defaultTimezoneForQuery="Asia/Anadyr"
         disableTimezoneSelection={false}
       />
     );

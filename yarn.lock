@@ -246,12 +246,12 @@
   dependencies:
     "@babel/types" "^7.13.0"
 
-"@babel/helper-module-imports@^7.0.0", "@babel/helper-module-imports@^7.12.13":
-  version "7.12.13"
-  resolved "https://registry.yarnpkg.com/@babel/helper-module-imports/-/helper-module-imports-7.12.13.tgz#ec67e4404f41750463e455cc3203f6a32e93fcb0"
-  integrity sha512-NGmfvRp9Rqxy0uHSSVP+SRIW1q31a7Ji10cLBcqSDUngGentY4FRiHOFZFE1CLU5eiL0oE8reH7Tg1y99TDM/g==
+"@babel/helper-module-imports@^7.0.0":
+  version "7.13.12"
+  resolved "https://registry.yarnpkg.com/@babel/helper-module-imports/-/helper-module-imports-7.13.12.tgz#c6a369a6f3621cb25da014078684da9196b61977"
+  integrity sha512-4cVvR2/1B693IuOvSI20xqqa/+bl7lqAMR59R4iu39R9aOX8/JoYY1sFaNvUMyMBGnHdwvJgUrzNLoUZxXypxA==
   dependencies:
-    "@babel/types" "^7.12.13"
+    "@babel/types" "^7.13.12"
 
 "@babel/helper-module-imports@^7.12.1":
   version "7.12.5"
@@ -259,6 +259,13 @@
   integrity sha512-SR713Ogqg6++uexFRORf/+nPXMmWIn80TALu0uaFb+iQIUoR7bOC7zBWyzBs5b3tBBJXuyD0cRu1F15GyzjOWA==
   dependencies:
     "@babel/types" "^7.12.5"
+
+"@babel/helper-module-imports@^7.12.13":
+  version "7.12.13"
+  resolved "https://registry.yarnpkg.com/@babel/helper-module-imports/-/helper-module-imports-7.12.13.tgz#ec67e4404f41750463e455cc3203f6a32e93fcb0"
+  integrity sha512-NGmfvRp9Rqxy0uHSSVP+SRIW1q31a7Ji10cLBcqSDUngGentY4FRiHOFZFE1CLU5eiL0oE8reH7Tg1y99TDM/g==
+  dependencies:
+    "@babel/types" "^7.12.13"
 
 "@babel/helper-module-transforms@^7.12.1":
   version "7.12.1"
@@ -1151,7 +1158,16 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@babel/types@^7.12.13", "@babel/types@^7.12.5", "@babel/types@^7.13.0", "@babel/types@^7.5.0":
+"@babel/types@^7.12.13", "@babel/types@^7.13.12":
+  version "7.13.14"
+  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.13.14.tgz#c35a4abb15c7cd45a2746d78ab328e362cbace0d"
+  integrity sha512-A2aa3QTkWoyqsZZFl56MLUsfmh7O0gN41IPvXAE/++8ojpbz12SszD7JEGYVdn4f9Kt4amIei07swF1h4AqmmQ==
+  dependencies:
+    "@babel/helper-validator-identifier" "^7.12.11"
+    lodash "^4.17.19"
+    to-fast-properties "^2.0.0"
+
+"@babel/types@^7.12.5", "@babel/types@^7.13.0", "@babel/types@^7.5.0":
   version "7.13.0"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.13.0.tgz#74424d2816f0171b4100f0ab34e9a374efdf7f80"
   integrity sha512-hE+HE8rnG1Z6Wzo+MhaKE5lM5eMx71T4EHJgku2E3xIfaULhDcxiiRxUYgwX8qwP1BBSlag+TdGOt6JAidIZTA==
@@ -1650,7 +1666,7 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@keen.io/colors@^1.1.0":
+"@keen.io/colors@^1.0.0", "@keen.io/colors@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@keen.io/colors/-/colors-1.1.0.tgz#feda3fc31056cd67c9d36abfce30470b95ef6879"
   integrity sha512-ATUL4zpj6NNHZChCVfI3ellRIzfJMsYzSCqnkcd7AqZseSGVLe6A8yK0yqlzzYVtz3yunX9nDN1AMpJH2dFIfA==
@@ -1667,10 +1683,10 @@
   resolved "https://registry.yarnpkg.com/@keen.io/pubsub/-/pubsub-1.1.1.tgz#80dcb09a849ec665d279234c014e6815e1d075c0"
   integrity sha512-S9zhZNDSwsL6WXOtFqeZ3+vOdCzykL7pYifRm9dZ7ivLe/frAeyqIQsfRA8Z52DPnRN7d+gKbWrJtlZM22ErjQ==
 
-"@keen.io/query@^1.0.4", "@keen.io/query@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@keen.io/query/-/query-1.1.1.tgz#be1d7ea6bb5685a9bd3cb8ee5dd12041724c9a45"
-  integrity sha512-EbnA1loFdcmCGXDjCz1MKAAUmEhHXB+y/Qkr7kHfQWjkeO0AYX73Qzriq5acF0pHeiHOkhJzJ/alMwO+Bxxk+w==
+"@keen.io/query@^1.0.4", "@keen.io/query@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@keen.io/query/-/query-1.2.0.tgz#2bf24c4263c38c26fe21ae46a8fb237d2a89fe9f"
+  integrity sha512-QrMdTz71uiQHY6i6OQkNA9tgmhZIVRz695QbFJnT0MvKGtPwsPtFj+K7jFYszJJyq/Z3vL73snuhfDHL3PZk3A==
 
 "@keen.io/react-hooks@^1.0.1":
   version "1.0.7"
@@ -1680,14 +1696,30 @@
     d3-array "^2.7.1"
     fuse.js "^6.4.1"
 
+"@keen.io/time-utils@^1.2.0":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@keen.io/time-utils/-/time-utils-1.2.1.tgz#8a4379e7d976795c418c6f6b93addf43d914e0e1"
+  integrity sha512-H8333ROXkwrFIRx4xq1jIw8U3+EzmGnPWg6TDdemfKGbsfR4/fWEEOTpmKKBbcpPy725Hvdvm8L5p1I+243lZw==
+  dependencies:
+    dayjs "^1.10.4"
+
+"@keen.io/typography@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@keen.io/typography/-/typography-1.2.1.tgz#8ad180e61d2913cdb615e714a478bea661d97eab"
+  integrity sha512-fznh2JszONiHaNtYNYOhIxb1jq/ofg/bl/sybXoNpt+jJW9ooEoUyYvpnDL9dVcgp6wV4hi7u5SJ2uEOFZ+Qzg==
+  dependencies:
+    "@keen.io/colors" "^1.0.0"
+    styled-system "^5.1.5"
+
 "@keen.io/ui-core@^2.12.0":
-  version "2.15.6"
-  resolved "https://registry.yarnpkg.com/@keen.io/ui-core/-/ui-core-2.15.6.tgz#c44dc3d09e6f3a164ebda68305fae5f287479e36"
-  integrity sha512-dT2qYkd8ysPJtijP1vVQ54+k6WgkgY2wUUnWw2XmV2xFEdTH0nOhQl3IunFksjCnZIP9TLOUsrL9K5rBn7mXIw==
+  version "2.18.1"
+  resolved "https://registry.yarnpkg.com/@keen.io/ui-core/-/ui-core-2.18.1.tgz#7bb19c41261b33e7450f5b09f98635a25f678cc0"
+  integrity sha512-l0NRYbHOFn6kzZISkVO1g6fhzFi63VySaqhKmBAKAMvG8Rjv0r29vfPPgO+bvC/vdMlPggIeNWU7iDdUWGtRdg==
   dependencies:
     "@keen.io/colors" "^1.1.0"
     "@keen.io/icons" "^1.4.0"
-    "@keen.io/query" "^1.1.1"
+    "@keen.io/query" "^1.2.0"
+    "@keen.io/typography" "^1.2.1"
     color "^3.1.2"
     framer-motion "^1.11.1"
     fuse.js "^6.4.1"
@@ -4721,6 +4753,11 @@ dateformat@^3.0.0:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
+
+dayjs@^1.10.4:
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.4.tgz#8e544a9b8683f61783f570980a8a80eaf54ab1e2"
+  integrity sha512-RI/Hh4kqRc1UKLOAf/T5zdMMX5DQIlDxwUe3wSyMMnEbGunnpENCdbUgM+dW7kXidZqCttBrmw7BhN4TMddkCw==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.9:
   version "2.6.9"
@@ -8997,7 +9034,7 @@ modify-values@^1.0.0:
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-moment-timezone@^0.5.31:
+moment-timezone@^0.5.33:
   version "0.5.33"
   resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.33.tgz#b252fd6bb57f341c9b59a5ab61a8e51a73bbd22c"
   integrity sha512-PTc2vcT8K9J5/9rDEPe5czSIKgLoGsH8UNpA4qZTVw0Vd/Uz19geE9abbIOQKaAQFcnQ3v5YEXrbSc5BpshH+w==

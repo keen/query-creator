@@ -1,4 +1,4 @@
-import { Timezones, Timeframe } from '@keen.io/query';
+import { Timeframe } from '@keen.io/query';
 
 import { ReducerState as AppReducerState } from './modules/app';
 import { ReducerState as QueryReducerState } from './modules/query';
@@ -106,7 +106,7 @@ export type FunnelStep = {
   inverted: boolean;
   optional: boolean;
   timeframe: Timeframe;
-  timezone?: Timezones | number;
+  timezone?: string | number;
   withActors: boolean;
   filters: Filter[];
   stepLabel?: string;

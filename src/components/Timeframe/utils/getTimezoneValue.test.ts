@@ -1,19 +1,55 @@
 import { getTimezoneValue } from './getTimezoneValue';
 
-test('reflects value for named timezone', () => {
+import { timezones } from '../../../modules/timezone/fixtures';
+
+test('matches timezone offset with first named timezone', () => {
+  const timezone = 10800;
+
+  expect(
+    getTimezoneValue({
+      timezone,
+      timezones,
+      isLoading: false,
+      defaultTimezone: 'UTC',
+    })
+  ).toEqual('Asia/Anadyr');
+});
+
+test('returns "null" when timezones are in loading state', () => {
   const timezone = 'Europe/London';
 
-  expect(getTimezoneValue(timezone)).toEqual(timezone);
+  expect(
+    getTimezoneValue({
+      timezone,
+      timezones,
+      isLoading: true,
+      defaultTimezone: 'UTC',
+    })
+  ).toBeNull();
 });
 
-test('returns named timezone for "number" value', () => {
-  const timezone = -18000;
+test('returns timezone name', () => {
+  const timezone = 'Europe/London';
 
-  expect(getTimezoneValue(timezone)).toEqual('US/Eastern');
+  expect(
+    getTimezoneValue({
+      timezone,
+      timezones,
+      isLoading: false,
+      defaultTimezone: 'UTC',
+    })
+  ).toEqual(timezone);
 });
 
-test('returns default value for named timezone that is not mapped', () => {
-  const timezone = 100;
+test('fallbacks to default timezone', () => {
+  const timezone = -1200;
 
-  expect(getTimezoneValue(timezone)).toMatchInlineSnapshot(`"UTC"`);
+  expect(
+    getTimezoneValue({
+      timezone,
+      timezones,
+      isLoading: false,
+      defaultTimezone: 'UTC',
+    })
+  ).toEqual('UTC');
 });

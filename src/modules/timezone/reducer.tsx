@@ -1,9 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ReducerState, Timezone } from './types';
+import { Timezone } from '@keen.io/time-utils';
+
+import { ReducerState } from './types';
+
 import { DEFAULT_TIMEZONE } from '../query';
 
 const initialState: ReducerState = {
   defaultTimezoneForQuery: DEFAULT_TIMEZONE,
+  isLoading: false,
+  error: null,
   timezoneSelectionDisabled: false,
   timezones: [],
 };
@@ -21,8 +26,16 @@ export const timezoneSlice = createSlice({
     ) => {
       state.timezoneSelectionDisabled = payload;
     },
+    setError: (state, { payload }: PayloadAction<boolean>) => {
+      state.error = payload;
+    },
+    setTimezonesLoading: (state, { payload }: PayloadAction<boolean>) => {
+      state.isLoading = payload;
+    },
     setTimezones: (state, { payload }: PayloadAction<Timezone[]>) => {
       state.timezones = payload;
+      state.error = false;
+      state.isLoading = false;
     },
   },
 });

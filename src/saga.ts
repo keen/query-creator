@@ -12,7 +12,7 @@ import {
   join,
   put,
 } from 'redux-saga/effects';
-import moment from 'moment-timezone';
+import { setTimezoneOffset } from '@keen.io/time-utils';
 
 import {
   setQueryReadiness,
@@ -75,7 +75,11 @@ import { createTree, createCollection, useQueryPostProcessing } from './utils';
 
 import { Filter, OrderBy, FunnelStep } from './types';
 import { SetGroupByAction } from './modules/query/types';
-import { getDefaultTimezone, timezoneActions } from './modules/timezone';
+import {
+  timezoneSaga,
+  timezoneActions,
+  getDefaultTimezone,
+} from './modules/timezone';
 
 function* appStart() {
   yield put(fetchProjectDetails());
@@ -96,175 +100,6 @@ function* fetchProject() {
     yield put(setEventsCollections(collections));
   } catch (err) {
     yield put(fetchProjectDetailsError(err));
-  }
-}
-
-function* fetchTimezones() {
-  try {
-    // todo fetch timezones when api ready
-    const mock = [
-      {
-        name: 'Pacific/Apia',
-        utc_offset: '+14:00',
-      },
-      {
-        name: 'Pacific/Kiritimati',
-        utc_offset: '+14:00',
-      },
-      {
-        name: 'Etc/GMT-14',
-        utc_offset: '+14:00',
-      },
-      {
-        name: 'NZ-CHAT',
-        utc_offset: '+13:45',
-      },
-      {
-        name: 'Pacific/Chatham',
-        utc_offset: '+13:45',
-      },
-      {
-        name: 'Pacific/Fakaofo',
-        utc_offset: '+13:00',
-      },
-      {
-        name: 'Antarctica/McMurdo',
-        utc_offset: '+13:00',
-      },
-      {
-        name: 'Pacific/Enderbury',
-        utc_offset: '+13:00',
-      },
-      {
-        name: 'NZ',
-        utc_offset: '+13:00',
-      },
-      {
-        name: 'Antarctica/South_Pole',
-        utc_offset: '+13:00',
-      },
-      {
-        name: 'Pacific/Auckland',
-        utc_offset: '+13:00',
-      },
-      {
-        name: 'Pacific/Tongatapu',
-        utc_offset: '+13:00',
-      },
-      {
-        name: 'Etc/GMT-13',
-        utc_offset: '+13:00',
-      },
-      {
-        name: 'Pacific/Kwajalein',
-        utc_offset: '+12:00',
-      },
-      {
-        name: 'Pacific/Wallis',
-        utc_offset: '+12:00',
-      },
-      {
-        name: 'Pacific/Fiji',
-        utc_offset: '+12:00',
-      },
-      {
-        name: 'Pacific/Funafuti',
-        utc_offset: '+12:00',
-      },
-      {
-        name: 'Pacific/Nauru',
-        utc_offset: '+12:00',
-      },
-      {
-        name: 'Kwajalein',
-        utc_offset: '+12:00',
-      },
-      {
-        name: 'Pacific/Wake',
-        utc_offset: '+12:00',
-      },
-      {
-        name: 'Pacific/Norfolk',
-        utc_offset: '+12:00',
-      },
-      {
-        name: 'Pacific/Tarawa',
-        utc_offset: '+12:00',
-      },
-      {
-        name: 'Asia/Kamchatka',
-        utc_offset: '+12:00',
-      },
-      {
-        name: 'Etc/GMT-12',
-        utc_offset: '+12:00',
-      },
-      {
-        name: 'Asia/Anadyr',
-        utc_offset: '+12:00',
-      },
-      {
-        name: 'Pacific/Majuro',
-        utc_offset: '+12:00',
-      },
-      {
-        name: 'Australia/Hobart',
-        utc_offset: '+11:00',
-      },
-      {
-        name: 'Australia/Tasmania',
-        utc_offset: '+11:00',
-      },
-      {
-        name: 'Australia/ACT',
-        utc_offset: '+11:00',
-      },
-      {
-        name: 'Pacific/Ponape',
-        utc_offset: '+11:00',
-      },
-      {
-        name: 'Pacific/Bougainville',
-        utc_offset: '+11:00',
-      },
-      {
-        name: 'Australia/Victoria',
-        utc_offset: '+11:00',
-      },
-      {
-        name: 'Antarctica/Macquarie',
-        utc_offset: '+11:00',
-      },
-      {
-        name: 'Australia/Canberra',
-        utc_offset: '+11:00',
-      },
-      {
-        name: 'Australia/Currie',
-        utc_offset: '+11:00',
-      },
-      {
-        name: 'Australia/Lord_Howe',
-        utc_offset: '+11:00',
-      },
-      {
-        name: 'Australia/NSW',
-        utc_offset: '+11:00',
-      },
-      {
-        name: 'Pacific/Pohnpei',
-        utc_offset: '+11:00',
-      },
-    ];
-
-    const mockResponse = mock.map((timezone) => ({
-      name: timezone.name,
-      utcOffset: timezone.utc_offset,
-    }));
-
-    yield put(timezoneActions.setTimezones(mockResponse));
-  } catch (err) {
-    console.error(err);
   }
 }
 
@@ -331,6 +166,12 @@ function* selectFunnelStepCollection(
   if (!isSchemaExist) yield put(fetchCollectionSchema(collection));
 }
 
+/**
+ * Udaptes query absolute timeframe according to timezone offset
+ * @param timeframe - query timeframe
+ * @return void
+ *
+ */
 function* selectTimezone(action: SelectTimezoneAction) {
   const { timezone } = action.payload;
   const timeframe = yield select(getTimeframe);
@@ -338,10 +179,42 @@ function* selectTimezone(action: SelectTimezoneAction) {
   if (typeof timeframe !== 'string') {
     const { start, end } = timeframe;
     const timeWithZone = {
-      start: moment(start).tz(timezone).format(),
-      end: moment(end).tz(timezone).format(),
+      start: setTimezoneOffset(start, timezone),
+      end: setTimezoneOffset(end, timezone),
     };
     yield put(setTimeframe(timeWithZone));
+  }
+}
+
+/**
+ * Updates funnel step timeframe according to timezone offset
+ * @param stepId - funnel step identifier
+ * @param timeframe - query timeframe
+ * @return void
+ *
+ */
+function* updateFunnelStepTimezone(action: UpdateFunnelStepTimezoneAction) {
+  const { timezone } = action.payload;
+  const steps = yield select(getFunnelSteps);
+  const [funnelStep] = steps.filter(
+    (step: FunnelStep) => step.id === action.payload.stepId
+  );
+  const { timeframe } = funnelStep;
+
+  if (typeof timeframe !== 'string') {
+    const { start, end } = timeframe;
+    const timeWithZone = {
+      start: setTimezoneOffset(start, timezone),
+      end: setTimezoneOffset(end, timezone),
+    };
+
+    console.log(timezone, timeWithZone);
+
+    yield put(
+      updateFunnelStep(action.payload.stepId, {
+        timeframe: timeWithZone,
+      })
+    );
   }
 }
 
@@ -509,27 +382,6 @@ function* updateGroupBy(action: SetGroupByAction) {
   yield put(setOrderBy(orderBySettings));
 }
 
-function* updateFunnelStepTimezone(action: UpdateFunnelStepTimezoneAction) {
-  const { timezone } = action.payload;
-  const steps = yield select(getFunnelSteps);
-  const timeframe = steps.filter(
-    (step: FunnelStep) => step.id === action.payload.stepId
-  ).timeframe;
-
-  if (typeof timeframe !== 'string') {
-    const { start, end } = timeframe;
-    const timeWithZone = {
-      start: moment(start).tz(timezone).format(),
-      end: moment(end).tz(timezone).format(),
-    };
-    yield put(
-      updateFunnelStep(action.payload.stepId, {
-        timeframe: timeWithZone,
-      })
-    );
-  }
-}
-
 function* watcher() {
   yield takeLatest(APP_START, appStart);
   yield takeLatest(SERIALIZE_QUERY, serializeQuery);
@@ -544,9 +396,8 @@ function* watcher() {
   );
   yield takeLatest(SET_GROUP_BY, updateGroupBy);
   yield takeLatest(UPDATE_FUNNEL_STEP_TIMEZONE, updateFunnelStepTimezone);
-  yield takeLatest(timezoneActions.fetchTimezones.type, fetchTimezones);
 }
 
 export default function* rootSaga() {
-  yield all([watcher()]);
+  yield all([watcher(), timezoneSaga()]);
 }

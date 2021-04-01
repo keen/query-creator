@@ -40,8 +40,7 @@
   "query_creator_timeframe": {
     "label": "Timeframe",
     "relative": "Relative",
-    "absolute": "Absolute",
-    "notification": "(Charts display time in UTC)"
+    "absolute": "Absolute"
   },
   "absolute_time": {
     "start_date": "From",
@@ -161,6 +160,7 @@
   },
   "query_creator_timezone": {
     "placeholder": "Select timezone",
+    "empty_search": "No timezone found with this criteria",
     "selection_disabled_description": "Timezone for your metrics is the same as your site configuration.",
     "label": "Timezone"
   },

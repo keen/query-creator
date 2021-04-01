@@ -10,7 +10,7 @@ export const createConfiguration = (
   },
   timezone: {
     defaultTimezoneForQuery,
-    disableTimezoneSelection,
+    timezoneSelectionDisabled: disableTimezoneSelection,
     timezones: [],
   },
 });

@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/keen/query-creator/compare/v1.4.2...v1.5.0) (2021-04-02)
+
+
+### Features
+
+* 🎸 Extended global timezones configuration in query-creato ([7408eaf](https://github.com/keen/query-creator/commit/7408eaf0b4ee07c4e0fe4a8fd527c82506021932))
+* 🎸 timezone error ([0b410bc](https://github.com/keen/query-creator/commit/0b410bc0f57b335c6b63367e76741f0eb363e0ef))
+* 🎸 timezone loader ([c1ffd20](https://github.com/keen/query-creator/commit/c1ffd20636d447c5320a46410cce76d42e11b672))
+* 🎸 Tooltip when timezone selection is disabled added ([a2a572c](https://github.com/keen/query-creator/commit/a2a572cf7ca816ddc53139d33da638696a527728))
+
+
+### Bug Fixes
+
+* 🐛 CR fixes, setting initial state in createStore ([eefc776](https://github.com/keen/query-creator/commit/eefc776c07daad44b13779bb1fb806e80c09e629))
+
 ### [1.4.2](https://github.com/keen/query-creator/compare/v1.4.1...v1.4.2) (2021-03-29)
 
 

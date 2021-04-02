@@ -6,6 +6,7 @@ import { render as rtlRender, fireEvent } from '@testing-library/react';
 import Timeframe from './Timeframe';
 
 import { timezones } from '../../modules/timezone/fixtures';
+import { AppContext } from '../../contexts';
 
 const mockStore = configureStore([]);
 
@@ -30,7 +31,14 @@ const render = (overProps: any = {}, overStoreState: any = {}) => {
 
   const wrapper = rtlRender(
     <Provider store={store}>
-      <Timeframe {...props} />
+      <AppContext.Provider
+        value={{
+          modalContainer: '#modal-container',
+          onUpdateChartSettings: () => null,
+        }}
+      >
+        <Timeframe {...props} />
+      </AppContext.Provider>
     </Provider>
   );
 

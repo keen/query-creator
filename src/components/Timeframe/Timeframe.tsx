@@ -1,8 +1,8 @@
-import React, { FC, useState, useRef, useEffect } from 'react';
+import React, { FC, useState, useRef, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Timeframe as QueryTimeframe } from '@keen.io/query';
-
+import { BodyText } from '@keen.io/typography';
 import {
   Dropdown,
   DropableContainer,
@@ -11,6 +11,7 @@ import {
   RelativeTime,
   AbsoluteTime,
   Timezone,
+  TimezoneError,
   TitleComponent,
   convertRelativeTime,
   TIME_PICKER_CLASS,
@@ -22,13 +23,17 @@ import {
   Navigation,
   TimezoneLoader,
 } from './components';
-import { Container, SettingsContainer } from './Timeframe.styles';
+import {
+  Container,
+  ErrorContainer,
+  SettingsContainer,
+} from './Timeframe.styles';
+import { AppContext } from '../../contexts';
 
 import { getTimezoneValue } from './utils';
 import { getEventPath } from '../../utils';
 
 import { getTimezoneState } from '../../modules/timezone';
-import { BodyText } from '@keen.io/typography';
 
 type Props = {
   /** Unique identifer */
@@ -57,6 +62,8 @@ const Timeframe: FC<Props> = ({
   variant = 'primary',
 }) => {
   const { t } = useTranslation();
+  const { modalContainer } = useContext(AppContext);
+
   const [isOpen, setOpen] = useState(false);
   const containerRef = useRef(null);
   const {
@@ -150,16 +157,23 @@ const Timeframe: FC<Props> = ({
         ) : (
           <>
             {error ? (
-              <div>error</div>
+              <ErrorContainer>
+                <TimezoneError
+                  tooltipPortal={modalContainer}
+                  tooltipMessage={t('query_creator_timezone.error')}
+                  placeholder={t('query_creator_timezone.placeholder')}
+                  label={t('query_creator_timezone.label')}
+                />
+              </ErrorContainer>
             ) : (
               <MousePositionedTooltip
                 renderContent={() => (
-                  <BodyText variant="body3" fontWeight={'normal'}>
+                  <BodyText variant="body3" fontWeight="normal">
                     {t('query_creator_timezone.selection_disabled_description')}
                   </BodyText>
                 )}
                 isActive={timezoneSelectionDisabled}
-                tooltipPortal="#modal-root"
+                tooltipPortal={modalContainer}
               >
                 <Timezone
                   timezone={timezoneValue}

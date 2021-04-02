@@ -15,8 +15,6 @@ import {
   Filters,
 } from './components';
 
-import GlobalStyles from './globalStyles';
-
 import { showField } from './utils';
 
 import {
@@ -51,7 +49,6 @@ const App: FC<Props> = () => {
 
   return (
     <div>
-      <GlobalStyles modalContainer="#modal-root" />
       <QueryArguments />
       {analysis === 'extraction' && (
         <Card>

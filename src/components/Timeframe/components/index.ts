@@ -1,6 +1,6 @@
 import AbsoluteTimeLabel from './AbsoluteTimeLabel';
 import RelativeTimeLabel from './RelativeTimeLabel';
-import TimezoneLoader from './TimezoneLoader';
 import Navigation from './Navigation';
+import TimezoneLoader from './TimezoneLoader';
 
 export { AbsoluteTimeLabel, RelativeTimeLabel, Navigation, TimezoneLoader };

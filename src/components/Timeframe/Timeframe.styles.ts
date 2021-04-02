@@ -5,6 +5,10 @@ export const Container = styled.div`
   position: relative;
 `;
 
+export const ErrorContainer = styled.div`
+  padding: 15px 10px;
+`;
+
 export const SettingsContainer = styled.div`
   padding: 15px 10px;
   border-top: solid 1px ${colors.white[300]};

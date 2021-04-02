@@ -1,4 +1,4 @@
-import { Timezones, Timeframe } from '@keen.io/query';
+import { Timeframe } from '@keen.io/query';
 
 import {
   SERIALIZE_QUERY,
@@ -43,7 +43,7 @@ export type ReducerState = {
   eventCollection?: string;
   targetProperty?: string;
   percentile?: number;
-  timezone?: number | Timezones;
+  timezone?: number | string;
   groupBy?: string | string[];
   orderBy?: OrderBy[];
   limit?: number;
@@ -80,6 +80,9 @@ export interface SerializeQueryAction {
 
 export interface ResetQueryAction {
   type: typeof RESET_QUERY;
+  payload: {
+    defaultTimezoneForQuery: string;
+  };
 }
 
 export interface AddFilterAction {
@@ -132,7 +135,7 @@ export interface SelectTargetPropertyAction {
 export interface SelectTimezoneAction {
   type: typeof SELECT_TIMEZONE;
   payload: {
-    timezone: Timezones;
+    timezone: string;
   };
 }
 
@@ -196,6 +199,7 @@ export interface AddFunnelStepAction {
   type: typeof ADD_FUNNEL_STEP;
   payload: {
     id: string;
+    defaultTimezone: string;
   };
 }
 
@@ -271,7 +275,7 @@ export interface UpdateFunnelStepTimezoneAction {
   type: typeof UPDATE_FUNNEL_STEP_TIMEZONE;
   payload: {
     stepId: string;
-    timezone: Timezones;
+    timezone: string;
   };
 }
 

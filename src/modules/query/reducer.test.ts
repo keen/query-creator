@@ -226,7 +226,7 @@ test('add funnel step', () => {
     ],
   };
 
-  const action = addFunnelStep('qwe123');
+  const action = addFunnelStep('qwe123', 'UTC');
   const { steps } = queryReducer(
     {
       ...initialState,
@@ -250,7 +250,7 @@ test('inherits settings from previous funnel step', () => {
     ],
   };
 
-  const action = addFunnelStep('step2');
+  const action = addFunnelStep('step2', 'UTC');
   const { steps } = queryReducer(
     {
       ...initialState,

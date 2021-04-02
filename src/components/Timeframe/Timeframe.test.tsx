@@ -1,9 +1,25 @@
 import React from 'react';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 import { render as rtlRender, fireEvent } from '@testing-library/react';
 
 import Timeframe from './Timeframe';
 
-const render = (overProps: any = {}) => {
+import { timezones } from '../../modules/timezone/fixtures';
+import { AppContext } from '../../contexts';
+
+const mockStore = configureStore([]);
+
+const render = (overProps: any = {}, overStoreState: any = {}) => {
+  const state = {
+    timezone: {
+      timezoneSelectionDisabled: false,
+      isLoading: false,
+      timezones: timezones,
+    },
+    ...overStoreState,
+  };
+  const store = mockStore({ ...state });
   const props = {
     id: 'id',
     onTimeframeChange: jest.fn(),
@@ -13,7 +29,18 @@ const render = (overProps: any = {}) => {
     ...overProps,
   };
 
-  const wrapper = rtlRender(<Timeframe {...props} />);
+  const wrapper = rtlRender(
+    <Provider store={store}>
+      <AppContext.Provider
+        value={{
+          modalContainer: '#modal-container',
+          onUpdateChartSettings: () => null,
+        }}
+      >
+        <Timeframe {...props} />
+      </AppContext.Provider>
+    </Provider>
+  );
 
   return {
     props,
@@ -66,15 +93,4 @@ test('should call "onReset" handler', () => {
   unmount();
 
   expect(props.onReset).toHaveBeenCalled();
-});
-
-test('should render notification', () => {
-  const {
-    wrapper: { getByText, getByTestId },
-  } = render();
-
-  const propertyContainer = getByTestId('dropable-container');
-  fireEvent.click(propertyContainer);
-
-  expect(getByText('query_creator_timeframe.notification')).toBeInTheDocument();
 });

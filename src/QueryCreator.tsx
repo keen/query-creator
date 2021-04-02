@@ -28,7 +28,7 @@ import {
   QUERY_UPDATE_ACTION,
   ANALYTICS_API_HOST,
 } from './constants';
-import { createConfiguration } from '../createConfiguration';
+import { createConfiguration } from './createConfiguration';
 
 declare global {
   interface Window {

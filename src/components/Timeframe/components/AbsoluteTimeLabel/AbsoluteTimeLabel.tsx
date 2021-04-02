@@ -1,7 +1,6 @@
 import React, { FC, memo } from 'react';
-import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
-import { Timezones } from '@keen.io/query';
+import { formatDate } from '@keen.io/time-utils';
 
 import { Container, Separator } from './AbsoluteTimeLabel.styles';
 
@@ -11,16 +10,16 @@ type Props = {
   /** End date in ISO format */
   end: string;
   /** Timezone */
-  timezone: Timezones;
+  timezone: string;
 };
 
 const AbsoluteTimeLabel: FC<Props> = memo(({ timezone, start, end }) => {
   const { t } = useTranslation();
   return (
     <Container>
-      {moment(start).tz(timezone).format('YYYY-MM-DD HH:mm')}
+      <span>{formatDate(start, timezone)}</span>
       <Separator>{t('absolute_time_label.separator')}</Separator>
-      {moment(end).tz(timezone).format('YYYY-MM-DD HH:mm')}
+      <span>{formatDate(end, timezone)}</span>
     </Container>
   );
 });

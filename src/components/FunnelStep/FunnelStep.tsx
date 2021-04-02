@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Label, Checkbox, Input, TitleComponent } from '@keen.io/ui-core';
 import { Icon } from '@keen.io/icons';
 import { colors } from '@keen.io/colors';
-import { Timezones, Timeframe as TimeframeType } from '@keen.io/query';
+import { Timeframe as TimeframeType } from '@keen.io/query';
 
 import {
   CardWrapper,
@@ -32,6 +32,7 @@ import Filters from '../Filters';
 
 import {
   updateFunnelStep,
+  updateFunnelStepTimezone,
   selectFunnelStepCollection,
   addFunnelStepFilter,
   updateFunnelStepFilter,
@@ -52,7 +53,7 @@ type Props = {
   /** Funnel Step timeframe */
   timeframe: TimeframeType;
   /** Funnel Step timezone */
-  timezone: number | Timezones;
+  timezone: number | string;
   /** Remove event handler */
   onRemove: () => void;
   /** Inverted funnel step */
@@ -201,13 +202,10 @@ const FunnelStep: FC<Props> = ({
                     })
                   )
                 }
-                onTimezoneChange={(timezone) =>
-                  dispatch(
-                    updateStep({
-                      timezone,
-                    })
-                  )
-                }
+                onTimezoneChange={(timezone) => {
+                  dispatch(updateStep({ timezone }));
+                  dispatch(updateFunnelStepTimezone(id, timezone));
+                }}
               />
             </Item>
           </Wrapper>

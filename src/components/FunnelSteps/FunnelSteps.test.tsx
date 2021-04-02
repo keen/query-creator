@@ -21,6 +21,9 @@ const render = (storeState: any = {}) => {
       steps: [],
     },
     chartSettings: {},
+    timezone: {
+      defaultTimezoneForQuery: 'Africa/Nairobi',
+    },
     ...storeState,
   };
 
@@ -52,12 +55,14 @@ test('allows user to add funnel step', () => {
   } = render();
 
   const button = getByTestId('add-step-button');
+
   fireEvent.click(button);
 
   expect(store.getActions()).toMatchInlineSnapshot(`
     Array [
       Object {
         "payload": Object {
+          "defaultTimezone": "Africa/Nairobi",
           "id": "id",
         },
         "type": "@query/ADD_FUNNEL_STEP",

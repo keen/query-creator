@@ -31,6 +31,8 @@ import {
   setPercentile,
   DEFAULT_TIMEFRAME,
 } from '../../modules/query';
+import { getDefaultTimezone } from '../../modules/timezone';
+
 import { resetChartSettings } from '../../modules/chartSettings';
 
 import { AppContext } from '../../contexts';
@@ -43,8 +45,10 @@ const App: FC<Props> = () => {
   const collection = useSelector(getEventCollection);
   const timeframe = useSelector(getTimeframe);
   const targetProperty = useSelector(getTargetProperty);
+  const defaultTimezone = useSelector(getDefaultTimezone);
   const timezone = useSelector(getTimezone);
   const percentile = useSelector(getPercentile);
+
   const { onUpdateChartSettings } = useContext(AppContext);
 
   return (
@@ -102,7 +106,7 @@ const App: FC<Props> = () => {
             timezone={timezone}
             onReset={() => {
               dispatch(setTimeframe(DEFAULT_TIMEFRAME));
-              dispatch(selectTimezone(undefined));
+              dispatch(selectTimezone(defaultTimezone));
             }}
             onTimeframeChange={(timeframe) => dispatch(setTimeframe(timeframe))}
             onTimezoneChange={(timezone) => dispatch(selectTimezone(timezone))}

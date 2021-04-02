@@ -12,7 +12,6 @@ import {
   join,
   put,
 } from 'redux-saga/effects';
-import moment from 'moment-timezone';
 import { createTree } from '@keen.io/ui-core';
 
 import {
@@ -25,13 +24,10 @@ import {
 } from './modules/app';
 
 import {
+  querySaga,
   getOrderBy,
-  getTimeframe,
-  setTimeframe,
-  getFunnelSteps,
   setFunnelSteps,
   setFunnelStepFilters,
-  updateFunnelStep,
   setPropertyNames,
   setGroupBy,
   setOrderBy,
@@ -39,17 +35,12 @@ import {
   setQuery,
   postProcessingFinished,
   SerializeQueryAction,
-  SelectTimezoneAction,
   SelectEventCollectionAction,
   SelectFunnelStepEventCollectionAction,
-  UpdateFunnelStepTimezoneAction,
-  DEFAULT_TIMEZONE,
   SET_GROUP_BY,
   SERIALIZE_QUERY,
-  SELECT_TIMEZONE,
   SELECT_EVENT_COLLECTION,
   SELECT_FUNNEL_STEP_EVENT_COLLECTION,
-  UPDATE_FUNNEL_STEP_TIMEZONE,
 } from './modules/query';
 
 import {
@@ -75,11 +66,17 @@ import {
 
 import { createCollection, useQueryPostProcessing } from './utils';
 
-import { Filter, OrderBy, FunnelStep } from './types';
+import { Filter, OrderBy } from './types';
 import { SetGroupByAction } from './modules/query/types';
+import {
+  timezoneSaga,
+  timezoneActions,
+  getDefaultTimezone,
+} from './modules/timezone';
 
 function* appStart() {
   yield put(fetchProjectDetails());
+  yield put(timezoneActions.fetchTimezones());
 }
 
 function* fetchProject() {
@@ -162,20 +159,6 @@ function* selectFunnelStepCollection(
   if (!isSchemaExist) yield put(fetchCollectionSchema(collection));
 }
 
-function* selectTimezone(action: SelectTimezoneAction) {
-  const { timezone } = action.payload;
-  const timeframe = yield select(getTimeframe);
-
-  if (typeof timeframe !== 'string') {
-    const { start, end } = timeframe;
-    const timeWithZone = {
-      start: moment(start).tz(timezone).format(),
-      end: moment(end).tz(timezone).format(),
-    };
-    yield put(setTimeframe(timeWithZone));
-  }
-}
-
 function* storeEventSchemas() {
   const schemas = yield select(getSchemas);
   window.__QUERY_CREATOR_SCHEMAS__ = schemas;
@@ -249,6 +232,7 @@ function* serializeQuery(action: SerializeQueryAction) {
   const {
     payload: { query },
   } = action;
+
   const schemas = yield select(getSchemas);
   const usePostProcessing = useQueryPostProcessing(query);
   const transformTasks = [];
@@ -260,8 +244,9 @@ function* serializeQuery(action: SerializeQueryAction) {
     ...querySettings,
   };
 
+  const defaultTimezone = yield select(getDefaultTimezone);
   if (!query.timezone) {
-    initialQuery.timezone = DEFAULT_TIMEZONE;
+    initialQuery.timezone = defaultTimezone;
   }
 
   yield put(setQuery(initialQuery));
@@ -338,33 +323,11 @@ function* updateGroupBy(action: SetGroupByAction) {
   yield put(setOrderBy(orderBySettings));
 }
 
-function* updateFunnelStepTimezone(action: UpdateFunnelStepTimezoneAction) {
-  const { timezone } = action.payload;
-  const steps = yield select(getFunnelSteps);
-  const timeframe = steps.filter(
-    (step: FunnelStep) => step.id === action.payload.stepId
-  ).timeframe;
-
-  if (typeof timeframe !== 'string') {
-    const { start, end } = timeframe;
-    const timeWithZone = {
-      start: moment(start).tz(timezone).format(),
-      end: moment(end).tz(timezone).format(),
-    };
-    yield put(
-      updateFunnelStep(action.payload.stepId, {
-        timeframe: timeWithZone,
-      })
-    );
-  }
-}
-
 function* watcher() {
   yield takeLatest(APP_START, appStart);
   yield takeLatest(SERIALIZE_QUERY, serializeQuery);
   yield takeLatest(FETCH_PROJECT_DETAILS, fetchProject);
   yield takeEvery(FETCH_COLLECTION_SCHEMA, fetchSchema);
-  yield takeLatest(SELECT_TIMEZONE, selectTimezone);
   yield takeLatest(SELECT_EVENT_COLLECTION, selectCollection);
   yield takeLatest(SCHEMA_COMPUTED, storeEventSchemas);
   yield takeLatest(
@@ -372,9 +335,8 @@ function* watcher() {
     selectFunnelStepCollection
   );
   yield takeLatest(SET_GROUP_BY, updateGroupBy);
-  yield takeLatest(UPDATE_FUNNEL_STEP_TIMEZONE, updateFunnelStepTimezone);
 }
 
 export default function* rootSaga() {
-  yield all([watcher()]);
+  yield all([watcher(), timezoneSaga(), querySaga()]);
 }

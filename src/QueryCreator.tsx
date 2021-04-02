@@ -8,6 +8,7 @@ import { screenBreakpoints } from '@keen.io/ui-core';
 import KeenAnalysis from 'keen-analysis';
 
 import App from './App';
+import { GlobalStyles } from './components';
 import rootSaga from './saga';
 import rootReducer from './reducer';
 import { rehydrateState } from './rehydrateState';
@@ -25,7 +26,9 @@ import {
   SET_CHART_SETTINGS,
   UPDATE_VISUALIZATION_TYPE,
   QUERY_UPDATE_ACTION,
+  ANALYTICS_API_HOST,
 } from './constants';
+import { createConfiguration } from '../createConfiguration';
 
 declare global {
   interface Window {
@@ -48,6 +51,10 @@ type Props = {
   onUpdateChartSettings: (chartSettings: Record<string, any>) => void;
   /** Host name */
   host?: string;
+  /** Default timezone for query */
+  defaultTimezoneForQuery?: string;
+  /** Disable timezone selection flag */
+  disableTimezoneSelection?: boolean;
 };
 
 class QueryCreator extends React.PureComponent<Props> {
@@ -76,17 +83,25 @@ class QueryCreator extends React.PureComponent<Props> {
     const sagaMiddleware = createSagaMiddleware({
       context: {
         keenClient,
+        [ANALYTICS_API_HOST]: this.props.host,
       },
     });
 
     const preloadedState = rehydrateState();
+    const initialState = createConfiguration(
+      preloadedState,
+      this.props.defaultTimezoneForQuery,
+      !!this.props.disableTimezoneSelection
+    );
+
     this.store = createStore(
       rootReducer,
-      preloadedState,
+      initialState,
       applyMiddleware(sagaMiddleware)
     );
 
     sagaMiddleware.run(rootSaga);
+
     this.store.dispatch(appStart());
 
     this.pubsub = getPubSub();
@@ -113,6 +128,7 @@ class QueryCreator extends React.PureComponent<Props> {
         state.lastAction.type.includes(QUERY_UPDATE_ACTION)
       ) {
         if (this.updateQueryTrigger) clearTimeout(this.updateQueryTrigger);
+
         this.updateQueryTrigger = setTimeout(() => {
           onUpdateQuery(transformToQuery(query), isQueryReady);
         }, UPDATE_TIMEOUT);
@@ -125,7 +141,10 @@ class QueryCreator extends React.PureComponent<Props> {
       (eventName: string, meta: any) => {
         switch (eventName) {
           case NEW_QUERY_EVENT:
-            this.store.dispatch(resetQuery());
+            const {
+              timezone: { defaultTimezoneForQuery },
+            } = this.store.getState();
+            this.store.dispatch(resetQuery(defaultTimezoneForQuery));
             break;
           case SET_QUERY_EVENT:
             const { query } = meta;
@@ -150,6 +169,7 @@ class QueryCreator extends React.PureComponent<Props> {
   render() {
     return (
       <Provider store={this.store}>
+        <GlobalStyles modalContainer={this.props.modalContainer} />
         <ThemeProvider
           theme={{
             breakpoints: screenBreakpoints,

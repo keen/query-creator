@@ -5,6 +5,8 @@ import configureStore from 'redux-mock-store';
 
 import FunnelStep from './FunnelStep';
 
+import { timezones } from '../../modules/timezone/fixtures';
+
 const props = {
   id: 'id',
   index: 0,
@@ -20,6 +22,11 @@ const props = {
 const mockStore = configureStore([]);
 const state = {
   steps: [],
+  timezone: {
+    timezoneSelectionDisabled: false,
+    isLoading: false,
+    timezones: timezones,
+  },
   events: {
     collections: [],
     loadingSchemas: [],

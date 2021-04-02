@@ -1,4 +1,5 @@
 import { queryReducer, initialState } from './reducer';
+import { querySaga } from './querySaga';
 import {
   getQuery,
   getEventCollection,
@@ -47,6 +48,7 @@ import {
   changeFunnelStepsOrder,
   cloneFunnelStep,
   addFunnelStepFilter,
+  updateFunnelStepTimezone,
   updateFunnelStepFilter,
   removeFunnelStepFilter,
   resetExtraction,
@@ -77,6 +79,7 @@ import {
 } from './types';
 
 export {
+  querySaga,
   initialState,
   queryReducer,
   getQuery,
@@ -115,6 +118,7 @@ export {
   changeFunnelStepsOrder,
   cloneFunnelStep,
   addFunnelStepFilter,
+  updateFunnelStepTimezone,
   updateFunnelStepFilter,
   removeFunnelStepFilter,
   selectEventCollection,

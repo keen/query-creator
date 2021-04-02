@@ -1,4 +1,5 @@
-import { Timezones, Timeframe } from '@keen.io/query';
+import { Timeframe } from '@keen.io/query';
+import { createAction } from '@reduxjs/toolkit';
 
 import {
   SERIALIZE_QUERY,
@@ -58,8 +59,11 @@ export const postProcessingFinished = (): QueryActions => ({
   type: POST_PROCESSING_FINISHED,
 });
 
-export const resetQuery = (): QueryActions => ({
+export const resetQuery = (defaultTimezoneForQuery: string): QueryActions => ({
   type: RESET_QUERY,
+  payload: {
+    defaultTimezoneForQuery,
+  },
 });
 
 export const addFilter = (id: string): QueryActions => ({
@@ -112,12 +116,14 @@ export const selectTargetProperty = (property: string): QueryActions => ({
   },
 });
 
-export const selectTimezone = (timezone: Timezones): QueryActions => ({
-  type: SELECT_TIMEZONE,
-  payload: {
-    timezone,
-  },
-});
+export const selectTimezone = createAction(
+  SELECT_TIMEZONE,
+  (timezone: string) => ({
+    payload: {
+      timezone,
+    },
+  })
+);
 
 export const setInterval = (interval: string): QueryActions => ({
   type: SET_INTERVAL,
@@ -179,10 +185,14 @@ export const setFilters = (filters: Filter[]): QueryActions => ({
   },
 });
 
-export const addFunnelStep = (id: string): QueryActions => ({
+export const addFunnelStep = (
+  id: string,
+  defaultTimezone: string
+): QueryActions => ({
   type: ADD_FUNNEL_STEP,
   payload: {
     id,
+    defaultTimezone,
   },
 });
 
@@ -277,13 +287,12 @@ export const removeFunnelStepFilter = (
   },
 });
 
-export const updateFunnelStepTimezone = (
-  stepId: string,
-  timezone: Timezones
-): QueryActions => ({
-  type: UPDATE_FUNNEL_STEP_TIMEZONE,
-  payload: {
-    stepId,
-    timezone,
-  },
-});
+export const updateFunnelStepTimezone = createAction(
+  UPDATE_FUNNEL_STEP_TIMEZONE,
+  (stepId: string, timezone: string) => ({
+    payload: {
+      stepId,
+      timezone,
+    },
+  })
+);

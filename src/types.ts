@@ -1,9 +1,10 @@
-import { Timezones, Timeframe } from '@keen.io/query';
+import { Timeframe } from '@keen.io/query';
 
 import { ReducerState as AppReducerState } from './modules/app';
 import { ReducerState as QueryReducerState } from './modules/query';
 import { ReducerState as EventsReducerState } from './modules/events';
 import { ReducerState as ChartSettingsReducerState } from './modules/chartSettings';
+import { ReducerState as TimezoneReducerState } from './modules/timezone';
 
 export type Analysis =
   | 'sum'
@@ -24,6 +25,7 @@ export type AppState = {
   query: QueryReducerState;
   events: EventsReducerState;
   chartSettings: ChartSettingsReducerState;
+  timezone: TimezoneReducerState;
 };
 
 export type CreatorFields =
@@ -104,7 +106,7 @@ export type FunnelStep = {
   inverted: boolean;
   optional: boolean;
   timeframe: Timeframe;
-  timezone?: Timezones | number;
+  timezone?: string | number;
   withActors: boolean;
   filters: Filter[];
   stepLabel?: string;

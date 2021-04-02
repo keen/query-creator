@@ -15,7 +15,6 @@ import {
   SET_FILTERS,
   DEFAULT_ANALYSIS,
   DEFAULT_TIMEFRAME,
-  DEFAULT_TIMEZONE,
   ADD_FUNNEL_STEP,
   SET_FUNNEL_STEPS,
   SET_FUNNEL_STEP_FILTERS,
@@ -45,7 +44,7 @@ export const initialState: ReducerState = {
   eventCollection: null,
   targetProperty: null,
   percentile: undefined,
-  timezone: DEFAULT_TIMEZONE,
+  timezone: null,
   groupBy: undefined,
   orderBy: undefined,
   limit: undefined,
@@ -94,6 +93,7 @@ export const queryReducer = (
     case RESET_QUERY:
       return {
         ...initialState,
+        timezone: action.payload.defaultTimezoneForQuery,
       };
     case RESET_EXTRACTION:
       return {
@@ -158,6 +158,7 @@ export const queryReducer = (
           ...state.steps,
           {
             ...DEFAULT_FUNNEL_STEP,
+            timezone: action.payload.defaultTimezone,
             ...inheritFromPreviousStep(state.steps),
             id: action.payload.id,
           },

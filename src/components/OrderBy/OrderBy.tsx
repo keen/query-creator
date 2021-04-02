@@ -12,12 +12,15 @@ import { v4 as uuid } from 'uuid';
 import Sortable from 'sortablejs';
 import { AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { ActionButton, Tooltip, TitleComponent } from '@keen.io/ui-core';
+import {
+  ActionButton,
+  Tooltip,
+  TitleComponent,
+  createTree,
+} from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
 
 import { SearchContext } from '../../contexts';
-
-import { createTree } from '../../utils';
 
 import TooltipContent from '../TooltipContent';
 import { OrderByProperty } from './components';

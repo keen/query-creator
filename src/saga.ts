@@ -12,6 +12,7 @@ import {
   join,
   put,
 } from 'redux-saga/effects';
+import { createTree } from '@keen.io/ui-core';
 
 import {
   setQueryReadiness,
@@ -63,7 +64,7 @@ import {
   serializePropertyNames,
 } from './serializers';
 
-import { createTree, createCollection, useQueryPostProcessing } from './utils';
+import { createCollection, useQueryPostProcessing } from './utils';
 
 import { Filter, OrderBy } from './types';
 import { SetGroupByAction } from './modules/query/types';

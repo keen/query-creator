@@ -8,7 +8,7 @@ dist
 coverage
 config.js
 .idea/
-.package-lock.json
+package-lock.json
 .npmrc
 typings
 lib

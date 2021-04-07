@@ -22,8 +22,8 @@ export const getTimezoneValue = ({
   isLoading,
   defaultTimezone,
 }: Options) => {
-  if (isLoading) return null;
   if (typeof timezone === 'string') return timezone;
+  if (isLoading) return null;
   if (typeof timezone === 'number') {
     const namedTimezone = timezones.find(
       ({ numberOfSecondsToOffsetTime }) =>

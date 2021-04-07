@@ -15,8 +15,8 @@ test('matches timezone offset with first named timezone', () => {
   ).toEqual('Asia/Anadyr');
 });
 
-test('returns "null" when timezones are in loading state', () => {
-  const timezone = 'Europe/London';
+test('returns "null" when timezones are in loading state and numeric offset is provided ', () => {
+  const timezone = 1200;
 
   expect(
     getTimezoneValue({

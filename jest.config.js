@@ -22,7 +22,12 @@ module.exports = {
   testEnvironment: 'jest-environment-jsdom-sixteen',
 
   setupFilesAfterEnv: [
-  '<rootDir>/jest.setup.ts'
+   '<rootDir>/jest.setup.ts'
+  ],
+
+  testPathIgnorePatterns : [
+   '<rootDir>/dist',
+   '<rootDir>/lib',
   ],
 
   transformIgnorePatterns: [

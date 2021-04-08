@@ -1706,15 +1706,15 @@
     d3-time "^2.0.0"
     d3-time-format "^2.2.3"
 
-"@keen.io/charts@^2.12.13":
-  version "2.12.13"
-  resolved "https://registry.yarnpkg.com/@keen.io/charts/-/charts-2.12.13.tgz#20bc5ca2e3d76c3973f40c94d11e55827c8f8aa7"
-  integrity sha512-CAw4MLJ48swovaFaYpbFM2GJxKOEfezjJRqBNBKL6YPP5Q/Bfl5QH0runrs2zcU4xiAP1ZvCXWpO6XM1FpGr8g==
+"@keen.io/charts@^2.12.15":
+  version "2.12.15"
+  resolved "https://registry.yarnpkg.com/@keen.io/charts/-/charts-2.12.15.tgz#8a66590da1f5b55e49aeab925a7e403483e04c5e"
+  integrity sha512-MVct30lln4u8S1B28qFoCLppf2FAW2IlcE6dwO5gSL8FeusqD7xbhfyUBTccYq8eYpC7tCHRuhJaty8YHUzXxA==
   dependencies:
     "@keen.io/charts-utils" "^1.8.4"
     "@keen.io/colors" "^1.1.0"
     "@keen.io/react-hooks" "^1.0.7"
-    "@keen.io/ui-core" "^2.20.2"
+    "@keen.io/ui-core" "^2.20.4"
     column-resizer "^1.3.5"
     d3-array "^2.4.0"
     d3-axis "^1.0.12"
@@ -1767,29 +1767,29 @@
     fuse.js "^6.4.1"
 
 "@keen.io/time-utils@^1.2.0":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@keen.io/time-utils/-/time-utils-1.2.2.tgz#39bf91b2be98179f1c7eb86ba5ed1561ff87a6aa"
-  integrity sha512-zSRm3M4VGokPoghqyxwOshJjrhBtEtZ0MXKc8ZXZEaugrW3M79CKVXdoSmXZ1fLq4sbIiX//7sKKaq7ZPhK35A==
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@keen.io/time-utils/-/time-utils-1.2.3.tgz#e11c2ea1736166e81d943b80cbf401250f2a90db"
+  integrity sha512-s441TjBg6c4VBLCPJQgmMYVT6UG9KRTic3Pne+T/sbDcngVd8ciBqD7ZlqnJ+ZE4nJDxp+Xgt0WGtJVyrQBQhw==
   dependencies:
     dayjs "^1.10.4"
 
-"@keen.io/typography@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@keen.io/typography/-/typography-1.2.1.tgz#8ad180e61d2913cdb615e714a478bea661d97eab"
-  integrity sha512-fznh2JszONiHaNtYNYOhIxb1jq/ofg/bl/sybXoNpt+jJW9ooEoUyYvpnDL9dVcgp6wV4hi7u5SJ2uEOFZ+Qzg==
+"@keen.io/typography@^1.2.1", "@keen.io/typography@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@keen.io/typography/-/typography-1.3.0.tgz#362d59624b53a8c696c036f8377d9f418e1b38ef"
+  integrity sha512-o6TbRiFHbRo3q4FINne0wGLXgYkP/Fw/XzSA55dXNJqV8ZjFvF+9hPcAv0u/vEMin57cBvh/WGoPRn2qCDpD/w==
   dependencies:
     "@keen.io/colors" "^1.0.0"
     styled-system "^5.1.5"
 
-"@keen.io/ui-core@^2", "@keen.io/ui-core@^2.20.2":
-  version "2.20.2"
-  resolved "https://registry.yarnpkg.com/@keen.io/ui-core/-/ui-core-2.20.2.tgz#56c9538305b2b9c46f895508dd694c3e3a296080"
-  integrity sha512-57gk9lYhRe4O9zbGpsQDAAPkfHxYfgpRnjHA7JBmjHM5hTrpLFv5wh++ZwDejsUqfBljv9X40b8E1EYRpHjGfw==
+"@keen.io/ui-core@^2", "@keen.io/ui-core@^2.20.4":
+  version "2.20.4"
+  resolved "https://registry.yarnpkg.com/@keen.io/ui-core/-/ui-core-2.20.4.tgz#4b3e9685a5446d33b86012e61b17b6a02958a191"
+  integrity sha512-ZKo/V3CqOrPFYdtCejhNbsO3Bqoa3DpZYq7PoEI6z2IQnAClNnDiSjHr3rmZEncNF0dwdClx9ufIY24IIUWxYQ==
   dependencies:
     "@keen.io/colors" "^1.1.0"
     "@keen.io/icons" "^1.4.1"
     "@keen.io/query" "^1.2.0"
-    "@keen.io/typography" "^1.2.1"
+    "@keen.io/typography" "^1.3.0"
     color "^3.1.2"
     framer-motion "^1.11.1"
     fuse.js "^6.4.1"
@@ -1804,15 +1804,15 @@
     webfontloader "^1.6.28"
 
 "@keen.io/widgets@^2":
-  version "2.3.21"
-  resolved "https://registry.yarnpkg.com/@keen.io/widgets/-/widgets-2.3.21.tgz#288cd0b4bd81e6847bd4960a0514101281fe5c4d"
-  integrity sha512-fh0kiQeQdBNSIdJkvQFFC6XK8YHa3eQ8uWRIrdr9bn6mWnteuVMThCBpsUMv+qZPi47/fPuFqfYITsNSolFlsg==
+  version "2.3.23"
+  resolved "https://registry.yarnpkg.com/@keen.io/widgets/-/widgets-2.3.23.tgz#a31d32a9ac96f3d4b34597348b83bc3a90116551"
+  integrity sha512-SCADjwoUirC4u6z7y2Ckp7D1X2E6vF/6rkmZick/EZkuLzVkGN1PRsQZ7SnPYutjMAwbb9GlA4xrfNtBpB+0xg==
   dependencies:
-    "@keen.io/charts" "^2.12.13"
+    "@keen.io/charts" "^2.12.15"
     "@keen.io/charts-utils" "^1.8.4"
     "@keen.io/colors" "^1.1.0"
     "@keen.io/react-hooks" "^1.0.7"
-    "@keen.io/ui-core" "^2.20.2"
+    "@keen.io/ui-core" "^2.20.4"
 
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents":
   version "2.1.8-no-fsevents"

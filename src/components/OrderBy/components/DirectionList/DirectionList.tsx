@@ -6,7 +6,7 @@ import {
   DropdownListContainer,
 } from '@keen.io/ui-core';
 
-import { Container, OrderList, DropableWrapper } from './DirectionList.styles';
+import { Container, OrderList } from './DirectionList.styles';
 
 import { OrderDirection } from '../../types';
 import { DIRECTION_OPTIONS } from '../../constants';
@@ -23,17 +23,15 @@ const DirectionList: FC<Props> = ({ direction = 'DESC', onChange }) => {
 
   return (
     <Container>
-      <DropableWrapper>
-        <DropableContainer
-          isActive={editMode}
-          variant="secondary"
-          onClick={() => !editMode && setEditMode(true)}
-          onDefocus={() => setEditMode(false)}
-          value={direction}
-        >
-          {direction}
-        </DropableContainer>
-      </DropableWrapper>
+      <DropableContainer
+        isActive={editMode}
+        variant="transparent"
+        onClick={() => !editMode && setEditMode(true)}
+        onDefocus={() => setEditMode(false)}
+        value={direction}
+      >
+        {direction}
+      </DropableContainer>
       <Dropdown isOpen={editMode} fullWidth={false}>
         <OrderList data-testid="order-list">
           <DropdownListContainer scrollToActive maxHeight={240}>

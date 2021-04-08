@@ -4,7 +4,6 @@ import { PropertyItem } from '../../../PropertyGroup';
 
 export const Container = styled.div`
   position: relative;
-
   display: inline-flex;
   flex-direction: column;
 `;
@@ -14,8 +13,6 @@ export const DropdownContent = styled.div`
 `;
 
 export const StyledPropertyItem = styled(PropertyItem)`
-  background: none;
-
   &.drag-handle {
     cursor: grab;
     display: flex;

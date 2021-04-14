@@ -7,9 +7,3 @@ export const OrderList = styled.div`
 export const Container = styled.div`
   position: relative;
 `;
-
-export const DropableWrapper = styled.div`
-  & > div {
-    background: none;
-  }
-`;

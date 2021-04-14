@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.5](https://github.com/keen/query-creator/compare/v1.5.4...v1.5.5) (2021-04-14)
+
+
+### Bug Fixes
+
+* 🐛 Dropable container - transparent variant used ([#72](https://github.com/keen/query-creator/issues/72)) ([c89477e](https://github.com/keen/query-creator/commit/c89477ed10de093010a64ced98f790be53e83328))
+* 🐛 enhance string property filter operators ([9937c06](https://github.com/keen/query-creator/commit/9937c06f697d9ba30426d6d9f9714645f2a16c0d))
+
 ### [1.5.4](https://github.com/keen/query-creator/compare/v1.5.3...v1.5.4) (2021-04-08)
 
 ### [1.5.3](https://github.com/keen/query-creator/compare/v1.5.2...v1.5.3) (2021-04-07)

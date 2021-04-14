@@ -135,6 +135,16 @@ export const TYPES_CONFIG: Record<
       defaultValue: '',
       component: 'input-text',
     },
+    lte: {
+      label: 'is less than or same as',
+      defaultValue: '',
+      component: 'input-text',
+    },
+    gte: {
+      label: 'is greater than or same as',
+      defaultValue: '',
+      component: 'input-text',
+    },
     regex: {
       label: 'matches regex',
       defaultValue: '',

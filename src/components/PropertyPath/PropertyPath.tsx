@@ -47,7 +47,15 @@ const PropertyPath: FC<Props> = ({ path }) => {
           ];
         }
 
-        return <span key={`${slice}-${idx}`}>{slice}</span>;
+        return (
+          <BodyText
+            variant="body2"
+            color={colors.blue[500]}
+            key={`${slice}-${idx}`}
+          >
+            {slice}
+          </BodyText>
+        );
       })}
     </Container>
   );

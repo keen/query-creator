@@ -5,9 +5,9 @@ import Card from '../Card';
 
 export const SmallItem = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   width: 140px;
+  padding-top: 20px;
 
   label > div {
     margin-right: 10px;
@@ -15,32 +15,24 @@ export const SmallItem = styled.div`
 `;
 
 export const Item = styled.div`
-  flex-basis: 25%;
+  flex: 1;
   max-width: 320px;
+  min-width: 285px;
 `;
 
 export const Wrapper = styled.div<LayoutProps>`
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   padding: 10px 0 20px 0;
+  grid-gap: 20px;
 
   ${layout};
-
-  ${SmallItem} + ${SmallItem},
-  ${Item} + ${SmallItem} {
-    padding-top: 20px;
-    margin-left: 20px;
-  }
 `;
 
 export const CardWrapper = styled(Card)`
   ${Wrapper} + ${Wrapper} {
     border-top: 1px solid ${colors.white[300]};
-  }
-
-  ${Item} + ${Item} {
-    margin-left: 20px;
   }
 `;
 

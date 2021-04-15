@@ -1,22 +1,18 @@
 import styled from 'styled-components';
 
 export const MenuItem = styled.div`
-  flex-basis: 25%;
+  flex: 1;
   max-width: 320px;
-  flex-shrink: 1;
+  min-width: 285px;
 `;
 
 export const MenuItemPercentile = styled.div`
-  flex-basis: 68px;
+  flex-shrink: 0;
 `;
 
 export const Container = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  grid-gap: 20px;
   margin-bottom: 20px;
-
-  ${MenuItem} + ${MenuItem},
-  ${MenuItemPercentile} + ${MenuItem},
-  ${MenuItem} + ${MenuItemPercentile} {
-    margin-left: 20px;
-  }
 `;

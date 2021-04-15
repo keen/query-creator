@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { BodyText } from '@keen.io/typography';
+import { colors } from '@keen.io/colors';
 
-import { Container, IncludesToday } from './RelativeTimeLabel.styles';
+import { IncludesToday } from './RelativeTimeLabel.styles';
 
 import { getInterval } from '../../../../utils';
 
@@ -18,10 +20,10 @@ const RelativeTimeLabel: FC<Props> = ({ relativity, value, units }) => {
   const { t } = useTranslation();
   const interval = getInterval(units);
   return (
-    <Container>
+    <BodyText variant="body2" color={colors.blue[500]} enableTextEllipsis>
       <span>
         {t('query_creator_relative_time_label.label')} {value} {units}
-      </span>{' '}
+      </span>
       {relativity === 'this' && (
         <IncludesToday>
           {interval === 'day'
@@ -31,7 +33,7 @@ const RelativeTimeLabel: FC<Props> = ({ relativity, value, units }) => {
               )} ${interval})`}
         </IncludesToday>
       )}
-    </Container>
+    </BodyText>
   );
 };
 

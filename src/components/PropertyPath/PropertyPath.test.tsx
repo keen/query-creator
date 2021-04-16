@@ -9,11 +9,7 @@ const render = (overProps: any = {}) => {
     ...overProps,
   };
 
-  const wrapper = rtlRender(
-    <div data-testid="wrapper">
-      <PropertyPath {...props} />
-    </div>
-  );
+  const wrapper = rtlRender(<PropertyPath {...props} />);
 
   return {
     wrapper,

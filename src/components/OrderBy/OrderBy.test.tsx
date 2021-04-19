@@ -4,6 +4,7 @@ import {
   render as rtlRender,
   fireEvent,
   waitFor,
+  cleanup,
 } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import { createTree } from '@keen.io/ui-core';
@@ -13,6 +14,7 @@ import { createCollection } from '../../utils';
 import OrderBy from './OrderBy';
 
 import { DEFAULT_ORDER_SETTINGS } from './constants';
+import { AppContext } from '../../contexts';
 
 const render = (storeState: any = {}, overProps: any = {}) => {
   const mockStore = configureStore([]);
@@ -31,10 +33,16 @@ const render = (storeState: any = {}, overProps: any = {}) => {
   };
 
   const store = mockStore({ ...state });
-
   const wrapper = rtlRender(
     <Provider store={store}>
-      <OrderBy {...overProps} />
+      <AppContext.Provider
+        value={{
+          modalContainer: '#modal-root',
+          onUpdateChartSettings: jest.fn(),
+        }}
+      >
+        <OrderBy {...overProps} />
+      </AppContext.Provider>
     </Provider>
   );
 
@@ -43,6 +51,19 @@ const render = (storeState: any = {}, overProps: any = {}) => {
     wrapper,
   };
 };
+
+afterEach(() => {
+  cleanup();
+});
+
+beforeEach(() => {
+  let modalRoot = document.getElementById('modal-root');
+  if (!modalRoot) {
+    modalRoot = document.createElement('div');
+    modalRoot.setAttribute('id', 'modal-root');
+    document.body.appendChild(modalRoot);
+  }
+});
 
 test('allows user to set order by property', () => {
   const storeState = {
@@ -154,16 +175,14 @@ test('should render tooltip with notification about the group by', async () => {
   };
 
   const {
-    wrapper: { getByTestId, getByText },
+    wrapper: { getByTestId },
   } = render(storeState, { collection: 'collection' });
 
   const wrapper = getByTestId('order-by-wrapper');
   fireEvent.mouseEnter(wrapper);
 
-  waitFor(() => {
-    expect(
-      getByText('query_creator_order_by.order_result')
-    ).toBeInTheDocument();
+  await waitFor(() => {
+    expect(getByTestId('select-group-by')).toBeInTheDocument();
   });
 });
 
@@ -175,14 +194,14 @@ test('should render tooltip with notification about the event stream', async () 
   };
 
   const {
-    wrapper: { getByTestId, getByText },
+    wrapper: { getByTestId },
   } = render(storeState);
 
   const wrapper = getByTestId('order-by-wrapper');
   fireEvent.mouseEnter(wrapper);
 
-  waitFor(() => {
-    expect(getByText('query_creator_order_by.tooltip')).toBeInTheDocument();
+  await waitFor(() => {
+    expect(getByTestId('select-event-stream')).toBeInTheDocument();
   });
 });
 

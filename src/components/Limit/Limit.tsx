@@ -1,11 +1,13 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { AnimatePresence } from 'framer-motion';
-import { Input, Tooltip, TitleComponent } from '@keen.io/ui-core';
+import {
+  Input,
+  TitleComponent,
+  MousePositionedTooltip,
+} from '@keen.io/ui-core';
 
-import TooltipContent from '../TooltipContent';
-import { Wrapper, TooltipMotion } from './Limit.styles';
+import { Wrapper } from './Limit.styles';
 
 import {
   setLimit,
@@ -14,7 +16,9 @@ import {
   getOrderBy,
 } from '../../modules/query';
 
-import { TOOLTIP_MOTION } from '../../constants';
+import { AppContext } from '../../contexts';
+import { colors } from '@keen.io/colors';
+import { BodyText } from '@keen.io/typography';
 
 type Props = {
   /** Collection name */
@@ -23,12 +27,13 @@ type Props = {
 
 const Limit: FC<Props> = ({ collection }) => {
   const dispatch = useDispatch();
+  const { modalContainer } = useContext(AppContext);
+
   const { t } = useTranslation();
   const limit = useSelector(getLimit);
   const groupBy = useSelector(getGroupBy);
   const orderBy = useSelector(getOrderBy);
   const isDisabled = !groupBy || !orderBy;
-  const [hint, showHint] = useState(false);
 
   const changeHandler = useCallback((eventValue) => {
     if (eventValue) {
@@ -40,7 +45,9 @@ const Limit: FC<Props> = ({ collection }) => {
   }, []);
 
   useEffect(() => {
-    return () => dispatch(setLimit(undefined));
+    return () => {
+      dispatch(setLimit(undefined));
+    };
   }, []);
 
   useEffect(() => {
@@ -49,51 +56,47 @@ const Limit: FC<Props> = ({ collection }) => {
     }
   }, [isDisabled]);
 
+  const selectAndOrderDataTooltip = () => (
+    <BodyText variant="body2" fontWeight="normal" color={colors.white[500]}>
+      {collection ? (
+        <span data-testid="order-data-tooltip">
+          <strong>{t('query_creator_limit.order')}</strong>{' '}
+          {t('query_creator_limit.limit_result')}
+        </span>
+      ) : (
+        <span data-testid="select-event-stream-tooltip">
+          {t('query_creator_limit.select')}{' '}
+          <strong>{t('query_creator_limit.event_stream')}</strong>{' '}
+          {t('query_creator_limit.tooltip')}
+        </span>
+      )}
+    </BodyText>
+  );
+
   return (
     <>
       <TitleComponent isDisabled={isDisabled}>
         {t('query_creator_limit.label')}
       </TitleComponent>
-      <Wrapper
-        data-testid="limit-wrapper"
-        onMouseEnter={() => isDisabled && showHint(true)}
-        onMouseLeave={() => isDisabled && showHint(false)}
+      <MousePositionedTooltip
+        isActive={isDisabled}
+        tooltipTheme="dark"
+        tooltipPortal={modalContainer}
+        renderContent={selectAndOrderDataTooltip}
       >
-        <Input
-          disabled={isDisabled}
-          type="number"
-          variant="solid"
-          data-testid="limit"
-          id="limit"
-          placeholder={t('query_creator_limit.placeholder')}
-          value={limit ? limit : ''}
-          onChange={(e) => changeHandler(e.target.value)}
-        />
-        {isDisabled && (
-          <AnimatePresence>
-            {hint && (
-              <TooltipMotion {...TOOLTIP_MOTION} data-testid="limit-hint">
-                <Tooltip hasArrow={false} mode="dark">
-                  <TooltipContent>
-                    {collection ? (
-                      <span>
-                        <strong>{t('query_creator_limit.order')}</strong>{' '}
-                        {t('query_creator_limit.limit_result')}
-                      </span>
-                    ) : (
-                      <span>
-                        {t('query_creator_limit.select')}{' '}
-                        <strong>{t('query_creator_limit.event_stream')}</strong>{' '}
-                        {t('query_creator_limit.tooltip')}
-                      </span>
-                    )}
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipMotion>
-            )}
-          </AnimatePresence>
-        )}
-      </Wrapper>
+        <Wrapper data-testid="limit-wrapper">
+          <Input
+            disabled={isDisabled}
+            type="number"
+            variant="solid"
+            data-testid="limit"
+            id="limit"
+            placeholder={t('query_creator_limit.placeholder')}
+            value={limit ? limit : ''}
+            onChange={(e) => changeHandler(e.target.value)}
+          />
+        </Wrapper>
+      </MousePositionedTooltip>
     </>
   );
 };

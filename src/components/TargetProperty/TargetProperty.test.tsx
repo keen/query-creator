@@ -220,16 +220,14 @@ test('should render tooltip', async () => {
   };
 
   const {
-    wrapper: { getByText, getByTestId },
+    wrapper: { getByTestId },
   } = render(storeState);
 
   const wrapper = getByTestId('target-property-wrapper');
   fireEvent.mouseEnter(wrapper);
 
-  waitFor(() => {
-    expect(
-      getByText('query_creator_target_property.event_stream')
-    ).toBeInTheDocument();
+  await waitFor(() => {
+    expect(getByTestId('select-event-stream-tooltip')).toBeInTheDocument();
   });
 });
 
@@ -251,7 +249,7 @@ test('should render tooltip with hint icon', async () => {
   };
 
   const {
-    wrapper: { getByText, getByTestId },
+    wrapper: { getByTestId },
   } = render(storeState, {
     analysis: 'maximum',
   });
@@ -259,9 +257,7 @@ test('should render tooltip with hint icon', async () => {
   const wrapper = getByTestId('hint-icon-wrapper');
   fireEvent.mouseEnter(wrapper);
 
-  waitFor(() => {
-    expect(
-      getByText('query_creator_target_property.tooltip_bold')
-    ).toBeInTheDocument();
+  await waitFor(() => {
+    expect(getByTestId('numeric-data-required-tooltip')).toBeInTheDocument();
   });
 });

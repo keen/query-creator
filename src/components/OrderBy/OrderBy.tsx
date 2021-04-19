@@ -5,42 +5,34 @@ import React, {
   useEffect,
   useCallback,
   useState,
+  useContext,
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import shallowEqual from 'shallowequal';
 import { v4 as uuid } from 'uuid';
 import Sortable from 'sortablejs';
-import { AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import {
   ActionButton,
-  Tooltip,
   TitleComponent,
   createTree,
+  MousePositionedTooltip,
 } from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
+import { colors } from '@keen.io/colors';
+import { BodyText } from '@keen.io/typography';
 
-import { SearchContext } from '../../contexts';
-
-import TooltipContent from '../TooltipContent';
 import { OrderByProperty } from './components';
-import {
-  Section,
-  SortableContainer,
-  OrderByContainer,
-  TooltipMotion,
-} from './OrderBy.styles';
+import { DRAG_ANIMATION_TIME } from './constants';
+import { OrderDirection } from './types';
+import { filterSchema, createListFromSchema } from './utils';
+import { Section, SortableContainer, OrderByContainer } from './OrderBy.styles';
 
 import { mutateArray } from '../../utils';
-import { filterSchema, createListFromSchema } from './utils';
 import { setOrderBy, getGroupBy, getOrderBy } from '../../modules/query';
 import { getCollectionSchema } from '../../modules/events';
-
-import { TOOLTIP_MOTION } from '../../constants';
-import { DRAG_ANIMATION_TIME } from './constants';
-
+import { AppContext, SearchContext } from '../../contexts';
 import { AppState, OrderBy as OrderBySettings } from '../../types';
-import { OrderDirection } from './types';
 
 type Props = {
   /** Collection name */
@@ -49,6 +41,7 @@ type Props = {
 
 const OrderBy: FC<Props> = ({ collection }) => {
   const dispatch = useDispatch();
+  const { modalContainer } = useContext(AppContext);
   const { t } = useTranslation();
   const groups: string[] = useSelector((state: AppState) => {
     const groupBy = getGroupBy(state);
@@ -72,7 +65,6 @@ const OrderBy: FC<Props> = ({ collection }) => {
   const [searchPropertiesPhrase, setSearchPhrase] = useState(null);
   const [expandTree, setTreeExpand] = useState(false);
   const [isDragged, setDragMode] = useState(false);
-  const [hint, showHint] = useState(false);
 
   const filteredSchema = filterSchema(schema, groups, orderBy);
 
@@ -186,106 +178,102 @@ const OrderBy: FC<Props> = ({ collection }) => {
     !Object.keys(filteredSchema).length ||
     (orderBy && orderBy.some((item) => !item.propertyName));
 
+  const selectAndGroupDataTooltip = () => (
+    <BodyText variant="body2" fontWeight="normal" color={colors.white[500]}>
+      {collection ? (
+        <span data-testid="select-group-by">
+          {t('query_creator_order_by.define')}{' '}
+          <strong>{t('query_creator_order_by.group_by')}</strong>{' '}
+          {t('query_creator_order_by.order_result')}
+        </span>
+      ) : (
+        <span data-testid="select-event-stream">
+          {t('query_creator_order_by.select')}{' '}
+          <strong>{t('query_creator_order_by.event_stream')}</strong>{' '}
+          {t('query_creator_order_by.tooltip')}
+        </span>
+      )}
+    </BodyText>
+  );
+
   return (
     <>
       <TitleComponent isDisabled={!showOrderOptions}>
         {t('query_creator_order_by.title')}
       </TitleComponent>
-      <Section
-        data-testid="order-by-wrapper"
-        onMouseEnter={() => !showOrderOptions && showHint(true)}
-        onMouseLeave={() => !showOrderOptions && showHint(false)}
+      <MousePositionedTooltip
+        isActive={!showOrderOptions}
+        tooltipPortal={modalContainer}
+        tooltipTheme={'dark'}
+        renderContent={selectAndGroupDataTooltip}
       >
-        <SearchContext.Provider value={{ expandTree, searchPropertiesPhrase }}>
-          <SortableContainer ref={sortableRef}>
-            {orderBy &&
-              orderBy.map(({ propertyName, direction, id }) => (
-                <OrderByContainer key={id}>
-                  <OrderByProperty
-                    property={
-                      propertyName === 'result'
-                        ? t('query_creator_order_by.order_options_label')
-                        : propertyName
-                    }
-                    orderDirection={direction}
-                    isEditAllowed={!isDragged}
-                    properties={
-                      propertiesTree
-                        ? propertiesTree
-                        : { ...createTree(filteredSchema), ...resultObject }
-                    }
-                    onSelectDirection={(value: OrderDirection) => {
-                      const orderSettings = {
-                        id,
-                        propertyName,
-                        direction: value,
-                      };
-                      updateOrderBy(orderSettings as OrderBySettings, id);
-                    }}
-                    onSelectProperty={(value: string) => {
-                      clearSearchHandler();
-                      const orderSettings = {
-                        id,
-                        propertyName: value,
-                        direction,
-                      };
-                      updateOrderBy(orderSettings as OrderBySettings, id);
-                    }}
-                    onSearchProperties={searchHandler}
-                    onBlur={() => {
-                      if (!propertyName) removeOrderBy(id);
-                    }}
-                    onRemove={() => {
-                      clearSearchHandler();
-                      removeOrderBy(id);
-                    }}
-                  />
-                </OrderByContainer>
-              ))}
-            <ActionButton
-              className="add-button"
-              isDisabled={isActionButtonDisabled()}
-              action="create"
-              onClick={() => {
-                const currentSettings = orderBy || [];
-                dispatch(
-                  setOrderBy([
-                    ...currentSettings,
-                    { id: uuid(), propertyName: '', direction: 'DESC' },
-                  ])
-                );
-              }}
-            />
-          </SortableContainer>
-        </SearchContext.Provider>
-        {!showOrderOptions && (
-          <AnimatePresence>
-            {hint && (
-              <TooltipMotion {...TOOLTIP_MOTION} data-testid="orderby-hint">
-                <Tooltip hasArrow={false} mode="dark">
-                  <TooltipContent>
-                    {collection ? (
-                      <span>
-                        {t('query_creator_order_by.define')}{' '}
-                        <strong>{t('query_creator_order_by.group_by')}</strong>{' '}
-                        {t('query_creator_order_by.order_result')}
-                      </span>
-                    ) : (
-                      <span>
-                        {t('query_creator_order_by.select')}{' '}
-                        <strong>
-                          {t('query_creator_order_by.event_stream')}
-                        </strong>{' '}
-                        {t('query_creator_order_by.tooltip')}
-                      </span>
-                    )}
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipMotion>
-            )}
-          </AnimatePresence>
-        )}
-      </Section>
+        <Section data-testid="order-by-wrapper">
+          <SearchContext.Provider
+            value={{ expandTree, searchPropertiesPhrase }}
+          >
+            <SortableContainer ref={sortableRef}>
+              {orderBy &&
+                orderBy.map(({ propertyName, direction, id }) => (
+                  <OrderByContainer key={id}>
+                    <OrderByProperty
+                      property={
+                        propertyName === 'result'
+                          ? t('query_creator_order_by.order_options_label')
+                          : propertyName
+                      }
+                      orderDirection={direction}
+                      isEditAllowed={!isDragged}
+                      properties={
+                        propertiesTree
+                          ? propertiesTree
+                          : { ...createTree(filteredSchema), ...resultObject }
+                      }
+                      onSelectDirection={(value: OrderDirection) => {
+                        const orderSettings = {
+                          id,
+                          propertyName,
+                          direction: value,
+                        };
+                        updateOrderBy(orderSettings as OrderBySettings, id);
+                      }}
+                      onSelectProperty={(value: string) => {
+                        clearSearchHandler();
+                        const orderSettings = {
+                          id,
+                          propertyName: value,
+                          direction,
+                        };
+                        updateOrderBy(orderSettings as OrderBySettings, id);
+                      }}
+                      onSearchProperties={searchHandler}
+                      onBlur={() => {
+                        if (!propertyName) removeOrderBy(id);
+                      }}
+                      onRemove={() => {
+                        clearSearchHandler();
+                        removeOrderBy(id);
+                      }}
+                    />
+                  </OrderByContainer>
+                ))}
+              <ActionButton
+                className="add-button"
+                isDisabled={isActionButtonDisabled()}
+                action="create"
+                onClick={() => {
+                  const currentSettings = orderBy || [];
+                  dispatch(
+                    setOrderBy([
+                      ...currentSettings,
+                      { id: uuid(), propertyName: '', direction: 'DESC' },
+                    ])
+                  );
+                }}
+              />
+            </SortableContainer>
+          </SearchContext.Provider>
+        </Section>
+      </MousePositionedTooltip>
     </>
   );
 };

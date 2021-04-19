@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useCallback } from 'react';
 import { Icon } from '@keen.io/icons';
+import { BodyText } from '@keen.io/typography';
 import { colors } from '@keen.io/colors';
 
 import { Container, Wrapper } from './PropertyPath.styles';
@@ -9,14 +10,32 @@ type Props = {
   path: string[];
 };
 
+const OVERFLOW_CONTENT = '...';
+
 const PropertyPath: FC<Props> = ({ path }) => {
   const pathLength = path.length;
+
+  const [isOverflow, setOverflow] = useState(false);
+
+  const propertyRef = useCallback((node) => {
+    if (node !== null) {
+      const overflow = node.scrollWidth > node.offsetWidth;
+      setOverflow(overflow);
+    }
+  }, []);
+
   return (
-    <Container>
-      {path.map((slice, idx) => {
+    <Container ref={propertyRef}>
+      {path.map((slice, idx, arr) => {
         if (idx + 1 < pathLength) {
           return [
-            <span key={`${slice}-${idx}`}>{slice}</span>,
+            <BodyText
+              variant="body2"
+              color={colors.blue[500]}
+              key={`${slice}-${idx}`}
+            >
+              {isOverflow && idx !== arr.length - 1 ? OVERFLOW_CONTENT : slice}
+            </BodyText>,
             <Wrapper key={`${slice}-${idx}-wrapper`}>
               <Icon
                 type="caret-right"
@@ -28,7 +47,15 @@ const PropertyPath: FC<Props> = ({ path }) => {
           ];
         }
 
-        return <span key={`${slice}-${idx}`}>{slice}</span>;
+        return (
+          <BodyText
+            variant="body2"
+            color={colors.blue[500]}
+            key={`${slice}-${idx}`}
+          >
+            {slice}
+          </BodyText>
+        );
       })}
     </Container>
   );

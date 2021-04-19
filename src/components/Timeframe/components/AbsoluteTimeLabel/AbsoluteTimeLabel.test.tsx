@@ -12,11 +12,13 @@ const props = {
 test('renders formatted start date', () => {
   const { getByText } = render(<AbsoluteTimeLabel {...props} />);
 
-  expect(getByText('2021-03-02 12:00')).toBeInTheDocument();
+  expect(getByText('2021-03-02')).toBeInTheDocument();
+  expect(getByText('12:00')).toBeInTheDocument();
 });
 
 test('renders formatted end date', () => {
   const { getByText } = render(<AbsoluteTimeLabel {...props} />);
 
-  expect(getByText('2021-03-03 13:00')).toBeInTheDocument();
+  expect(getByText('2021-03-03')).toBeInTheDocument();
+  expect(getByText('13:00')).toBeInTheDocument();
 });

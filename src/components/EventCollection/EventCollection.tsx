@@ -18,6 +18,7 @@ import {
   EmptySearch,
 } from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
+import { BodyText } from '@keen.io/typography';
 
 import { Container } from './EventCollection.styles';
 
@@ -163,7 +164,9 @@ const EventCollection: FC<Props> = ({
           setOpen(false);
         }}
       >
-        {collection}
+        <BodyText variant="body2" enableTextEllipsis>
+          {collection}
+        </BodyText>
       </DropableContainer>
       <Dropdown isOpen={isOpen}>
         {searchPhrase && !collectionsList.length ? (

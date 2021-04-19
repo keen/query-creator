@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/keen/query-creator/compare/v1.5.5...v1.6.0) (2021-04-19)
+
+
+### Features
+
+* 🎸 support rwd in layout ([16f1c3a](https://github.com/keen/query-creator/commit/16f1c3a19b7976e63afacf04514a28fa18879c6b))
+
+
+### Bug Fixes
+
+* 🐛 long target property ([e26895f](https://github.com/keen/query-creator/commit/e26895fe4ecc8deb27bc226248d233b392624372))
+
 ### [1.5.5](https://github.com/keen/query-creator/compare/v1.5.4...v1.5.5) (2021-04-14)
 
 

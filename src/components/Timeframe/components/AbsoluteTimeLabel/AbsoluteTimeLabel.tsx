@@ -1,8 +1,9 @@
 import React, { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { formatDate } from '@keen.io/time-utils';
+import { BodyText } from '@keen.io/typography';
+import { colors } from '@keen.io/colors';
 
-import { Container, Separator } from './AbsoluteTimeLabel.styles';
+import { Separator, Hours } from './AbsoluteTimeLabel.styles';
 
 type Props = {
   /** Start date in ISO format */
@@ -14,13 +15,16 @@ type Props = {
 };
 
 const AbsoluteTimeLabel: FC<Props> = memo(({ timezone, start, end }) => {
-  const { t } = useTranslation();
+  const [startDate, startHours] = formatDate(start, timezone).split(' ');
+  const [endDate, endHours] = formatDate(end, timezone).split(' ');
   return (
-    <Container>
-      <span>{formatDate(start, timezone)}</span>
-      <Separator>{t('absolute_time_label.separator')}</Separator>
-      <span>{formatDate(end, timezone)}</span>
-    </Container>
+    <BodyText variant="body2" color={colors.blue[500]} enableTextEllipsis>
+      <span>{startDate}</span>
+      <Hours>{startHours}</Hours>
+      <Separator>-</Separator>
+      <span>{endDate}</span>
+      <Hours>{endHours}</Hours>
+    </BodyText>
   );
 });
 

@@ -46,9 +46,6 @@
     "start_date": "From",
     "end_date": "To"
   },
-  "absolute_time_label": {
-    "separator": "to"
-  },
   "custom_interval": {
     "main_label": "Every",
     "unit_placeholder": "Unit placeholder"

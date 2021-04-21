@@ -4,10 +4,12 @@ import {
   render as rtlRender,
   fireEvent,
   waitFor,
+  cleanup,
 } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 
 import Limit from './Limit';
+import { AppContext } from '../../contexts';
 
 const render = (storeState: any = {}, overProps: any = {}) => {
   const mockStore = configureStore([]);
@@ -15,7 +17,14 @@ const render = (storeState: any = {}, overProps: any = {}) => {
 
   const wrapper = rtlRender(
     <Provider store={store}>
-      <Limit {...overProps} />
+      <AppContext.Provider
+        value={{
+          modalContainer: '#modal-root',
+          onUpdateChartSettings: jest.fn(),
+        }}
+      >
+        <Limit {...overProps} />
+      </AppContext.Provider>
     </Provider>
   );
 
@@ -24,6 +33,19 @@ const render = (storeState: any = {}, overProps: any = {}) => {
     wrapper,
   };
 };
+
+afterEach(() => {
+  cleanup();
+});
+
+beforeEach(() => {
+  let modalRoot = document.getElementById('modal-root');
+  if (!modalRoot) {
+    modalRoot = document.createElement('div');
+    modalRoot.setAttribute('id', 'modal-root');
+    document.body.appendChild(modalRoot);
+  }
+});
 
 test('allows user to set limit', () => {
   const {
@@ -138,13 +160,13 @@ test('allows user to remove limit', () => {
 
 test('should render tooltip with notification about the order', async () => {
   const {
-    wrapper: { getByTestId, getByText },
+    wrapper: { getByTestId },
   } = render(
     {
       query: {
         limit: 100,
         groupBy: ['category'],
-        orderBy: [{ propertyName: 'result', direction: 'DESC' }],
+        orderBy: null,
       },
     },
     {
@@ -155,26 +177,26 @@ test('should render tooltip with notification about the order', async () => {
   const wrapper = getByTestId('limit-wrapper');
   fireEvent.mouseEnter(wrapper);
 
-  waitFor(() => {
-    expect(getByText('query_creator_limit.limit_result')).toBeInTheDocument();
+  await waitFor(() => {
+    expect(getByTestId('order-data-tooltip')).toBeInTheDocument();
   });
 });
 
 test('should render tooltip with notification about the event stream', async () => {
   const {
-    wrapper: { getByTestId, getByText },
+    wrapper: { getByTestId },
   } = render({
     query: {
       limit: 100,
-      groupBy: ['category'],
-      orderBy: [{ propertyName: 'result', direction: 'DESC' }],
+      groupBy: null,
+      orderBy: null,
     },
   });
 
   const wrapper = getByTestId('limit-wrapper');
   fireEvent.mouseEnter(wrapper);
 
-  waitFor(() => {
-    expect(getByText('query_creator_limit.tooltip')).toBeInTheDocument();
+  await waitFor(() => {
+    expect(getByTestId('select-event-stream-tooltip')).toBeInTheDocument();
   });
 });

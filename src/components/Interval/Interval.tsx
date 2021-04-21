@@ -1,17 +1,24 @@
-import React, { FC, useState, useEffect, useCallback, useRef } from 'react';
+import React, {
+  FC,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useContext,
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { AnimatePresence } from 'framer-motion';
 import {
   ActionButton,
   Dropdown,
-  Tooltip,
   Tabs,
   DropableContainer,
   TitleComponent,
+  MousePositionedTooltip,
 } from '@keen.io/ui-core';
 import { Icon } from '@keen.io/icons';
 import { colors } from '@keen.io/colors';
+import { BodyText } from '@keen.io/typography';
 
 import SupportedInterval from '../SupportedInterval';
 import CustomInterval from '../CustomInterval';
@@ -25,10 +32,9 @@ import {
   IntervalManagement,
   IntervalContainer,
   DropdownContainer,
-  TooltipMotion,
-  TooltipContainer,
   StyledPlaceholder,
   TextCenter,
+  TooltipIconContainer,
 } from './Interval.styles';
 
 import { getInterval, setInterval } from '../../modules/query';
@@ -40,17 +46,16 @@ import {
   DEFAULT_CUSTOM_INTERVAL,
 } from './constants';
 
-import { TOOLTIP_MOTION } from '../../constants';
 import { TitleWrapper } from '../Extraction/Extraction.styles';
+import { AppContext } from '../../contexts';
 
 type Props = {};
 
 const Interval: FC<Props> = () => {
   const { t } = useTranslation();
+  const { modalContainer } = useContext(AppContext);
+
   const [isOpen, setOpen] = useState(false);
-  const [tooltip, setTooltip] = useState({
-    visible: false,
-  });
   const containerRef = useRef(null);
 
   const dispatch = useDispatch();
@@ -64,7 +69,9 @@ const Interval: FC<Props> = () => {
   );
 
   useEffect(() => {
-    return () => dispatch(setInterval(undefined));
+    return () => {
+      dispatch(setInterval(undefined));
+    };
   }, []);
 
   const TABS_SETTINGS = [
@@ -84,30 +91,33 @@ const Interval: FC<Props> = () => {
     exit: { opacity: 0, x: 20 },
   };
 
+  const selectIntervalTooltip = () => (
+    <BodyText
+      variant="body2"
+      fontWeight="normal"
+      data-testid="extraction-limit-hint"
+      color={colors.white[500]}
+    >
+      {t('query_creator_interval.tooltip')}
+    </BodyText>
+  );
+
   return (
     <Container ref={containerRef}>
       <TitleWrapper>
         <TitleComponent onClick={() => !isOpen && setOpen(true)}>
           {t('query_creator_interval.label')}
         </TitleComponent>
-        <TooltipContainer
-          onMouseEnter={() => setTooltip({ visible: true })}
-          onMouseLeave={() => setTooltip({ visible: false })}
+        <MousePositionedTooltip
+          isActive
+          tooltipTheme="dark"
+          tooltipPortal={modalContainer}
+          renderContent={selectIntervalTooltip}
         >
-          <Icon type="info" fill={colors.blue['500']} />
-          <AnimatePresence>
-            {tooltip.visible && (
-              <TooltipMotion
-                {...TOOLTIP_MOTION}
-                data-testid="extraction-limit-hint"
-              >
-                <Tooltip hasArrow={false} mode="dark">
-                  {t('query_creator_interval.tooltip')}
-                </Tooltip>
-              </TooltipMotion>
-            )}
-          </AnimatePresence>
-        </TooltipContainer>
+          <TooltipIconContainer>
+            <Icon type="info" fill={colors.blue['500']} />
+          </TooltipIconContainer>
+        </MousePositionedTooltip>
       </TitleWrapper>
       <IntervalManagement>
         <IntervalContainer>

@@ -73,7 +73,9 @@ const Extraction: FC<Props> = ({ collection }) => {
   }, []);
 
   useEffect(() => {
-    return () => dispatch(resetExtraction());
+    return () => {
+      dispatch(resetExtraction());
+    };
   }, []);
 
   const HINT_MARKUP = useMemo(

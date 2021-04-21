@@ -6,31 +6,24 @@ import React, {
   useCallback,
   useReducer,
   useState,
+  useContext,
 } from 'react';
 import Sortable from 'sortablejs';
 import { useSelector, useDispatch } from 'react-redux';
 import shallowEqual from 'shallowequal';
 import { useTranslation } from 'react-i18next';
-import { AnimatePresence } from 'framer-motion';
 
 import {
   ActionButton,
-  Tooltip,
   TitleComponent,
   createTree,
+  MousePositionedTooltip,
 } from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
+import { colors } from '@keen.io/colors';
+import { BodyText } from '@keen.io/typography';
 
-import TooltipContent from '../TooltipContent';
-import {
-  Section,
-  GroupSettings,
-  SortableContainer,
-  TooltipMotion,
-} from './GroupBy.styles';
-
-import SearchableProperty from '../SearchableProperty';
-
+import { Section, GroupSettings, SortableContainer } from './GroupBy.styles';
 import {
   addGroup,
   setGroups,
@@ -39,22 +32,19 @@ import {
   selectGroupProperty,
 } from './actions';
 import { groupByReducer } from './reducer';
-
-import { SearchContext } from '../../contexts';
-
-import { mutateArray } from '../../utils';
 import { convertGroups, serializeGroups } from './utils';
+import { DRAG_ANIMATION_TIME } from './constants';
 
+import SearchableProperty from '../SearchableProperty';
+
+import { AppContext, SearchContext } from '../../contexts';
+import { mutateArray } from '../../utils';
 import {
   getEventCollection,
   getGroupBy,
   setGroupBy,
 } from '../../modules/query';
 import { getCollectionSchema } from '../../modules/events';
-
-import { TOOLTIP_MOTION } from '../../constants';
-import { DRAG_ANIMATION_TIME } from './constants';
-
 import { AppState } from '../../types';
 
 type Props = {
@@ -64,10 +54,10 @@ type Props = {
 
 const GroupBy: FC<Props> = ({ collection }) => {
   const { t } = useTranslation();
+  const { modalContainer } = useContext(AppContext);
   const [propertiesTree, setPropertiesTree] = useState(null);
   const [searchPropertiesPhrase, setSearchPhrase] = useState(null);
   const [expandTree, setTreeExpand] = useState(false);
-  const [hint, showHint] = useState(false);
 
   const dispatch = useDispatch();
   const groups: string[] = useSelector((state: AppState) => {
@@ -123,7 +113,9 @@ const GroupBy: FC<Props> = ({ collection }) => {
   }, []);
 
   useEffect(() => {
-    return () => dispatch(setGroupBy(undefined));
+    return () => {
+      dispatch(setGroupBy(undefined));
+    };
   }, []);
 
   useEffect(() => {
@@ -193,62 +185,65 @@ const GroupBy: FC<Props> = ({ collection }) => {
     });
   }, []);
 
+  const selectEventStreamTooltip = () => (
+    <BodyText
+      variant="body2"
+      fontWeight="normal"
+      data-testid="select-event-stream"
+      color={colors.white[500]}
+    >
+      {t('query_creator_group_by.select')}{' '}
+      <strong>{t('query_creator_group_by.event_stream')}</strong>{' '}
+      {t('query_creator_group_by.tooltip')}
+    </BodyText>
+  );
+
   return (
     <>
       <TitleComponent isDisabled={!eventCollection}>
         {t('query_creator_group_by.title')}
       </TitleComponent>
-      <Section
-        data-testid="group-by-wrapper"
-        onMouseEnter={() => !eventCollection && showHint(true)}
-        onMouseLeave={() => !eventCollection && showHint(false)}
-      >
+      <Section>
         <SearchContext.Provider value={{ expandTree, searchPropertiesPhrase }}>
-          <SortableContainer ref={sortableRef}>
-            {state.map(({ property, id }) => (
-              <GroupSettings key={id} data-testid="groupBy-settings-item">
-                <SearchableProperty
-                  isEditAllowed={!isDragged}
-                  properties={propertiesTree ? propertiesTree : schemaTree}
-                  property={property}
-                  onSearchProperties={searchHandler}
-                  onSelectProperty={(property) => {
-                    clearSearchHandler();
-                    groupDispatcher(selectGroupProperty(id, property));
-                  }}
-                  onRemove={() => {
-                    clearSearchHandler();
-                    groupDispatcher(removeGroup(id));
-                  }}
-                  onBlur={() => {
-                    if (!property) groupDispatcher(removeGroup(id));
-                  }}
-                />
-              </GroupSettings>
-            ))}
-            <ActionButton
-              className="add-button"
-              isDisabled={!eventCollection}
-              action="create"
-              onClick={() => groupDispatcher(addGroup(''))}
-            />
-          </SortableContainer>
+          <MousePositionedTooltip
+            isActive={!eventCollection}
+            tooltipTheme="dark"
+            tooltipPortal={modalContainer}
+            renderContent={selectEventStreamTooltip}
+          >
+            <SortableContainer ref={sortableRef} data-testid="group-by-wrapper">
+              {state.map(({ property, id }) => (
+                <div data-testid="groupBy-settings-item" key={id}>
+                  <GroupSettings>
+                    <SearchableProperty
+                      isEditAllowed={!isDragged}
+                      properties={propertiesTree ? propertiesTree : schemaTree}
+                      property={property}
+                      onSearchProperties={searchHandler}
+                      onSelectProperty={(property) => {
+                        clearSearchHandler();
+                        groupDispatcher(selectGroupProperty(id, property));
+                      }}
+                      onRemove={() => {
+                        clearSearchHandler();
+                        groupDispatcher(removeGroup(id));
+                      }}
+                      onBlur={() => {
+                        if (!property) groupDispatcher(removeGroup(id));
+                      }}
+                    />
+                  </GroupSettings>
+                </div>
+              ))}
+              <ActionButton
+                className="add-button"
+                isDisabled={!eventCollection}
+                action="create"
+                onClick={() => groupDispatcher(addGroup(''))}
+              />
+            </SortableContainer>
+          </MousePositionedTooltip>
         </SearchContext.Provider>
-        {!eventCollection && (
-          <AnimatePresence>
-            {hint && (
-              <TooltipMotion {...TOOLTIP_MOTION} data-testid="group-by-hint">
-                <Tooltip hasArrow={false} mode="dark">
-                  <TooltipContent>
-                    {t('query_creator_group_by.select')}{' '}
-                    <strong>{t('query_creator_group_by.event_stream')}</strong>{' '}
-                    {t('query_creator_group_by.tooltip')}
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipMotion>
-            )}
-          </AnimatePresence>
-        )}
       </Section>
     </>
   );

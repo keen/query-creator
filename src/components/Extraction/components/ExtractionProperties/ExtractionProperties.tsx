@@ -1,29 +1,38 @@
-import React, { FC, useState, useRef, useEffect, useCallback } from 'react';
+import React, {
+  FC,
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useContext,
+} from 'react';
 import { useSelector } from 'react-redux';
 import Sortable from 'sortablejs';
 import { v4 as uuid } from 'uuid';
 import { useTranslation } from 'react-i18next';
-import { AnimatePresence } from 'framer-motion';
-import { ActionButton, Tooltip, createTree } from '@keen.io/ui-core';
+import {
+  ActionButton,
+  createTree,
+  MousePositionedTooltip,
+} from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
+import { BodyText } from '@keen.io/typography';
+import { colors } from '@keen.io/colors';
 
-import TooltipContent from '../../../TooltipContent';
 import {
   PropertySettings,
   SortableContainer,
   Wrapper,
-  TooltipMotion,
 } from './ExtractionProperties.styles';
 import ExtractionTitle from '../ExtractionTitle';
 
 import SearchableProperty from '../../../SearchableProperty';
 
-import { SearchContext } from '../../../../contexts';
+import { AppContext, SearchContext } from '../../../../contexts';
 
 import { getCollectionSchema } from '../../../../modules/events';
 import { mutateArray } from '../../../../utils';
 
-import { TOOLTIP_MOTION } from '../../../../constants';
 import { DRAG_ANIMATION_TIME } from './constants';
 
 import { AppState, ExtractionProperty } from '../../../../types';
@@ -43,10 +52,11 @@ const ExtractionProperties: FC<Props> = ({
   onSetProperties,
 }) => {
   const { t } = useTranslation();
+  const { modalContainer } = useContext(AppContext);
+
   const [propertiesTree, setPropertiesTree] = useState(null);
   const [searchPropertiesPhrase, setSearchPhrase] = useState(null);
   const [expandTree, setTreeExpand] = useState(false);
-  const [hint, showHint] = useState(false);
 
   const propertiesRef = useRef(null);
   propertiesRef.current = properties;
@@ -151,6 +161,14 @@ const ExtractionProperties: FC<Props> = ({
     });
   }, []);
 
+  const selectEventStreamTooltip = () => (
+    <BodyText variant="body2" fontWeight="normal" color={colors.white[500]}>
+      {t('query_creator_extraction_properties.select')}{' '}
+      <strong>{t('query_creator_extraction_properties.event_stream')}</strong>{' '}
+      {t('query_creator_extraction_properties.tooltip')}
+    </BodyText>
+  );
+
   return (
     <div>
       <ExtractionTitle
@@ -158,10 +176,7 @@ const ExtractionProperties: FC<Props> = ({
         isFullExtraction={properties.length === 0}
         onClearProperties={() => onSetProperties(undefined)}
       />
-      <Wrapper
-        onMouseEnter={() => !collection && showHint(true)}
-        onMouseLeave={() => !collection && showHint(false)}
-      >
+      <Wrapper>
         <SearchContext.Provider value={{ expandTree, searchPropertiesPhrase }}>
           <SortableContainer ref={sortableRef}>
             {properties.map(({ id, propertyName }) => (
@@ -185,41 +200,28 @@ const ExtractionProperties: FC<Props> = ({
                 />
               </PropertySettings>
             ))}
-            <ActionButton
-              className="add-button"
-              isDisabled={!collection}
-              action="create"
-              onClick={() => {
-                const property = {
-                  id: uuid(),
-                  propertyName: '',
-                };
+            <MousePositionedTooltip
+              isActive={!collection}
+              tooltipTheme="dark"
+              tooltipPortal={modalContainer}
+              renderContent={selectEventStreamTooltip}
+            >
+              <ActionButton
+                className="add-button"
+                isDisabled={!collection}
+                action="create"
+                onClick={() => {
+                  const property = {
+                    id: uuid(),
+                    propertyName: '',
+                  };
 
-                onSetProperties([...properties, property]);
-              }}
-            />
+                  onSetProperties([...properties, property]);
+                }}
+              />
+            </MousePositionedTooltip>
           </SortableContainer>
         </SearchContext.Provider>
-        {!collection && (
-          <AnimatePresence>
-            {hint && (
-              <TooltipMotion
-                {...TOOLTIP_MOTION}
-                data-testid="target-property-hint"
-              >
-                <Tooltip hasArrow={false} mode="dark">
-                  <TooltipContent>
-                    {t('query_creator_extraction_properties.select')}{' '}
-                    <strong>
-                      {t('query_creator_extraction_properties.event_stream')}
-                    </strong>{' '}
-                    {t('query_creator_extraction_properties.tooltip')}
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipMotion>
-            )}
-          </AnimatePresence>
-        )}
       </Wrapper>
     </div>
   );

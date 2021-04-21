@@ -13,7 +13,6 @@ import Filters from './Filters';
 import QueryArguments from './QueryArguments';
 import Card from './Card';
 import RadioGroup from './RadioGroup';
-import TooltipContent from './TooltipContent';
 import GlobalStyles from './GlobalStyles';
 
 export {
@@ -33,5 +32,4 @@ export {
   Filters,
   QueryArguments,
   RadioGroup,
-  TooltipContent,
 };

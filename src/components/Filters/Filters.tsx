@@ -1,18 +1,21 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { useTranslation } from 'react-i18next';
-import { AnimatePresence } from 'framer-motion';
-import { ActionButton, Tooltip, TitleComponent } from '@keen.io/ui-core';
+import {
+  ActionButton,
+  TitleComponent,
+  MousePositionedTooltip,
+} from '@keen.io/ui-core';
+import { BodyText } from '@keen.io/typography';
+import { colors } from '@keen.io/colors';
 
 import FiltersComponent from './FiltersComponent';
-import TooltipContent from '../TooltipContent';
-import { ActionContainer, Wrapper, TooltipMotion } from './Filters.styles';
+import { ActionContainer, Wrapper } from './Filters.styles';
 
 import { getSchemas, getSchemaLoading } from '../../modules/events';
-
-import { TOOLTIP_MOTION } from '../../constants';
 import { AppState, Filter } from '../../types';
+import { AppContext } from '../../contexts';
 
 type Props = {
   /** Collection */
@@ -38,6 +41,8 @@ const Filters: FC<Props> = ({
   onClick,
 }) => {
   const { t } = useTranslation();
+  const { modalContainer } = useContext(AppContext);
+
   const isSchemaExist = useSelector((state: AppState) => {
     const schemas = getSchemas(state);
     return schemas[collection];
@@ -45,18 +50,21 @@ const Filters: FC<Props> = ({
   const isSchemaLoading = useSelector((state: AppState) =>
     getSchemaLoading(state, collection)
   );
-  const [hint, showHint] = useState(false);
+
+  const selectEventStreamTooltip = () => (
+    <BodyText variant="body2" fontWeight="normal" color={colors.white[500]}>
+      {t('query_creator_filters.select')}{' '}
+      <strong>{t('query_creator_filters.event_stream')}</strong>{' '}
+      {t('query_creator_filters.tooltip')}
+    </BodyText>
+  );
 
   return (
     <>
       <TitleComponent isDisabled={!collection}>
         {t('query_creator_filters.filters')}
       </TitleComponent>
-      <Wrapper
-        onMouseEnter={() => !collection && showHint(true)}
-        onMouseLeave={() => !collection && showHint(false)}
-        isDisabled={!collection}
-      >
+      <Wrapper isDisabled={!collection}>
         {isSchemaExist && !isSchemaLoading && (
           <FiltersComponent
             collection={collection}
@@ -66,34 +74,23 @@ const Filters: FC<Props> = ({
             onChange={(id, filter) => onChange(id, filter)}
           />
         )}
-        <ActionContainer hasSpacing={!!filters.length}>
-          <ActionButton
-            action="create"
-            isDisabled={!collection}
-            onClick={() => {
-              const filterId = uuid();
-              onClick(filterId);
-            }}
-          />
-        </ActionContainer>
-        {!collection && (
-          <AnimatePresence>
-            {hint && (
-              <TooltipMotion
-                {...TOOLTIP_MOTION}
-                data-testid="target-property-hint"
-              >
-                <Tooltip hasArrow={false} mode="dark">
-                  <TooltipContent>
-                    {t('query_creator_filters.select')}{' '}
-                    <strong>{t('query_creator_filters.event_stream')}</strong>{' '}
-                    {t('query_creator_filters.tooltip')}
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipMotion>
-            )}
-          </AnimatePresence>
-        )}
+        <MousePositionedTooltip
+          isActive={!collection}
+          tooltipTheme="dark"
+          tooltipPortal={modalContainer}
+          renderContent={selectEventStreamTooltip}
+        >
+          <ActionContainer hasSpacing={!!filters.length}>
+            <ActionButton
+              action="create"
+              isDisabled={!collection}
+              onClick={() => {
+                const filterId = uuid();
+                onClick(filterId);
+              }}
+            />
+          </ActionContainer>
+        </MousePositionedTooltip>
       </Wrapper>
     </>
   );

@@ -4,10 +4,12 @@ import {
   render as rtlRender,
   fireEvent,
   waitFor,
+  cleanup,
 } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 
 import GroupBy from './GroupBy';
+import { AppContext } from '../../contexts';
 
 const render = (storeState: any = {}, overProps: any = {}) => {
   const mockStore = configureStore([]);
@@ -15,7 +17,14 @@ const render = (storeState: any = {}, overProps: any = {}) => {
 
   const wrapper = rtlRender(
     <Provider store={store}>
-      <GroupBy {...overProps} />
+      <AppContext.Provider
+        value={{
+          modalContainer: '#modal-root',
+          onUpdateChartSettings: jest.fn(),
+        }}
+      >
+        <GroupBy {...overProps} />
+      </AppContext.Provider>
     </Provider>
   );
 
@@ -25,56 +34,62 @@ const render = (storeState: any = {}, overProps: any = {}) => {
   };
 };
 
+afterEach(() => {
+  cleanup();
+});
+
+beforeEach(() => {
+  let modalRoot = document.getElementById('modal-root');
+  if (!modalRoot) {
+    modalRoot = document.createElement('div');
+    modalRoot.setAttribute('id', 'modal-root');
+    document.body.appendChild(modalRoot);
+  }
+});
+
 test('do not allows user to add empty group by settings', async () => {
   const storeState = {
     query: {
       groupBy: undefined,
     },
     events: {
-      schemas: {
-        purchases: { date: 'String', userId: 'String' },
-      },
+      schemas: {},
     },
   };
 
   const {
     wrapper: { getByTestId, queryByTestId },
-  } = render(storeState, { collection: 'purchases' });
+  } = render(storeState);
 
   const button = getByTestId('action-button');
   fireEvent.click(button);
 
-  waitFor(() => {
-    const element = getByTestId('groupBy-settings-item');
-    fireEvent.click(element);
-
-    expect(queryByTestId('groupBy-settings-item')).not.toBeInTheDocument();
+  await waitFor(() => {
+    const element = queryByTestId('groupBy-settings-item');
+    expect(element).not.toBeInTheDocument();
   });
 });
 
 test('allows user to add group by settings', async () => {
   const storeState = {
     query: {
-      groupBy: undefined,
+      groupBy: [],
+      eventCollection: 'logins',
     },
     events: {
-      schemas: {
-        purchases: { date: 'String', userId: 'String' },
-      },
+      schemas: {},
     },
   };
 
   const {
-    wrapper: { getByTestId },
-  } = render(storeState, { collection: 'purchases' });
+    wrapper: { getByTestId, findByTestId },
+  } = render(storeState, { collection: 'logins' });
 
   const button = getByTestId('action-button');
   fireEvent.click(button);
 
-  waitFor(() => {
-    const element = getByTestId('groupBy-settings-item');
-    expect(element).toBeInTheDocument();
-  });
+  const groupByItem = await findByTestId('groupBy-settings-item');
+  expect(groupByItem).toBeInTheDocument();
 });
 
 test('should render exact number of properties with preserved order', async () => {
@@ -122,10 +137,10 @@ test('should render title', () => {
   expect(title).toBeInTheDocument();
 });
 
-test('should render tooltip', async () => {
+test('should render tooltip with suggestion to select event stream', async () => {
   const storeState = {
     query: {
-      groupBy: ['date', 'userId'],
+      groupBy: undefined,
     },
     events: {
       schemas: {
@@ -135,13 +150,13 @@ test('should render tooltip', async () => {
   };
 
   const {
-    wrapper: { getByTestId, getByText },
+    wrapper: { getByTestId },
   } = render(storeState);
 
   const wrapper = getByTestId('group-by-wrapper');
   fireEvent.mouseEnter(wrapper);
 
-  waitFor(() => {
-    expect(getByText('query_creator_group_by.tooltip')).toBeInTheDocument();
+  await waitFor(() => {
+    expect(getByTestId('select-event-stream')).toBeInTheDocument();
   });
 });

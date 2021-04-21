@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://github.com/keen/query-creator/compare/v1.6.0...v1.6.1) (2021-04-21)
+
+
+### Bug Fixes
+
+* 🐛 Tooltips unified, false positive tests fixed, testing library linter added ([#78](https://github.com/keen/query-creator/issues/78)) ([39adbd0](https://github.com/keen/query-creator/commit/39adbd03e5f92199536e9253cc6807fd87054f35))
+
 ## [1.6.0](https://github.com/keen/query-creator/compare/v1.5.5...v1.6.0) (2021-04-19)
 
 

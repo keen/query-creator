@@ -213,27 +213,25 @@ const GroupBy: FC<Props> = ({ collection }) => {
           >
             <SortableContainer ref={sortableRef} data-testid="group-by-wrapper">
               {state.map(({ property, id }) => (
-                <div data-testid="groupBy-settings-item" key={id}>
-                  <GroupSettings>
-                    <SearchableProperty
-                      isEditAllowed={!isDragged}
-                      properties={propertiesTree ? propertiesTree : schemaTree}
-                      property={property}
-                      onSearchProperties={searchHandler}
-                      onSelectProperty={(property) => {
-                        clearSearchHandler();
-                        groupDispatcher(selectGroupProperty(id, property));
-                      }}
-                      onRemove={() => {
-                        clearSearchHandler();
-                        groupDispatcher(removeGroup(id));
-                      }}
-                      onBlur={() => {
-                        if (!property) groupDispatcher(removeGroup(id));
-                      }}
-                    />
-                  </GroupSettings>
-                </div>
+                <GroupSettings data-testid="groupBy-settings-item" key={id}>
+                  <SearchableProperty
+                    isEditAllowed={!isDragged}
+                    properties={propertiesTree ? propertiesTree : schemaTree}
+                    property={property}
+                    onSearchProperties={searchHandler}
+                    onSelectProperty={(property) => {
+                      clearSearchHandler();
+                      groupDispatcher(selectGroupProperty(id, property));
+                    }}
+                    onRemove={() => {
+                      clearSearchHandler();
+                      groupDispatcher(removeGroup(id));
+                    }}
+                    onBlur={() => {
+                      if (!property) groupDispatcher(removeGroup(id));
+                    }}
+                  />
+                </GroupSettings>
               ))}
               <ActionButton
                 className="add-button"

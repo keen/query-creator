@@ -59,7 +59,7 @@ const Timeframe: FC<Props> = ({
   onReset,
   timezone,
   value,
-  variant = 'primary',
+  variant = 'secondary',
 }) => {
   const { t } = useTranslation();
   const { modalContainer } = useContext(AppContext);

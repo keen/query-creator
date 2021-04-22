@@ -14,12 +14,12 @@ import { colors } from '@keen.io/colors';
 import { AnimatePresence } from 'framer-motion';
 
 import {
-  LimitContainer,
   LimitInput,
   HintMessage,
   TooltipMotion,
   TitleWrapper,
   TooltipContainer,
+  Container,
 } from './Extraction.styles';
 
 import { ExtractionProperties } from './components';
@@ -89,13 +89,13 @@ const Extraction: FC<Props> = ({ collection }) => {
   );
 
   return (
-    <>
+    <Container>
       <ExtractionProperties
         properties={properties ? properties : []}
         collection={collection}
         onSetProperties={(properties) => dispatch(setPropertyNames(properties))}
       />
-      <LimitContainer>
+      <div>
         <TitleWrapper>
           <TitleComponent>{t('extraction.limit_label')}</TitleComponent>
           <TooltipContainer
@@ -130,8 +130,8 @@ const Extraction: FC<Props> = ({ collection }) => {
             onChange={(e) => changeLimitHandler(e.target.value)}
           />
         </LimitInput>
-      </LimitContainer>
-    </>
+      </div>
+    </Container>
   );
 };
 

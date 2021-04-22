@@ -142,6 +142,7 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
         isActive={isOpen}
         value={analysis}
         dropIndicator
+        variant="secondary"
         onDefocus={() => {
           setOpen(false);
         }}

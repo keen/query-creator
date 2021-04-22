@@ -25,6 +25,7 @@ import { Container } from './EventCollection.styles';
 import { getEventsCollections } from '../../modules/events';
 
 import { KEYBOARD_KEYS } from '../../constants';
+import { colors } from '@keen.io/colors';
 
 type Props = {
   /** Collection identifer */
@@ -43,7 +44,7 @@ const EventCollection: FC<Props> = ({
   collection,
   onChange,
   onReset,
-  variant = 'primary',
+  variant = 'secondary',
   hasError = false,
 }) => {
   const { t } = useTranslation();
@@ -164,7 +165,7 @@ const EventCollection: FC<Props> = ({
           setOpen(false);
         }}
       >
-        <BodyText variant="body2" enableTextEllipsis>
+        <BodyText variant="body2" color={colors.blue[500]} enableTextEllipsis>
           {collection}
         </BodyText>
       </DropableContainer>

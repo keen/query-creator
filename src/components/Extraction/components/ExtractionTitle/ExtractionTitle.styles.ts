@@ -5,10 +5,12 @@ import { colors } from '@keen.io/colors';
 export const Container = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  column-gap: 10px;
 `;
 
 export const MessageContainer = styled.div`
-  margin: 0 0 3px 10px;
+  margin-bottom: 3px;
   line-height: 17px;
 `;
 

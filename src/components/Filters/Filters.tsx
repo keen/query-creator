@@ -11,7 +11,7 @@ import { BodyText } from '@keen.io/typography';
 import { colors } from '@keen.io/colors';
 
 import FiltersComponent from './FiltersComponent';
-import { ActionContainer, Wrapper } from './Filters.styles';
+import { ActionContainer, Wrapper, Container } from './Filters.styles';
 
 import { getSchemas, getSchemaLoading } from '../../modules/events';
 import { AppState, Filter } from '../../types';
@@ -60,7 +60,7 @@ const Filters: FC<Props> = ({
   );
 
   return (
-    <>
+    <Container>
       <TitleComponent isDisabled={!collection}>
         {t('query_creator_filters.filters')}
       </TitleComponent>
@@ -92,7 +92,7 @@ const Filters: FC<Props> = ({
           </ActionContainer>
         </MousePositionedTooltip>
       </Wrapper>
-    </>
+    </Container>
   );
 };
 

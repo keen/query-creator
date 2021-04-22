@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.2](https://github.com/keen/query-creator/compare/v1.6.1...v1.6.2) (2021-04-22)
+
+
+### Bug Fixes
+
+* 🐛 restore GroupBy margin ([0cf0750](https://github.com/keen/query-creator/commit/0cf07501934c0f41836355f834cf8d60b73119c7))
+
 ### [1.6.1](https://github.com/keen/query-creator/compare/v1.6.0...v1.6.1) (2021-04-21)
 
 

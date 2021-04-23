@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
 import { UI_LAYERS } from '@keen.io/ui-core';
+import { colors } from '@keen.io/colors';
 
 export const Operator = styled.div`
   margin: 6px 0;
@@ -29,4 +30,14 @@ export const TooltipMotion = styled(motion.div)`
   top: -50%;
   transform: translateX(10px) translateY(-10px);
   z-index: ${UI_LAYERS.tooltip};
+`;
+
+export const Container = styled.div`
+  padding: 15px 0;
+  border-top: 1px solid ${colors.gray[300]};
+  border-bottom: 1px solid ${colors.gray[300]};
+
+  &:last-child {
+    border-bottom: none;
+  }
 `;

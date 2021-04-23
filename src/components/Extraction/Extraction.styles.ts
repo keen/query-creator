@@ -3,10 +3,6 @@ import { motion } from 'framer-motion';
 import { colors } from '@keen.io/colors';
 import { UI_LAYERS } from '@keen.io/ui-core';
 
-export const LimitContainer = styled.div`
-  margin-top: 10px;
-`;
-
 export const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -37,4 +33,12 @@ export const TooltipContainer = styled.div`
   margin-left: 10px;
   position: relative;
   cursor: pointer;
+`;
+
+export const Container = styled.div`
+  padding-top: 15px;
+  border-top: 1px solid ${colors.gray[300]};
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
 `;

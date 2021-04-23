@@ -57,7 +57,7 @@ const TargetProperty: FC<Props> = ({
   collection,
   onChange,
   property,
-  variant = 'primary',
+  variant = 'secondary',
   hasError = false,
 }) => {
   const { t } = useTranslation();

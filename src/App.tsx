@@ -1,11 +1,15 @@
 import React, { FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { ModifiersSettings, ModifiersItem, LimitContainer } from './App.styles';
+import {
+  ModifiersSettings,
+  ModifiersItem,
+  LimitContainer,
+  Container,
+} from './App.styles';
 
 import {
   QueryArguments,
-  Card,
   Extraction,
   GroupBy,
   OrderBy,
@@ -42,57 +46,54 @@ const App: FC<Props> = () => {
   const filters = useSelector(getFilters);
 
   const modifiersItemSettings = {
-    marginBottom: { xs: 20, md: 0 },
-    marginRight: { xs: 0, md: 25 },
     width: { xs: '100%', md: 'auto' },
   };
 
+  const showOrderBy = showField('orderBy', analysis);
+  const showLimit = showField('limit', analysis);
+
   return (
-    <div>
+    <Container>
       <QueryArguments />
-      {analysis === 'extraction' && (
-        <Card>
-          <Extraction collection={collection} />
-        </Card>
-      )}
+      {analysis === 'extraction' && <Extraction collection={collection} />}
       {showField('filters', analysis) && (
-        <Card>
-          <Filters
-            collection={collection}
-            filters={filters}
-            onReset={() => dispatch(setFilters([]))}
-            onRemove={(id: string) => dispatch(removeFilter(id))}
-            onChange={(id: string, filter: Filter) =>
-              dispatch(updateFilter(id, filter))
-            }
-            onClick={(id: string) => dispatch(addFilter(id))}
-          />
-        </Card>
+        <Filters
+          collection={collection}
+          filters={filters}
+          onReset={() => dispatch(setFilters([]))}
+          onRemove={(id: string) => dispatch(removeFilter(id))}
+          onChange={(id: string, filter: Filter) =>
+            dispatch(updateFilter(id, filter))
+          }
+          onClick={(id: string) => dispatch(addFilter(id))}
+        />
       )}
       {showField('steps', analysis) && <FunnelSteps />}
       {!showField('steps', analysis) && (
-        <Card>
-          <ModifiersSettings flexDirection={{ xs: 'column', md: 'row' }}>
-            {showField('groupBy', analysis) && (
-              <ModifiersItem {...modifiersItemSettings}>
-                <GroupBy collection={collection} />
-              </ModifiersItem>
-            )}
-            {showField('orderBy', analysis) && (
-              <ModifiersItem {...modifiersItemSettings}>
-                <OrderBy collection={collection} />
-              </ModifiersItem>
-            )}
-            {showField('limit', analysis) && (
-              <LimitContainer>
-                <Limit collection={collection} />
-              </LimitContainer>
-            )}
-          </ModifiersSettings>
+        <>
+          {showField('groupBy', analysis) && (
+            <ModifiersItem {...modifiersItemSettings}>
+              <GroupBy collection={collection} />
+            </ModifiersItem>
+          )}
+          {(showLimit || showOrderBy) && (
+            <ModifiersSettings flexDirection={{ xs: 'column', md: 'row' }}>
+              {showOrderBy && (
+                <ModifiersItem {...modifiersItemSettings}>
+                  <OrderBy collection={collection} />
+                </ModifiersItem>
+              )}
+              {showLimit && (
+                <LimitContainer>
+                  <Limit collection={collection} />
+                </LimitContainer>
+              )}
+            </ModifiersSettings>
+          )}
           {showField('interval', analysis) && <Interval />}
-        </Card>
+        </>
       )}
-    </div>
+    </Container>
   );
 };
 

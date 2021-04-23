@@ -14,5 +14,4 @@ export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   grid-gap: 20px;
-  margin-bottom: 20px;
 `;

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/keen/query-creator/compare/v1.6.3...v1.7.0) (2021-04-30)
+
+
+### Features
+
+* 🎸 add placeholder for filters text input ([e2f2c9d](https://github.com/keen/query-creator/commit/e2f2c9d69812a740d79d2c04dd00b64fca864332))
+
 ### [1.6.3](https://github.com/keen/query-creator/compare/v1.6.2...v1.6.3) (2021-04-23)
 
 ### [1.6.2](https://github.com/keen/query-creator/compare/v1.6.1...v1.6.2) (2021-04-22)

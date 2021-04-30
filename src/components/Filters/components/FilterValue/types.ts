@@ -8,4 +8,5 @@ export type GetComponent = {
   ) => void;
   value?: string | boolean | number | Coordinates | Array<string | number>;
   id: string;
+  stringPlaceholder?: string;
 };

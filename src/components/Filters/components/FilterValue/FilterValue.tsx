@@ -41,6 +41,7 @@ const getValueComponent = ({
   onChange,
   value,
   id,
+  stringPlaceholder,
 }: GetComponent) => {
   const { component } = TYPES_CONFIG[propertyType][operator];
 
@@ -92,6 +93,7 @@ const getValueComponent = ({
           variant="solid"
           value={value as string}
           onChange={(e) => onChange(e.currentTarget.value)}
+          placeholder={stringPlaceholder}
         />
       );
   }
@@ -105,11 +107,21 @@ const FilterValue: FC<Props> = ({
   id,
 }) => {
   const { t } = useTranslation();
+  const stringPlaceholder = t(
+    'query_creator_filter_value.input_text_placeholder'
+  );
   return (
     <>
       {propertyType && operator ? (
         <>
-          {getValueComponent({ propertyType, operator, onChange, value, id })}
+          {getValueComponent({
+            propertyType,
+            operator,
+            onChange,
+            value,
+            id,
+            stringPlaceholder,
+          })}
         </>
       ) : (
         <PropertyGroup isActive={false}>

@@ -46,10 +46,6 @@
     "start_date": "From",
     "end_date": "To"
   },
-  "custom_interval": {
-    "main_label": "Every",
-    "unit_placeholder": "Unit placeholder"
-  },
   "query_creator_filters": {
     "filters": "Filters",
     "select": "Select",
@@ -72,7 +68,8 @@
     "empty_search_results": "No property found with this name"
   },
   "query_creator_filter_value": {
-    "placeholder": "value"
+    "placeholder": "value",
+    "input_text_placeholder": "case sensitive value"
   },
   "query_creator_geo_coordinates": {
     "lat_label": "Lat:",
@@ -156,11 +153,11 @@
     "empty_search_results": "No property found with this name"
   },
   "query_creator_timezone": {
-    "placeholder": "Select timezone",
     "empty_search": "No timezone found with this criteria",
     "selection_disabled_description": "Timezone for your metrics is the same as your site configuration.",
     "loading": "Loading list of time zones",
     "error": "We cannot load list of time zones. Try again later if you need to check data for specific time zone.",
+    "placeholder": "Select timezone",
     "label": "Timezone"
   },
   "query_creator_extraction_properties": {

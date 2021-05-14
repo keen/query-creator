@@ -8,6 +8,7 @@ export const NUM_ANALYSIS = [
   'median',
   'sum',
   'standard_deviation',
+  'percentile',
 ];
 
 export const NUM_ANALYSIS_MAP = {
@@ -17,4 +18,5 @@ export const NUM_ANALYSIS_MAP = {
   median: 'Median',
   sum: 'Sum',
   standard_deviation: 'Standard_deviation',
+  percentile: 'Percentile',
 };

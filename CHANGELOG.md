@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/keen/query-creator/compare/v1.7.0...v1.8.0) (2021-05-19)
+
+
+### Features
+
+* 🎸 Percentile analysis - numeric data required tooltip ([#87](https://github.com/keen/query-creator/issues/87)) ([716fd62](https://github.com/keen/query-creator/commit/716fd62172a8a983d55e38c467d4f13e173193ee))
+
 ## [1.7.0](https://github.com/keen/query-creator/compare/v1.6.3...v1.7.0) (2021-04-30)
 
 

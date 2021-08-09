@@ -16,7 +16,9 @@
   },
   "query_creator_analysis": {
     "placeholder": "Select analysis type",
-    "label": "Analysis"
+    "label": "Analysis",
+    "search_placeholder": "Search",
+    "empty_search_results": "No analysis found with this name"
   },
   "query_creator_event_collection": {
     "label": "Event Stream",

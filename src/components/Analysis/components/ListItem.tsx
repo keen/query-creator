@@ -56,6 +56,7 @@ const ListItem: FC<Props> = ({
   return (
     <Container
       ref={elementRef}
+      role="listitem"
       onClick={(e) => onClick(e, analysis)}
       isActive={isActive}
       onMouseEnter={(e) => {

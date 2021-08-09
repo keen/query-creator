@@ -5,10 +5,6 @@ export const Container = styled.div`
   position: relative;
 `;
 
-export const AnalysisTitle = styled.span`
-  text-transform: capitalize;
-`;
-
 export const List = styled.ul`
   padding: 0;
   margin: 0;

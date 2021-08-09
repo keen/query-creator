@@ -1,5 +1,9 @@
 import React from 'react';
-import { render as rtlRender, fireEvent } from '@testing-library/react';
+import {
+  render as rtlRender,
+  fireEvent,
+  waitFor,
+} from '@testing-library/react';
 
 import Analysis from './Analysis';
 
@@ -48,6 +52,23 @@ test('allows user to select analysis by using keyboard', async () => {
   fireEvent.keyDown(field, { keyCode: KEYBOARD_KEYS.ENTER });
 
   expect(props.onChange).toHaveBeenCalledWith('count');
+});
+
+test('allows user to search analysis', async () => {
+  const {
+    wrapper: { getByTestId, getByText, queryByText },
+  } = render();
+
+  const propertyField = getByTestId('dropable-container');
+  fireEvent.click(propertyField);
+
+  const input = getByTestId('dropable-container-input');
+  fireEvent.change(input, { target: { value: 'funnel' } });
+
+  await waitFor(() => {
+    expect(queryByText('Count')).not.toBeInTheDocument();
+    expect(getByText('Funnel')).toBeInTheDocument();
+  });
 });
 
 test('shows hint message for analysis', () => {

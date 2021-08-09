@@ -25,6 +25,8 @@ import { Container, List, Groups, TooltipContainer } from './Analysis.styles';
 import { hintMotion } from './motion';
 import { transformName } from './utils';
 
+import { useKeypress } from '../../hooks';
+
 import { Analysis as AnalysisType } from '../../types';
 import { AnalysisItem } from './types';
 
@@ -78,6 +80,50 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
 
   const [firstGroup] = filteredAnalysis;
 
+  const keyboardHandler = useCallback(
+    (_e: KeyboardEvent, keyCode: number) => {
+      const analyses = filteredAnalysis.flatMap((item) => item);
+
+      switch (keyCode) {
+        case KEYBOARD_KEYS.ENTER:
+          const { value } = analyses.find(
+            ({ index }) => index === selectionIndex
+          );
+          onChange(value);
+          setOpen(false);
+          break;
+        case KEYBOARD_KEYS.UP:
+          if (selectionIndex > 0) {
+            setIndex(selectionIndex - 1);
+          }
+          break;
+        case KEYBOARD_KEYS.DOWN:
+          if (selectionIndex === null) {
+            setIndex(0);
+          } else if (selectionIndex < analyses.length - 1) {
+            setIndex(selectionIndex + 1);
+          }
+          break;
+        case KEYBOARD_KEYS.ESCAPE:
+          setOpen(false);
+          break;
+      }
+    },
+    [selectionIndex, filteredAnalysis]
+  );
+
+  useKeypress({
+    keyboardAction: keyboardHandler,
+    handledKeys: [
+      KEYBOARD_KEYS.ENTER,
+      KEYBOARD_KEYS.ESCAPE,
+      KEYBOARD_KEYS.UP,
+      KEYBOARD_KEYS.DOWN,
+    ],
+    addEventListenerCondition: isOpen,
+    eventListenerDependencies: [isOpen, selectionIndex, filteredAnalysis],
+  });
+
   useEffect(() => {
     if (
       dropdownRef.current &&
@@ -106,36 +152,6 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
     }
   }, [tooltipRef, dropdownRef, scrollRef, hint]);
 
-  const keyboardHandler = useCallback(
-    (e: KeyboardEvent) => {
-      const analyses = filteredAnalysis.flatMap((item) => item);
-
-      switch (e.keyCode) {
-        case KEYBOARD_KEYS.ENTER:
-          const { value } = analyses.find(
-            ({ index }) => index === selectionIndex
-          );
-          onChange(value);
-          setOpen(false);
-          break;
-        case KEYBOARD_KEYS.UP:
-          if (selectionIndex > 0) {
-            setIndex(selectionIndex - 1);
-          }
-          break;
-        case KEYBOARD_KEYS.DOWN:
-          if (selectionIndex < analyses.length - 1) {
-            setIndex(selectionIndex + 1);
-          }
-          break;
-        case KEYBOARD_KEYS.ESCAPE:
-          setOpen(false);
-          break;
-      }
-    },
-    [selectionIndex, filteredAnalysis]
-  );
-
   useEffect(() => {
     if (isOpen) {
       const { index } = options.find(({ value }) => value === analysis);
@@ -146,17 +162,8 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
     }
   }, [isOpen]);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.addEventListener('keydown', keyboardHandler);
-    }
-    return () => {
-      document.removeEventListener('keydown', keyboardHandler);
-    };
-  }, [isOpen, selectionIndex, filteredAnalysis]);
-
   return (
-    <Container>
+    <Container role="listbox">
       <TitleComponent onClick={() => setOpen(true)}>
         {t('query_creator_analysis.label')}
       </TitleComponent>
@@ -191,7 +198,7 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
           <ScrollWrapper>
             <Groups ref={scrollRef}>
               {filteredAnalysis.map((options, idx) => (
-                <List key={idx}>
+                <List key={idx} role="list">
                   {options.map(({ label, value, index, description }) => (
                     <ListItem
                       key={value}

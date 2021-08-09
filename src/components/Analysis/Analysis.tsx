@@ -12,14 +12,13 @@ import { useSearch } from '@keen.io/react-hooks';
 import { BodyText } from '@keen.io/typography';
 import {
   Dropdown,
-  ScrollWrapper,
   Tooltip,
   DropableContainer,
   EmptySearch,
   TitleComponent,
 } from '@keen.io/ui-core';
 
-import { ListItem } from './components';
+import { ListItem, ScrollWrapper } from './components';
 import { Container, List, Groups, TooltipContainer } from './Analysis.styles';
 
 import { hintMotion } from './motion';
@@ -62,6 +61,7 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
   const tooltipRef = useRef(null);
   const dropdownRef = useRef(null);
   const scrollRef = useRef(null);
+  const activeElementRef = useRef(null);
 
   const { searchHandler, searchPhrase, clearSearchPhrase } = useSearch<
     AnalysisItem
@@ -152,6 +152,26 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
     }
   }, [tooltipRef, dropdownRef, scrollRef, hint]);
 
+  const scrollToActiveElement = () => {
+    if (activeElementRef.current) {
+      const activeElementTop = activeElementRef.current.offsetTop;
+
+      const bottomOverflow = activeElementTop > scrollRef.current.offsetHeight;
+      const topOverflow = scrollRef.current.scrollTop > activeElementTop;
+
+      if (bottomOverflow) {
+        scrollRef.current.scrollTop =
+          activeElementTop + activeElementRef.current.offsetHeight;
+      }
+
+      if (topOverflow) {
+        scrollRef.current.scrollTop = activeElementRef.current.offsetTop;
+      }
+    }
+  };
+
+  useEffect(scrollToActiveElement, [activeElementRef.current]);
+
   useEffect(() => {
     if (isOpen) {
       const { index } = options.find(({ value }) => value === analysis);
@@ -195,14 +215,17 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
             message={t('query_creator_analysis.empty_search_results')}
           />
         ) : (
-          <ScrollWrapper>
-            <Groups ref={scrollRef}>
+          <ScrollWrapper ref={scrollRef}>
+            <Groups>
               {filteredAnalysis.map((options, idx) => (
                 <List key={idx} role="list">
                   {options.map(({ label, value, index, description }) => (
                     <ListItem
                       key={value}
                       isActive={selectionIndex === index}
+                      onActive={(ref) => {
+                        activeElementRef.current = ref.current;
+                      }}
                       description={t(description)}
                       analysis={value}
                       onMouseEnter={() => setIndex(index)}

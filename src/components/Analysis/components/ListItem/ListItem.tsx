@@ -5,7 +5,7 @@ import { Icon } from '@keen.io/icons';
 
 import { Container, MotionIcon, Hint } from './ListItem.styles';
 
-import { Analysis } from '../../../types';
+import { Analysis } from '../../../../types';
 
 type Props = {
   /** Analysis value */
@@ -18,6 +18,7 @@ type Props = {
   onMouseEnter: (e: React.MouseEvent<HTMLLIElement>) => void;
   /** Click event handler */
   onClick: (e: React.MouseEvent<HTMLLIElement>, analysis: Analysis) => void;
+  onActive: (ref: React.MutableRefObject<HTMLLIElement>) => void;
   /** React children nodes */
   children: React.ReactNode;
   /** Show hint handler */
@@ -35,6 +36,7 @@ const ListItem: FC<Props> = ({
   children,
   onClick,
   onMouseEnter,
+  onActive,
   isActive,
   analysis,
   showHint,
@@ -44,12 +46,16 @@ const ListItem: FC<Props> = ({
     top: 0,
     bottom: 0,
   });
-  const elementRef = useRef(null);
+  const elementRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
     const { offsetTop: top, clientHeight: height } = elementRef.current;
     setPosition({ top, bottom: top + height });
   }, [elementRef]);
+
+  useEffect(() => {
+    if (isActive) onActive(elementRef);
+  }, [isActive]);
 
   const { top, bottom } = position;
 

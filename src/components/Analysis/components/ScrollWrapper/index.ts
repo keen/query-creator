@@ -1,3 +1,3 @@
-import ScrollWrapper from './scroll-wrapper.component';
+import ScrollWrapper from './ScrollWrapper';
 
 export default ScrollWrapper;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, forwardRef } from 'react';
 
-import { Wrapper } from './scroll-wrapper.styles';
+import { Wrapper } from './ScrollWrapper.styles';
 
 type Props = {
   /** React children nodes */
@@ -12,15 +12,17 @@ export const ScrollWrapper = forwardRef(
     const [maxHeight, setMaxHeight] = useState(0);
 
     useEffect(() => {
-      const { offsetHeight } = document.body;
-      const { scrollY, innerHeight } = window;
-      const { top, height } =
-        wrapperRef.current && wrapperRef.current.getBoundingClientRect();
-      const topPosition = top + scrollY;
-      const fullHeight =
-        offsetHeight > innerHeight ? offsetHeight : innerHeight;
-      if (height > fullHeight - topPosition)
-        setMaxHeight(fullHeight - topPosition);
+      if (wrapperRef.current) {
+        const { offsetHeight } = document.body;
+        const { scrollY, innerHeight } = window;
+        const { top, height } =
+          wrapperRef.current && wrapperRef.current.getBoundingClientRect();
+        const topPosition = top + scrollY;
+        const fullHeight =
+          offsetHeight > innerHeight ? offsetHeight : innerHeight;
+        if (height > fullHeight - topPosition)
+          setMaxHeight(fullHeight - topPosition);
+      }
     }, [wrapperRef]);
 
     return (

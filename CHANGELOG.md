@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/keen/query-creator/compare/v1.8.0...v1.9.0) (2021-08-09)
+
+
+### Features
+
+* 🎸 Analysis search ([8ab1df9](https://github.com/keen/query-creator/commit/8ab1df92784dc40f57fb47f54e6087c7f6d66dc8))
+* 🎸 search analysis ([26688ec](https://github.com/keen/query-creator/commit/26688ec195f71fec1949fcaf8c2e13fdfcdff72d))
+
 ## [1.8.0](https://github.com/keen/query-creator/compare/v1.7.0...v1.8.0) (2021-05-19)
 
 

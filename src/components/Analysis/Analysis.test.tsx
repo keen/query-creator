@@ -71,6 +71,24 @@ test('allows user to search analysis', async () => {
   });
 });
 
+test('renders message about empty search results', async () => {
+  const {
+    wrapper: { getByTestId, queryByText },
+  } = render();
+
+  const propertyField = getByTestId('dropable-container');
+  fireEvent.click(propertyField);
+
+  const input = getByTestId('dropable-container-input');
+  fireEvent.change(input, { target: { value: '@not-exist' } });
+
+  await waitFor(() => {
+    expect(
+      queryByText('query_creator_analysis.empty_search_results')
+    ).toBeInTheDocument();
+  });
+});
+
 test('shows hint message for analysis', () => {
   const {
     wrapper: { getByTestId, getByText },

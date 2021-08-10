@@ -22,7 +22,7 @@ import { ListItem, ScrollWrapper } from './components';
 import { Container, List, Groups, TooltipContainer } from './Analysis.styles';
 
 import { hintMotion } from './motion';
-import { transformName } from './utils';
+import { transformName, scrollToActiveElement } from './utils';
 
 import { useKeypress } from '../../hooks';
 
@@ -61,7 +61,6 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
   const tooltipRef = useRef(null);
   const dropdownRef = useRef(null);
   const scrollRef = useRef(null);
-  const activeElementRef = useRef(null);
 
   const { searchHandler, searchPhrase, clearSearchPhrase } = useSearch<
     AnalysisItem
@@ -152,26 +151,6 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
     }
   }, [tooltipRef, dropdownRef, scrollRef, hint]);
 
-  const scrollToActiveElement = () => {
-    if (activeElementRef.current) {
-      const activeElementTop = activeElementRef.current.offsetTop;
-
-      const bottomOverflow = activeElementTop > scrollRef.current.offsetHeight;
-      const topOverflow = scrollRef.current.scrollTop > activeElementTop;
-
-      if (bottomOverflow) {
-        scrollRef.current.scrollTop =
-          activeElementTop + activeElementRef.current.offsetHeight;
-      }
-
-      if (topOverflow) {
-        scrollRef.current.scrollTop = activeElementRef.current.offsetTop;
-      }
-    }
-  };
-
-  useEffect(scrollToActiveElement, [activeElementRef.current]);
-
   useEffect(() => {
     if (isOpen) {
       const { index } = options.find(({ value }) => value === analysis);
@@ -223,9 +202,9 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
                     <ListItem
                       key={value}
                       isActive={selectionIndex === index}
-                      onActive={(ref) => {
-                        activeElementRef.current = ref.current;
-                      }}
+                      onActive={(activeElementRef) =>
+                        scrollToActiveElement(activeElementRef, scrollRef)
+                      }
                       description={t(description)}
                       analysis={value}
                       onMouseEnter={() => setIndex(index)}

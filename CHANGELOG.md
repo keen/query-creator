@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/keen/query-creator/compare/v1.9.0...v1.10.0) (2021-08-11)
+
+
+### Features
+
+* 🎸 scroll to active list element ([3c912dc](https://github.com/keen/query-creator/commit/3c912dcb857742f274c8dff76b3603b0f87d6274))
+
 ## [1.9.0](https://github.com/keen/query-creator/compare/v1.8.0...v1.9.0) (2021-08-09)
 
 

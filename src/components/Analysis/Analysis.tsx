@@ -12,18 +12,17 @@ import { useSearch } from '@keen.io/react-hooks';
 import { BodyText } from '@keen.io/typography';
 import {
   Dropdown,
-  ScrollWrapper,
   Tooltip,
   DropableContainer,
   EmptySearch,
   TitleComponent,
 } from '@keen.io/ui-core';
 
-import { ListItem } from './components';
+import { ListItem, ScrollWrapper } from './components';
 import { Container, List, Groups, TooltipContainer } from './Analysis.styles';
 
 import { hintMotion } from './motion';
-import { transformName } from './utils';
+import { transformName, scrollToActiveElement } from './utils';
 
 import { useKeypress } from '../../hooks';
 
@@ -195,14 +194,17 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
             message={t('query_creator_analysis.empty_search_results')}
           />
         ) : (
-          <ScrollWrapper>
-            <Groups ref={scrollRef}>
+          <ScrollWrapper ref={scrollRef}>
+            <Groups>
               {filteredAnalysis.map((options, idx) => (
                 <List key={idx} role="list">
                   {options.map(({ label, value, index, description }) => (
                     <ListItem
                       key={value}
                       isActive={selectionIndex === index}
+                      onActive={(activeElementRef) =>
+                        scrollToActiveElement(activeElementRef, scrollRef)
+                      }
                       description={t(description)}
                       analysis={value}
                       onMouseEnter={() => setIndex(index)}

@@ -1,3 +1,4 @@
+import ScrollWrapper from './ScrollWrapper';
 import ListItem from './ListItem';
 
-export { ListItem };
+export { ScrollWrapper, ListItem };

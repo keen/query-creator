@@ -61,10 +61,9 @@ const ExtractionProperties: FC<Props> = ({
   const propertiesRef = useRef(null);
   propertiesRef.current = properties;
 
-  const {
-    tree: schemaTree,
-    list: schemaList,
-  } = useSelector((state: AppState) => getCollectionSchema(state, collection));
+  const { tree: schemaTree, list: schemaList } = useSelector(
+    (state: AppState) => getCollectionSchema(state, collection)
+  );
 
   const { searchHandler } = useSearch<{
     path: string;

@@ -1,4 +1,5 @@
 import React, { FC, useMemo } from 'react';
+import { KEYBOARD_KEYS } from '@keen.io/ui-core';
 
 import { Container, IntervalButton } from './SupportedInterval.styles';
 
@@ -28,6 +29,13 @@ const SupportedInterval: FC<Props> = ({ interval, onChange }) => {
           key={option.value}
           isActive={interval === option.value}
           onClick={() => onChange(option.value)}
+          onKeyDown={(e) => {
+            if (e.keyCode === KEYBOARD_KEYS.ENTER) {
+              onChange(option.value);
+            }
+          }}
+          role="button"
+          tabIndex={0}
         >
           {option.label}
         </IntervalButton>

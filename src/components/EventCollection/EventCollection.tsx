@@ -16,16 +16,15 @@ import {
   DropdownListContainer,
   TitleComponent,
   EmptySearch,
+  KEYBOARD_KEYS,
 } from '@keen.io/ui-core';
 import { useSearch } from '@keen.io/react-hooks';
 import { BodyText } from '@keen.io/typography';
+import { colors } from '@keen.io/colors';
 
 import { Container } from './EventCollection.styles';
 
 import { getEventsCollections } from '../../modules/events';
-
-import { KEYBOARD_KEYS } from '../../constants';
-import { colors } from '@keen.io/colors';
 
 type Props = {
   /** Collection identifer */

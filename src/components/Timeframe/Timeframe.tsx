@@ -1,4 +1,11 @@
-import React, { FC, useState, useRef, useEffect, useContext } from 'react';
+import React, {
+  FC,
+  useState,
+  useRef,
+  useEffect,
+  useContext,
+  useCallback,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Timeframe as QueryTimeframe } from '@keen.io/query';
@@ -15,7 +22,9 @@ import {
   TitleComponent,
   convertRelativeTime,
   TIME_PICKER_CLASS,
+  KEYBOARD_KEYS,
 } from '@keen.io/ui-core';
+import { useKeypress } from '@keen.io/react-hooks';
 
 import {
   AbsoluteTimeLabel,
@@ -85,6 +94,19 @@ const Timeframe: FC<Props> = ({
     timezones,
     isLoading,
     defaultTimezone,
+  });
+
+  const keyboardHandler = useCallback((_e: KeyboardEvent, keyCode: number) => {
+    if (keyCode === KEYBOARD_KEYS.ESCAPE) {
+      setOpen(false);
+    }
+  }, []);
+
+  useKeypress({
+    keyboardAction: keyboardHandler,
+    handledKeys: [KEYBOARD_KEYS.ESCAPE],
+    addEventListenerCondition: isOpen,
+    eventListenerDependencies: [isOpen],
   });
 
   return (

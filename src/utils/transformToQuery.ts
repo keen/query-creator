@@ -18,13 +18,8 @@ export const transformToQuery = (query: QueryState) => {
     }
   });
 
-  const {
-    filters,
-    orderBy,
-    propertyNames,
-    steps,
-    ...restQuerySettings
-  } = queryCopy;
+  const { filters, orderBy, propertyNames, steps, ...restQuerySettings } =
+    queryCopy;
   const queryToTransform: InitialQuery = {
     analysisType,
     ...restQuerySettings,

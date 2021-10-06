@@ -1,6 +1,11 @@
 import React, { FC, useState, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dropdown, Input, DropableContainer } from '@keen.io/ui-core';
+import {
+  Dropdown,
+  Input,
+  DropableContainer,
+  KEYBOARD_KEYS,
+} from '@keen.io/ui-core';
 
 import {
   Container,
@@ -18,7 +23,6 @@ import { Property as PropertyType } from '../../../../types';
 import { getEventPath } from '../../../../utils';
 
 import { SEPARATOR, MAX_LIST_HEIGHT } from './constants';
-import { KEYBOARD_KEYS } from '../../../../constants';
 
 type Props = {
   /** List values */

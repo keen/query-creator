@@ -11,11 +11,13 @@ import {
   Dropdown,
   EmptySearch,
   PropertiesTree,
+  KEYBOARD_KEYS,
 } from '@keen.io/ui-core';
 import { transparentize } from 'polished';
 import { useTranslation } from 'react-i18next';
 import { colors } from '@keen.io/colors';
 import { Icon } from '@keen.io/icons';
+import { useKeypress } from '@keen.io/react-hooks';
 
 import {
   Container,
@@ -95,6 +97,20 @@ const OrderByProperty: FC<Props> = ({
   useEffect(() => {
     if (!isEditAllowed) setEditMode(false);
   }, [isEditAllowed, editMode]);
+
+  const keyboardHandler = useCallback((_e: KeyboardEvent, keyCode: number) => {
+    if (keyCode === KEYBOARD_KEYS.ESCAPE) {
+      setEditMode(false);
+      onBlur();
+    }
+  }, []);
+
+  useKeypress({
+    keyboardAction: keyboardHandler,
+    handledKeys: [KEYBOARD_KEYS.ESCAPE],
+    addEventListenerCondition: editMode,
+    eventListenerDependencies: [editMode],
+  });
 
   return (
     <Container ref={containerRef} data-testid="orderBy-property">

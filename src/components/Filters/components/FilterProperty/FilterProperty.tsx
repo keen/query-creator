@@ -102,7 +102,12 @@ const FilterProperty: FC<Props> = ({
     <Container
       ref={containerRef}
       onClick={() => !editMode && setEditMode(true)}
+      onKeyDown={(e) =>
+        e.keyCode === KEYBOARD_KEYS.ENTER && !editMode && setEditMode(true)
+      }
       data-testid="filter-property"
+      role="button"
+      tabIndex={0}
     >
       <PropertyGroup isActive={editMode}>
         <PropertyItem>

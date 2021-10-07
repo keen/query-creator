@@ -39,7 +39,7 @@ const Property: FC<Props> = ({
   editMode = false,
 }) => {
   return (
-    <Container>
+    <Container role="button" tabIndex={0}>
       <Content>
         {placeholder && !property && !editMode && (
           <Placeholder>{placeholder}</Placeholder>

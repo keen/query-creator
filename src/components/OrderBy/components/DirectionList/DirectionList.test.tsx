@@ -1,5 +1,6 @@
 import React from 'react';
 import { render as rtlRender, fireEvent } from '@testing-library/react';
+import { KEYBOARD_KEYS } from '@keen.io/ui-core';
 
 import DirectionList from './DirectionList';
 
@@ -39,4 +40,27 @@ test('allows user to select property', () => {
   fireEvent.click(option);
 
   expect(onChange).toHaveBeenCalledWith('DESC');
+});
+
+test('allows user to select property by using keyboard', () => {
+  const onChange = jest.fn();
+  const {
+    wrapper: { getByTestId },
+  } = render({ onChange });
+
+  const dropableContainer = getByTestId('dropable-container');
+  fireEvent.keyDown(dropableContainer, {
+    key: 'Enter',
+    keyCode: KEYBOARD_KEYS.ENTER,
+  });
+  fireEvent.keyDown(dropableContainer, {
+    key: 'ArrowDown',
+    keyCode: KEYBOARD_KEYS.DOWN,
+  });
+  fireEvent.keyDown(dropableContainer, {
+    key: 'Enter',
+    keyCode: KEYBOARD_KEYS.ENTER,
+  });
+
+  expect(onChange).toHaveBeenCalledWith('ASC');
 });

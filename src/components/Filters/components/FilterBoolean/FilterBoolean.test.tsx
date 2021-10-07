@@ -1,5 +1,6 @@
 import React from 'react';
 import { render as rtlRender, fireEvent } from '@testing-library/react';
+import { KEYBOARD_KEYS } from '@keen.io/ui-core';
 
 import FilterBoolean from './FilterBoolean';
 
@@ -37,6 +38,29 @@ test('allows user to select value', () => {
 
   const element = getByText('false');
   fireEvent.click(element);
+
+  expect(props.onChange).toHaveBeenCalledWith(false);
+});
+
+test('allows user to select value by using keyboard', () => {
+  const {
+    wrapper: { getByTestId },
+    props,
+  } = render();
+
+  const container = getByTestId('dropable-container');
+  fireEvent.keyDown(container, {
+    key: 'Enter',
+    keyCode: KEYBOARD_KEYS.ENTER,
+  });
+  fireEvent.keyDown(container, {
+    key: 'ArrowDown',
+    keyCode: KEYBOARD_KEYS.DOWN,
+  });
+  fireEvent.keyDown(container, {
+    key: 'Enter',
+    keyCode: KEYBOARD_KEYS.ENTER,
+  });
 
   expect(props.onChange).toHaveBeenCalledWith(false);
 });

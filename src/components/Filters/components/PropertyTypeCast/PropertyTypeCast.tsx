@@ -53,7 +53,6 @@ const PropertyTypeCast: FC<Props> = ({ type, property, onChange }) => {
   useEffect(() => {
     if (editMode) {
       const index = items.findIndex(({ value }) => value === type);
-      console.log(index);
       setIndex(index);
     }
     return () => setIndex(null);
@@ -127,6 +126,12 @@ const PropertyTypeCast: FC<Props> = ({ type, property, onChange }) => {
         e.stopPropagation();
         !editMode && setEditMode(true);
       }}
+      onKeyDown={(e) => {
+        e.stopPropagation();
+        e.keyCode === KEYBOARD_KEYS.ENTER && !editMode && setEditMode(true);
+      }}
+      role="button"
+      tabIndex={0}
     >
       <DropableContainer editMode={editMode} isActive={schemaType !== type}>
         {type}

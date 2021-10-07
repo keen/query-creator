@@ -1,6 +1,6 @@
 import React from 'react';
 import { render as rtlRender, fireEvent } from '@testing-library/react';
-import { createTree } from '@keen.io/ui-core';
+import { createTree, KEYBOARD_KEYS } from '@keen.io/ui-core';
 
 import PropertyTypeCast from './PropertyTypeCast';
 import FiltersContext from '../../FiltersContext';
@@ -32,7 +32,7 @@ const render = (overProps: any = {}) => {
   };
 };
 
-test('allows set property type', () => {
+test('allows to set property type', () => {
   const {
     wrapper: { getByTestId, getByText },
     props,
@@ -45,6 +45,33 @@ test('allows set property type', () => {
   fireEvent.click(type);
 
   expect(props.onChange).toHaveBeenCalledWith('Boolean');
+});
+
+test('allows to set property type by using keyboard', () => {
+  const {
+    wrapper: { getByTestId },
+    props,
+  } = render();
+
+  const propertyTypes = getByTestId('property-type-cast');
+  fireEvent.keyDown(propertyTypes, {
+    key: 'Enter',
+    keyCode: KEYBOARD_KEYS.ENTER,
+  });
+  fireEvent.keyDown(propertyTypes, {
+    key: 'ArrowDown',
+    keyCode: KEYBOARD_KEYS.DOWN,
+  });
+  fireEvent.keyDown(propertyTypes, {
+    key: 'ArrowDown',
+    keyCode: KEYBOARD_KEYS.DOWN,
+  });
+  fireEvent.keyDown(propertyTypes, {
+    key: 'Enter',
+    keyCode: KEYBOARD_KEYS.ENTER,
+  });
+
+  expect(props.onChange).toHaveBeenCalledWith('Datetime');
 });
 
 test('shows message about type cast consistency', () => {

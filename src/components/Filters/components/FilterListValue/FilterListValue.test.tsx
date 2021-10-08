@@ -1,8 +1,8 @@
 import React from 'react';
 import { render as rtlRender, fireEvent } from '@testing-library/react';
+import { KEYBOARD_KEYS } from '@keen.io/ui-core';
 
 import FilterListValue from './FilterListValue';
-import { KEYBOARD_KEYS } from '../../../../constants';
 
 const render = (overProps: any = {}) => {
   const props = {

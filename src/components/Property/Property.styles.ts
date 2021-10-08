@@ -6,6 +6,10 @@ export const Container = styled.div`
   padding: 10px 14px;
   height: 37px;
   box-sizing: border-box;
+
+  &:focus-visible {
+    outline: 1px solid ${colors.lightBlue[500]};
+  }
 `;
 
 const placeholderMixin = () => css`

@@ -12,9 +12,11 @@ import {
   Dropdown,
   EmptySearch,
   PropertiesTree,
+  KEYBOARD_KEYS,
 } from '@keen.io/ui-core';
 import { transparentize } from 'polished';
 import { colors } from '@keen.io/colors';
+import { useKeypress } from '@keen.io/react-hooks';
 
 import {
   Container,
@@ -86,6 +88,20 @@ const SearchableProperty: FC<Props> = ({
   useEffect(() => {
     if (!isEditAllowed) setEditMode(false);
   }, [isEditAllowed, editMode]);
+
+  const keyboardHandler = useCallback((_e: KeyboardEvent, keyCode: number) => {
+    if (keyCode === KEYBOARD_KEYS.ESCAPE) {
+      setEditMode(false);
+      onBlur();
+    }
+  }, []);
+
+  useKeypress({
+    keyboardAction: keyboardHandler,
+    handledKeys: [KEYBOARD_KEYS.ESCAPE],
+    addEventListenerCondition: editMode,
+    eventListenerDependencies: [editMode],
+  });
 
   return (
     <Container

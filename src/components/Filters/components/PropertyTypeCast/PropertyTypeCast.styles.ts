@@ -5,6 +5,10 @@ import { colors } from '@keen.io/colors';
 export const Container = styled.div`
   position: relative;
   cursor: pointer;
+
+  &:focus-visible {
+    outline: 1px solid ${colors.lightBlue[500]};
+  }
 `;
 
 export const DropableContainer = styled.div<{

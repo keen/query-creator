@@ -15,10 +15,12 @@ import {
   DropableContainer,
   TitleComponent,
   MousePositionedTooltip,
+  KEYBOARD_KEYS,
 } from '@keen.io/ui-core';
 import { Icon } from '@keen.io/icons';
 import { colors } from '@keen.io/colors';
 import { BodyText } from '@keen.io/typography';
+import { useKeypress } from '@keen.io/react-hooks';
 
 import SupportedInterval from '../SupportedInterval';
 import CustomInterval from '../CustomInterval';
@@ -101,6 +103,19 @@ const Interval: FC<Props> = () => {
       {t('query_creator_interval.tooltip')}
     </BodyText>
   );
+
+  const keyboardHandler = useCallback((_e: KeyboardEvent, keyCode: number) => {
+    if (keyCode === KEYBOARD_KEYS.ESCAPE) {
+      setOpen(false);
+    }
+  }, []);
+
+  useKeypress({
+    keyboardAction: keyboardHandler,
+    handledKeys: [KEYBOARD_KEYS.ESCAPE],
+    addEventListenerCondition: isOpen,
+    eventListenerDependencies: [isOpen],
+  });
 
   return (
     <Container ref={containerRef}>

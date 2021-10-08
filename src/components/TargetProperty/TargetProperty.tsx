@@ -1,4 +1,11 @@
-import React, { FC, useState, useEffect, useRef, useContext } from 'react';
+import React, {
+  FC,
+  useState,
+  useEffect,
+  useRef,
+  useContext,
+  useCallback,
+} from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import {
@@ -10,8 +17,9 @@ import {
   PropertiesTree,
   createTree,
   MousePositionedTooltip,
+  KEYBOARD_KEYS,
 } from '@keen.io/ui-core';
-import { useSearch } from '@keen.io/react-hooks';
+import { useSearch, useKeypress } from '@keen.io/react-hooks';
 import { Icon } from '@keen.io/icons';
 import { colors } from '@keen.io/colors';
 
@@ -151,6 +159,19 @@ const TargetProperty: FC<Props> = ({
 
   const isEmptySearch =
     searchPhrase && propertiesTree && !Object.keys(propertiesTree).length;
+
+  const keyboardHandler = useCallback((_e: KeyboardEvent, keyCode: number) => {
+    if (keyCode === KEYBOARD_KEYS.ESCAPE) {
+      setOpen(false);
+    }
+  }, []);
+
+  useKeypress({
+    keyboardAction: keyboardHandler,
+    handledKeys: [KEYBOARD_KEYS.ESCAPE],
+    addEventListenerCondition: isOpen,
+    eventListenerDependencies: [isOpen],
+  });
 
   return (
     <Container ref={containerRef}>

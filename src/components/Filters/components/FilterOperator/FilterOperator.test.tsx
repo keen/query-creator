@@ -1,5 +1,6 @@
 import React from 'react';
 import { render as rtlRender, fireEvent } from '@testing-library/react';
+import { KEYBOARD_KEYS } from '@keen.io/ui-core';
 
 import FilterOperator from './FilterOperator';
 
@@ -42,4 +43,31 @@ test('allows user to select operator', () => {
   fireEvent.click(operatorElement);
 
   expect(props.onChange).toHaveBeenCalledWith('eq');
+});
+
+test('allows user to select operator by using keyboard', () => {
+  const {
+    wrapper: { getByTestId },
+    props,
+  } = render({ propertyType: 'Number', operator: undefined });
+
+  const container = getByTestId('dropable-container');
+  fireEvent.keyDown(container, {
+    key: 'Enter',
+    keyCode: KEYBOARD_KEYS.ENTER,
+  });
+  fireEvent.keyDown(container, {
+    key: 'ArrowDown',
+    keyCode: KEYBOARD_KEYS.DOWN,
+  });
+  fireEvent.keyDown(container, {
+    key: 'ArrowDown',
+    keyCode: KEYBOARD_KEYS.DOWN,
+  });
+  fireEvent.keyDown(container, {
+    key: 'Enter',
+    keyCode: KEYBOARD_KEYS.ENTER,
+  });
+
+  expect(props.onChange).toHaveBeenCalledWith('ne');
 });

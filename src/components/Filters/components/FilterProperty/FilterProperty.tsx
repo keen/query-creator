@@ -7,7 +7,13 @@ import React, {
   useEffect,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dropdown, EmptySearch, PropertiesTree } from '@keen.io/ui-core';
+import {
+  Dropdown,
+  EmptySearch,
+  PropertiesTree,
+  KEYBOARD_KEYS,
+} from '@keen.io/ui-core';
+import { useKeypress } from '@keen.io/react-hooks';
 
 import { Container, DropdownContent } from './FilterProperty.styles';
 
@@ -78,11 +84,30 @@ const FilterProperty: FC<Props> = ({
     return () => document.removeEventListener('click', outsideClick);
   }, [editMode, containerRef]);
 
+  const keyboardHandler = useCallback((_e: KeyboardEvent, keyCode: number) => {
+    if (keyCode === KEYBOARD_KEYS.ESCAPE) {
+      setEditMode(false);
+      onBlur();
+    }
+  }, []);
+
+  useKeypress({
+    keyboardAction: keyboardHandler,
+    handledKeys: [KEYBOARD_KEYS.ESCAPE],
+    addEventListenerCondition: editMode,
+    eventListenerDependencies: [editMode],
+  });
+
   return (
     <Container
       ref={containerRef}
       onClick={() => !editMode && setEditMode(true)}
+      onKeyDown={(e) =>
+        e.keyCode === KEYBOARD_KEYS.ENTER && !editMode && setEditMode(true)
+      }
       data-testid="filter-property"
+      role="button"
+      tabIndex={0}
     >
       <PropertyGroup isActive={editMode}>
         <PropertyItem>

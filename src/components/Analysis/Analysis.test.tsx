@@ -4,10 +4,9 @@ import {
   fireEvent,
   waitFor,
 } from '@testing-library/react';
+import { KEYBOARD_KEYS } from '@keen.io/ui-core';
 
 import Analysis from './Analysis';
-
-import { KEYBOARD_KEYS } from '../../constants';
 
 const render = (overProps: any = {}) => {
   const props = {

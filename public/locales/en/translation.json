@@ -180,5 +180,9 @@
     "select_unique": "List of unique values found for a target property.",
     "standard_deviation": "Standard deviation of all numeric values for a target property.<br/><br/>Non-numeric values will be ignored.",
     "sum": "Sum of all numeric values for a given property.<br/><br/>Non-numeric values will be ignored."
+  },
+  "custom_interval": {
+    "main_label": "Every",
+    "unit_placeholder": "Unit placeholder"
   }
 }

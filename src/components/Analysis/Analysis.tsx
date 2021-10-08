@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import { colors } from '@keen.io/colors';
 import { useTranslation } from 'react-i18next';
-import { useSearch } from '@keen.io/react-hooks';
+import { useSearch, useKeypress } from '@keen.io/react-hooks';
 import { BodyText } from '@keen.io/typography';
 import {
   Dropdown,
@@ -16,6 +16,7 @@ import {
   DropableContainer,
   EmptySearch,
   TitleComponent,
+  KEYBOARD_KEYS,
 } from '@keen.io/ui-core';
 
 import { ListItem, ScrollWrapper } from './components';
@@ -24,13 +25,10 @@ import { Container, List, Groups, TooltipContainer } from './Analysis.styles';
 import { hintMotion } from './motion';
 import { transformName, scrollToActiveElement } from './utils';
 
-import { useKeypress } from '../../hooks';
-
 import { Analysis as AnalysisType } from '../../types';
 import { AnalysisItem } from './types';
 
 import { ANALYSIS_GROUPS } from './constants';
-import { KEYBOARD_KEYS } from '../../constants';
 
 type Props = {
   /** Current analysis */
@@ -45,9 +43,8 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
   const [selectionIndex, setIndex] = useState<number>(null);
   const [hint, showHint] = useState(false);
 
-  const [filteredAnalysis, setFilteredAnalysis] = useState<AnalysisItem[][]>(
-    ANALYSIS_GROUPS
-  );
+  const [filteredAnalysis, setFilteredAnalysis] =
+    useState<AnalysisItem[][]>(ANALYSIS_GROUPS);
 
   const [tooltip, setTooltip] = useState({
     top: 0,
@@ -62,20 +59,19 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
   const dropdownRef = useRef(null);
   const scrollRef = useRef(null);
 
-  const { searchHandler, searchPhrase, clearSearchPhrase } = useSearch<
-    AnalysisItem
-  >(options, (searchResult, phrase) => {
-    setIndex(null);
-    if (phrase) {
-      const indexedResults = searchResult.map((item, idx) => ({
-        ...item,
-        index: idx,
-      }));
-      setFilteredAnalysis([indexedResults]);
-    } else {
-      setFilteredAnalysis(ANALYSIS_GROUPS);
-    }
-  });
+  const { searchHandler, searchPhrase, clearSearchPhrase } =
+    useSearch<AnalysisItem>(options, (searchResult, phrase) => {
+      setIndex(null);
+      if (phrase) {
+        const indexedResults = searchResult.map((item, idx) => ({
+          ...item,
+          index: idx,
+        }));
+        setFilteredAnalysis([indexedResults]);
+      } else {
+        setFilteredAnalysis(ANALYSIS_GROUPS);
+      }
+    });
 
   const [firstGroup] = filteredAnalysis;
 

@@ -2,10 +2,9 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { render as rtlRender, fireEvent, act } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
+import { KEYBOARD_KEYS } from '@keen.io/ui-core';
 
 import EventCollection from './EventCollection';
-
-import { KEYBOARD_KEYS } from '../../constants';
 
 const render = (storeState: any = {}, overProps: any = {}) => {
   const mockStore = configureStore([]);

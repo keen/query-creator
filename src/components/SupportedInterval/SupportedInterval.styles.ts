@@ -36,4 +36,8 @@ export const IntervalButton = styled.div<{
   &:hover {
     background: ${transparentize(0.3, colors.green[100])};
   }
+
+  &:focus-visible {
+    outline: 1px solid ${colors.lightBlue[500]};
+  }
 `;

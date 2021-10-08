@@ -11,7 +11,9 @@ import {
   Dropdown,
   DropdownListContainer,
   DropdownList,
+  KEYBOARD_KEYS,
 } from '@keen.io/ui-core';
+import { useKeypress } from '@keen.io/react-hooks';
 
 import {
   Container,
@@ -43,8 +45,18 @@ type Props = {
 const PropertyTypeCast: FC<Props> = ({ type, property, onChange }) => {
   const { t } = useTranslation();
   const [editMode, setEditMode] = useState(false);
+  const [selectionIndex, setIndex] = useState<number>(null);
   const containerRef = useRef(null);
   const { schema } = useContext(FiltersContext);
+
+  const items = createOptions(DATA_TYPES);
+  useEffect(() => {
+    if (editMode) {
+      const index = items.findIndex(({ value }) => value === type);
+      setIndex(index);
+    }
+    return () => setIndex(null);
+  }, [editMode]);
 
   const outsideClick = useCallback(
     (e) => {
@@ -66,6 +78,46 @@ const PropertyTypeCast: FC<Props> = ({ type, property, onChange }) => {
 
   const schemaType = property ? SCHEMA_PROPS[schema[property]] : null;
 
+  const keyboardHandler = useCallback(
+    (_e: KeyboardEvent, keyCode: number) => {
+      switch (keyCode) {
+        case KEYBOARD_KEYS.ENTER:
+          const value = items[selectionIndex].value as Property;
+          onChange(value);
+          setEditMode(false);
+          break;
+        case KEYBOARD_KEYS.UP:
+          if (selectionIndex > 0) {
+            setIndex(selectionIndex - 1);
+          }
+          break;
+        case KEYBOARD_KEYS.DOWN:
+          if (selectionIndex === null) {
+            setIndex(0);
+          } else if (selectionIndex < items.length - 1) {
+            setIndex(selectionIndex + 1);
+          }
+          break;
+        case KEYBOARD_KEYS.ESCAPE:
+          setEditMode(false);
+          break;
+      }
+    },
+    [items]
+  );
+
+  useKeypress({
+    keyboardAction: keyboardHandler,
+    handledKeys: [
+      KEYBOARD_KEYS.ENTER,
+      KEYBOARD_KEYS.ESCAPE,
+      KEYBOARD_KEYS.UP,
+      KEYBOARD_KEYS.DOWN,
+    ],
+    addEventListenerCondition: editMode,
+    eventListenerDependencies: [editMode],
+  });
+
   return (
     <Container
       data-testid="property-type-cast"
@@ -74,6 +126,12 @@ const PropertyTypeCast: FC<Props> = ({ type, property, onChange }) => {
         e.stopPropagation();
         !editMode && setEditMode(true);
       }}
+      onKeyDown={(e) => {
+        e.stopPropagation();
+        e.keyCode === KEYBOARD_KEYS.ENTER && !editMode && setEditMode(true);
+      }}
+      role="button"
+      tabIndex={0}
     >
       <DropableContainer editMode={editMode} isActive={schemaType !== type}>
         {type}
@@ -98,7 +156,9 @@ const PropertyTypeCast: FC<Props> = ({ type, property, onChange }) => {
                     )}
                   </ItemContainer>
                 )}
-                setActiveItem={({ value }) => value === type}
+                setActiveItem={({ value }) =>
+                  items[selectionIndex] && value === items[selectionIndex].value
+                }
                 onClick={(_e, { value }) => {
                   setEditMode(false);
                   onChange(value);

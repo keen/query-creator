@@ -71,10 +71,9 @@ const GroupBy: FC<Props> = ({ collection }) => {
   const groupsRef = useRef(groups);
 
   const eventCollection = useSelector(getEventCollection);
-  const {
-    tree: schemaTree,
-    list: schemaList,
-  } = useSelector((state: AppState) => getCollectionSchema(state, collection));
+  const { tree: schemaTree, list: schemaList } = useSelector(
+    (state: AppState) => getCollectionSchema(state, collection)
+  );
 
   const [state, groupDispatcher] = useReducer(
     groupByReducer,

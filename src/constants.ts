@@ -16,13 +16,6 @@ export const UPDATE_TIMEOUT = 0;
 export const QUERY_UPDATE_ACTION = '@query';
 export const ANALYTICS_API_HOST = 'ANALYTICS_API_HOST';
 
-export const KEYBOARD_KEYS = {
-  UP: 38,
-  DOWN: 40,
-  ENTER: 13,
-  ESCAPE: 27,
-};
-
 export const SCHEMA_PROPS = {
   num: 'Number',
   string: 'String',

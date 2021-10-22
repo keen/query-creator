@@ -81,11 +81,14 @@ const Analysis: FC<Props> = ({ analysis, onChange }) => {
 
       switch (keyCode) {
         case KEYBOARD_KEYS.ENTER:
-          const { value } = analyses.find(
+          const analysis = analyses.find(
             ({ index }) => index === selectionIndex
           );
-          onChange(value);
-          setOpen(false);
+          if (analysis) {
+            const { value } = analysis;
+            onChange(value);
+            setOpen(false);
+          }
           break;
         case KEYBOARD_KEYS.UP:
           if (selectionIndex > 0) {

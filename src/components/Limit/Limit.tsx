@@ -48,7 +48,7 @@ const Limit: FC<Props> = ({ collection }) => {
     return () => {
       dispatch(setLimit(undefined));
     };
-  }, []);
+  }, [groupBy]);
 
   useEffect(() => {
     if (isDisabled) {

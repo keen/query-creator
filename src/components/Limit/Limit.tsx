@@ -33,7 +33,8 @@ const Limit: FC<Props> = ({ collection }) => {
   const limit = useSelector(getLimit);
   const groupBy = useSelector(getGroupBy);
   const orderBy = useSelector(getOrderBy);
-  const isDisabled = !groupBy || !orderBy;
+
+  const isDisabled = !groupBy || !orderBy || !orderBy.length;
 
   const changeHandler = useCallback((eventValue) => {
     if (eventValue) {

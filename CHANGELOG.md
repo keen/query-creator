@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.2](https://github.com/keen/query-creator/compare/v1.11.1...v1.11.2) (2021-11-10)
+
+
+### Bug Fixes
+
+* 🐛 Clear limit field on group by change ([#99](https://github.com/keen/query-creator/issues/99)) ([#100](https://github.com/keen/query-creator/issues/100)) ([37f66f8](https://github.com/keen/query-creator/commit/37f66f802c5fc4533ba057cfbced6085d1a4e0e7))
+
 ### [1.11.1](https://github.com/keen/query-creator/compare/v1.11.0...v1.11.1) (2021-11-08)
 
 

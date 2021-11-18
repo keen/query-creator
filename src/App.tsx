@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import 'react-dates/initialize'; // todo remove this when rc-time-picker no longer used in monorepository time-picker component
 
 import {
   ModifiersSettings,

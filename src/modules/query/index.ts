@@ -1,5 +1,4 @@
 import { queryReducer, initialState } from './reducer';
-import { querySaga } from './querySaga';
 import {
   getQuery,
   getEventCollection,
@@ -79,7 +78,6 @@ import {
 } from './types';
 
 export {
-  querySaga,
   initialState,
   queryReducer,
   getQuery,

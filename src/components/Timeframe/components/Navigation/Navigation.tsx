@@ -11,8 +11,6 @@ import { DEFAULT_TIMEFRAME } from './constants';
 type Props = {
   /** Query timeframe */
   timeframe: Timeframe;
-  /** Query timezone */
-  timezone: string;
   /** Timeframe change handler */
   onTimeframeChange: (timeframe: Timeframe) => void;
   /** Navigation disable indicator */
@@ -21,7 +19,6 @@ type Props = {
 
 const Navigation: FC<Props> = ({
   timeframe,
-  timezone,
   onTimeframeChange,
   isDisabled,
 }) => {
@@ -51,7 +48,7 @@ const Navigation: FC<Props> = ({
         if (tabId === TabsSettings.RELATIVE) {
           onTimeframeChange(DEFAULT_TIMEFRAME);
         } else {
-          onTimeframeChange(getDefaultAbsoluteTime(timezone));
+          onTimeframeChange(getDefaultAbsoluteTime());
         }
       }}
     />

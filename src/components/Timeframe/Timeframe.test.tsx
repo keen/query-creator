@@ -61,8 +61,8 @@ test('should render relative time user interface', () => {
 
 test('should render absolute time user interface', () => {
   const timeframe = {
-    start: undefined,
-    end: undefined,
+    start: '2021-01-10T10:00:00Z',
+    end: '2021-03-10T00:00:00Z',
   };
   const {
     wrapper: { getByTestId },

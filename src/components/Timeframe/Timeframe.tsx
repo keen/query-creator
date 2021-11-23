@@ -44,6 +44,8 @@ import { getEventPath } from '../../utils';
 
 import { getTimezoneState } from '../../modules/timezone';
 
+import { ABSOLUTE_TIMEZONE } from './constants';
+
 type Props = {
   /** Unique identifer */
   id: string;
@@ -136,7 +138,7 @@ const Timeframe: FC<Props> = ({
           <AbsoluteTimeLabel
             start={value.start}
             end={value.end}
-            timezone={timezoneValue}
+            timezone={ABSOLUTE_TIMEZONE}
           />
         )}
       </DropableContainer>

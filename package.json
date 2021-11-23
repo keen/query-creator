@@ -69,7 +69,6 @@
     "moment-timezone": "^0.5.33",
     "polished": "^3.4.4",
     "rc-time-picker": "^3.6.2",
-    "react-calendar": "^3.5.0",
     "react-dates": "^21.8.0",
     "react-redux": "^7.2.0",
     "react-vtree": "^2.0.2",

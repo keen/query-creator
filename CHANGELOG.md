@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.5](https://github.com/keen/query-creator/compare/v1.11.4...v1.11.5) (2021-11-23)
+
+
+### Bug Fixes
+
+* 🐛 absolute timeframe label ([3f70828](https://github.com/keen/query-creator/commit/3f70828c3fc0b194d509fade76af69e21a098cbc))
+
 ### [1.11.4](https://github.com/keen/query-creator/compare/v1.11.3...v1.11.4) (2021-11-23)
 
 

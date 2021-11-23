@@ -143,7 +143,6 @@ const Timeframe: FC<Props> = ({
       <Dropdown isOpen={isOpen}>
         <Navigation
           timeframe={value}
-          timezone={timezoneValue}
           isDisabled={isLoading || error}
           onTimeframeChange={onTimeframeChange}
         />

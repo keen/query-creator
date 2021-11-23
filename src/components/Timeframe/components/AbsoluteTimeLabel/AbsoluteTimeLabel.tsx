@@ -17,6 +17,7 @@ type Props = {
 const AbsoluteTimeLabel: FC<Props> = memo(({ timezone, start, end }) => {
   const [startDate, startHours] = formatDate(start, timezone).split(' ');
   const [endDate, endHours] = formatDate(end, timezone).split(' ');
+
   return (
     <BodyText variant="body2" color={colors.blue[500]} enableTextEllipsis>
       <span>{startDate}</span>

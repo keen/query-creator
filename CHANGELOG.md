@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.6](https://github.com/keen/query-creator/compare/v1.11.5...v1.11.6) (2021-12-01)
+
+
+### Bug Fixes
+
+* 🐛 query with multiple orderBy ([4de23a0](https://github.com/keen/query-creator/commit/4de23a0a166d3899de09c12708b849b3a6eb06b7))
+
 ### [1.11.5](https://github.com/keen/query-creator/compare/v1.11.4...v1.11.5) (2021-11-23)
 
 

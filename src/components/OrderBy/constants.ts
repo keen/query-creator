@@ -1,9 +1,11 @@
 import { OrderBy } from '../../types';
 
+export const RESULT_PROPERTY_NAME = 'result';
+
 export const ORDER_OPTIONS = [
   {
-    label: 'result',
-    value: 'result',
+    label: RESULT_PROPERTY_NAME,
+    value: RESULT_PROPERTY_NAME,
   },
 ];
 
@@ -18,7 +20,7 @@ export const DIRECTION_OPTIONS = [
 ];
 
 export const DEFAULT_ORDER_SETTINGS = {
-  propertyName: 'result',
+  propertyName: RESULT_PROPERTY_NAME,
   direction: 'ASC',
 } as OrderBy;
 

@@ -44,8 +44,6 @@ import { getEventPath } from '../../utils';
 
 import { getTimezoneState } from '../../modules/timezone';
 
-import { ABSOLUTE_TIMEZONE } from './constants';
-
 type Props = {
   /** Unique identifer */
   id: string;
@@ -135,11 +133,7 @@ const Timeframe: FC<Props> = ({
         {typeof value === 'string' ? (
           <RelativeTimeLabel {...convertRelativeTime(value)} />
         ) : (
-          <AbsoluteTimeLabel
-            start={value.start}
-            end={value.end}
-            timezone={ABSOLUTE_TIMEZONE}
-          />
+          <AbsoluteTimeLabel start={value.start} end={value.end} />
         )}
       </DropableContainer>
       <Dropdown isOpen={isOpen}>

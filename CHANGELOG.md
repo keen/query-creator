@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.7](https://github.com/keen/query-creator/compare/v1.11.6...v1.11.7) (2021-12-02)
+
+
+### Bug Fixes
+
+* 🐛 ignore timezone in Timeframe ([b8cd042](https://github.com/keen/query-creator/commit/b8cd04208d3917edb8ec9ac956d953683fb18994))
+
 ### [1.11.6](https://github.com/keen/query-creator/compare/v1.11.5...v1.11.6) (2021-12-01)
 
 

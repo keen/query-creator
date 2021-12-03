@@ -1,4 +1,4 @@
-import React, { FC, useState, useRef, useCallback } from 'react';
+import React, { FC, useState, useRef, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Dropdown,
@@ -22,7 +22,8 @@ import { Property as PropertyType } from '../../../../types';
 
 import { getEventPath } from '../../../../utils';
 
-import { SEPARATOR, MAX_LIST_HEIGHT } from './constants';
+import { MAX_LIST_HEIGHT, SEPARATOR } from './constants';
+import { FilterSuggestions } from '../FilterSuggestions';
 
 type Props = {
   /** List values */
@@ -31,12 +32,19 @@ type Props = {
   onChange: (value: Array<string | number>) => void;
   /** Type of property */
   propertyType: PropertyType;
+  availableSuggestions: string[];
 };
 
-const FilterListValue: FC<Props> = ({ items, propertyType, onChange }) => {
+const FilterListValue: FC<Props> = ({
+  items,
+  propertyType,
+  onChange,
+  availableSuggestions,
+}) => {
   const { t } = useTranslation();
   const containerRef = useRef(null);
   const [editMode, setEditMode] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   const removeHandler = useCallback(
     (item: string | number) => {
@@ -71,6 +79,14 @@ const FilterListValue: FC<Props> = ({ items, propertyType, onChange }) => {
     [propertyType, items]
   );
 
+  const [suggestionsVisible, setSuggestionsVisible] = useState<boolean>();
+
+  useEffect(() => {
+    if (inputValue) {
+      setSuggestionsVisible(true);
+    }
+  }, [inputValue]);
+
   return (
     <Container ref={containerRef}>
       <DropableContainer
@@ -89,19 +105,40 @@ const FilterListValue: FC<Props> = ({ items, propertyType, onChange }) => {
       </DropableContainer>
       <Dropdown isOpen={editMode} fullWidth={false}>
         <DropdownContainer>
-          <Input
-            autoFocus
-            variant="solid"
-            data-testid="list-input"
-            placeholder={t('query_creator_filter_list_value.input_placeholder')}
-            onKeyPress={(event: React.KeyboardEvent<HTMLInputElement>) => {
-              if (event.charCode === KEYBOARD_KEYS.ENTER) {
-                event.preventDefault();
-                updateListHandler(event);
-                event.currentTarget.value = '';
-              }
-            }}
-          />
+          <div ref={containerRef}>
+            <Input
+              autoFocus
+              variant="solid"
+              data-testid="list-input"
+              placeholder={t(
+                'query_creator_filter_list_value.input_placeholder'
+              )}
+              onChange={(event) => {
+                setInputValue(event.currentTarget.value);
+              }}
+              onKeyPress={(event: React.KeyboardEvent<HTMLInputElement>) => {
+                if (event.charCode === KEYBOARD_KEYS.ENTER) {
+                  event.preventDefault();
+                  updateListHandler(event);
+                  event.currentTarget.value = '';
+                }
+              }}
+            />
+            {suggestionsVisible && (
+              <FilterSuggestions
+                suggestionsLoading={false}
+                availableSuggestions={availableSuggestions}
+                filterValue={inputValue}
+                onSelect={(value) => {
+                  setSuggestionsVisible(false);
+                  if (value && !items.includes(value)) {
+                    onChange([...items, value]);
+                  }
+                }}
+                selectedItems={items as string[]}
+              />
+            )}
+          </div>
           <List maxHeight={MAX_LIST_HEIGHT}>
             {items.map((value, idx) => (
               <ListItem key={idx}>

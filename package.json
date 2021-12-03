@@ -93,7 +93,7 @@
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
     "@keen.io/ui-core": "^2.46.1",
-    "@keen.io/widgets": "^2.16.34",
+    "@keen.io/widgets": "^2.16.35",
     "@quickbaseoss/babel-plugin-styled-components-css-namespace": "^1.0.1",
     "@testing-library/jest-dom": "^5.8.0",
     "@testing-library/react": "^10.0.4",

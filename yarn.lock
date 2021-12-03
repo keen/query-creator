@@ -1582,10 +1582,10 @@
     d3-time "^2.0.0"
     d3-time-format "^2.2.3"
 
-"@keen.io/charts@^2.37.5":
-  version "2.37.5"
-  resolved "https://registry.yarnpkg.com/@keen.io/charts/-/charts-2.37.5.tgz#75d4eb063f86e04dff82845ebdc99b44f114131c"
-  integrity sha512-sY6IEyrOEZ5LjhWpQa64srYjxS9iidrhugGjryvRPI6D11Akh3UPRoeZdOx4BGNrPCnUzK4yvFGo46Zwqr/b6g==
+"@keen.io/charts@^2.37.6":
+  version "2.37.6"
+  resolved "https://registry.yarnpkg.com/@keen.io/charts/-/charts-2.37.6.tgz#f8ca3d11335cced39cf4bc2764bc8f49a3296504"
+  integrity sha512-lx+zYTNx+f2ER1Xu4V3L5V7AGJgUH7eCis9ppzI8fFJXLqoz9LavS+uRL1FLVMAEUCwpyT/IcXwwewhJ/b8Jtg==
   dependencies:
     "@keen.io/charts-utils" "^1.15.0"
     "@keen.io/colors" "^1.1.0"
@@ -1689,12 +1689,12 @@
     styled-system "^5.1.5"
     webfontloader "^1.6.28"
 
-"@keen.io/widgets@^2.16.34":
-  version "2.16.34"
-  resolved "https://registry.yarnpkg.com/@keen.io/widgets/-/widgets-2.16.34.tgz#ffc198198e6841614d720218e5d8f752ae0dab4f"
-  integrity sha512-eo/sCEbgMN+MLY6ZxebUbHYBjuq5JFPKkX8mDLq2PmctHVmhfl6ZsBluqhxaJQiAYp4+CzPvVJs67Jklq3idiw==
+"@keen.io/widgets@^2.16.35":
+  version "2.16.35"
+  resolved "https://registry.yarnpkg.com/@keen.io/widgets/-/widgets-2.16.35.tgz#4aa051dd367807671ba3ae8da6f63b2dcf3fcfcc"
+  integrity sha512-r8IiSkRVwVfu0reT554r+g5+i/0SA/WlJKmE0yx8szioJfmFG7CAlB2k4K7O8m/QGRDrLq3inIkMhBV2rdO/Ag==
   dependencies:
-    "@keen.io/charts" "^2.37.5"
+    "@keen.io/charts" "^2.37.6"
     "@keen.io/charts-utils" "^1.15.0"
     "@keen.io/colors" "^1.1.0"
     "@keen.io/react-hooks" "^1.4.3"

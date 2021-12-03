@@ -70,10 +70,12 @@ class QueryCreator extends React.PureComponent<Props> {
 
   storeSubscription: Unsubscribe;
 
+  keenClient: any;
+
   constructor(props: Props) {
     super(props);
 
-    const keenClient = new KeenAnalysis({
+    this.keenClient = new KeenAnalysis({
       projectId: this.props.projectId,
       masterKey: this.props.masterKey,
       readKey: this.props.readKey,
@@ -82,7 +84,7 @@ class QueryCreator extends React.PureComponent<Props> {
 
     const sagaMiddleware = createSagaMiddleware({
       context: {
-        keenClient,
+        keenClient: this.keenClient,
         [ANALYTICS_API_HOST]: this.props.host,
       },
     });
@@ -179,6 +181,7 @@ class QueryCreator extends React.PureComponent<Props> {
             value={{
               modalContainer: this.props.modalContainer,
               onUpdateChartSettings: this.props.onUpdateChartSettings,
+              keenClient: this.keenClient,
             }}
           >
             <App />

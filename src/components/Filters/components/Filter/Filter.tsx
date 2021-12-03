@@ -92,6 +92,7 @@ const Filter: FC<Props> = ({
           operator={operator}
           onChange={(value) => onChange({ ...filter, propertyValue: value })}
           propertyType={propertyType}
+          propertyName={propertyName}
         />
       </FilterItem>
       <FilterItem>

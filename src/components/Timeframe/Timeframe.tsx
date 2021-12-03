@@ -133,17 +133,12 @@ const Timeframe: FC<Props> = ({
         {typeof value === 'string' ? (
           <RelativeTimeLabel {...convertRelativeTime(value)} />
         ) : (
-          <AbsoluteTimeLabel
-            start={value.start}
-            end={value.end}
-            timezone={timezoneValue}
-          />
+          <AbsoluteTimeLabel start={value.start} end={value.end} />
         )}
       </DropableContainer>
       <Dropdown isOpen={isOpen}>
         <Navigation
           timeframe={value}
-          timezone={timezoneValue}
           isDisabled={isLoading || error}
           onTimeframeChange={onTimeframeChange}
         />

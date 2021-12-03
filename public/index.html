@@ -26,7 +26,8 @@
     analysis_type: "count",
     event_collection: "logins",
     filters: [
-      {operator: "contains", property_type: "String", property_value: "John", property_name: "name"}
+      {operator: "contains", property_type: "String", property_value: "John", property_name: "name"},
+      {operator: 'eq', property_type: 'Datetime', property_value: '2021-11-02T22:00:00Z', property_name: 'keen.created_at'},
     ],
     group_by: ["name"],
     order_by: [{property_name: "result", direction: "DESC"}],

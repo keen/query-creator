@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Input, DatePicker } from '@keen.io/ui-core';
-import moment from 'moment';
 import { useTranslation } from 'react-i18next';
+import dayjs from 'dayjs';
 
 import { DatePickerContainer } from './FilterValue.styles';
 
@@ -60,9 +60,13 @@ const getValueComponent = ({
       return (
         <DatePickerContainer>
           <DatePicker
-            date={moment.utc(value as string)}
+            date={new Date((value as string).substring(0, 19))}
             id={`datepicker_${id}`}
-            onChange={onChange}
+            onChange={(date: Date) =>
+              onChange(
+                `${dayjs(date.toString()).format('YYYY-MM-DDTHH:mm:ss')}Z`
+              )
+            }
           />
         </DatePickerContainer>
       );

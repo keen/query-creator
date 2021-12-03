@@ -24,7 +24,6 @@ import {
 } from './modules/app';
 
 import {
-  querySaga,
   getOrderBy,
   setFunnelSteps,
   setFunnelStepFilters,
@@ -338,5 +337,5 @@ function* watcher() {
 }
 
 export default function* rootSaga() {
-  yield all([watcher(), timezoneSaga(), querySaga()]);
+  yield all([watcher(), timezoneSaga()]);
 }

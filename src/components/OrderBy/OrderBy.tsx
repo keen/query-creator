@@ -23,7 +23,7 @@ import { colors } from '@keen.io/colors';
 import { BodyText } from '@keen.io/typography';
 
 import { OrderByProperty } from './components';
-import { DRAG_ANIMATION_TIME } from './constants';
+import { DRAG_ANIMATION_TIME, RESULT_PROPERTY_NAME } from './constants';
 import { OrderDirection } from './types';
 import { filterSchema, createListFromSchema } from './utils';
 import { Section, SortableContainer, OrderByContainer } from './OrderBy.styles';
@@ -58,6 +58,9 @@ const OrderBy: FC<Props> = ({ collection }) => {
 
   const orderBy = useSelector((state: AppState) => getOrderBy(state));
   const orderByRef = useRef(orderBy);
+  const isResultPropertyChosen = !!orderBy?.find(
+    (el) => el.propertyName === RESULT_PROPERTY_NAME
+  );
 
   const sortableRef = useRef(null);
 
@@ -69,7 +72,10 @@ const OrderBy: FC<Props> = ({ collection }) => {
   const filteredSchema = filterSchema(schema, groups, orderBy);
 
   const resultObject = {
-    [t('query_creator_order_by.order_options_label')]: ['result', 'any'],
+    [t('query_creator_order_by.order_options_label')]: [
+      RESULT_PROPERTY_NAME,
+      'any',
+    ],
   };
 
   const { searchHandler } = useSearch<{
@@ -174,9 +180,10 @@ const OrderBy: FC<Props> = ({ collection }) => {
   }, []);
 
   const isActionButtonDisabled = () =>
-    !showOrderOptions ||
-    !Object.keys(filteredSchema).length ||
-    (orderBy && orderBy.some((item) => !item.propertyName));
+    (!showOrderOptions ||
+      !Object.keys(filteredSchema).length ||
+      (orderBy && orderBy.some((item) => !item.propertyName))) &&
+    isResultPropertyChosen;
 
   const selectAndGroupDataTooltip = () => (
     <BodyText variant="body2" fontWeight="normal" color={colors.white[500]}>
@@ -226,7 +233,10 @@ const OrderBy: FC<Props> = ({ collection }) => {
                       properties={
                         propertiesTree
                           ? propertiesTree
-                          : { ...createTree(filteredSchema), ...resultObject }
+                          : {
+                              ...createTree(filteredSchema),
+                              ...(isResultPropertyChosen ? {} : resultObject),
+                            }
                       }
                       onSelectDirection={(value: OrderDirection) => {
                         const orderSettings = {

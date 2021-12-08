@@ -55,6 +55,8 @@ type Props = {
   defaultTimezoneForQuery?: string;
   /** Disable timezone selection flag */
   disableTimezoneSelection?: boolean;
+  /** Disable filter suggestions */
+  disableFilterSuggestions?: boolean;
 };
 
 class QueryCreator extends React.PureComponent<Props> {
@@ -182,6 +184,7 @@ class QueryCreator extends React.PureComponent<Props> {
               modalContainer: this.props.modalContainer,
               onUpdateChartSettings: this.props.onUpdateChartSettings,
               keenClient: this.keenClient,
+              disableFilterSuggestions: this.props.disableFilterSuggestions,
             }}
           >
             <App />

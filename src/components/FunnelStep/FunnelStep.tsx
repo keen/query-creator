@@ -211,6 +211,7 @@ const FunnelStep: FC<Props> = ({
           </Wrapper>
           <Wrapper display="block">
             <Filters
+              funnelStepId={id}
               collection={eventCollection}
               filters={filters}
               onRemove={(filterId: string) =>

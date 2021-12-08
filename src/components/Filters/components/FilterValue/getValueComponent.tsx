@@ -19,7 +19,9 @@ export const getValueComponent = ({
   value,
   id,
   stringPlaceholder,
-  availableSuggestions,
+  suggestions,
+  suggestionsLoading,
+  suggestionsVisible,
 }: GetComponent) => {
   const { component } = TYPES_CONFIG[propertyType][operator];
 
@@ -32,7 +34,6 @@ export const getValueComponent = ({
           items={value as string[]}
           propertyType={propertyType}
           onChange={onChange}
-          availableSuggestions={availableSuggestions}
         />
       );
     case 'datepicker':
@@ -74,7 +75,9 @@ export const getValueComponent = ({
         <FilterString
           onChange={onChange}
           value={value as string}
-          availableSuggestions={availableSuggestions}
+          suggestions={suggestions}
+          suggestionsVisible={suggestionsVisible}
+          suggestionsLoading={suggestionsLoading}
           stringPlaceholder={stringPlaceholder}
         />
       );

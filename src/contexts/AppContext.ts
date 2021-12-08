@@ -5,10 +5,12 @@ const AppContext = React.createContext<{
   modalContainer: string;
   onUpdateChartSettings: (chartSettings: Record<string, any>) => void;
   keenClient?: any;
+  disableFilterSuggestions?: boolean;
 }>({
   modalContainer: null,
   onUpdateChartSettings: () => {},
   keenClient: {},
+  disableFilterSuggestions: false,
 });
 
 export default AppContext;

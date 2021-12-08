@@ -1,49 +1,64 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { Input } from '@keen.io/ui-core';
+import { useOnClickOutside } from '@keen.io/react-hooks';
+
 import { FilterSuggestions } from '../FilterSuggestions';
+import { FilterStringWrapper } from './FilterString.styles';
 
 type Props = {
   onChange: (value: string) => void;
   value?: string;
   stringPlaceholder?: string;
-  availableSuggestions?: string[];
+  suggestions?: string[];
+  suggestionsVisible?: boolean;
+  suggestionsLoading?: boolean;
 };
 
 const FilterString: FC<Props> = ({
   onChange,
   value,
   stringPlaceholder,
-  availableSuggestions,
+  suggestions,
+  suggestionsVisible,
+  suggestionsLoading,
 }) => {
-  const [suggestionsVisible, setSuggestionsVisible] = useState<boolean>();
+  const [showSuggestions, setShowSuggestions] = useState<boolean>();
+  const filterString = useRef();
 
-  useEffect(() => {
-    if (value) {
-      setSuggestionsVisible(true);
+  const onInput = (e) => {
+    const value = e.currentTarget.value;
+    onChange(e.currentTarget.value);
+    if (value && suggestionsVisible) {
+      setShowSuggestions(true);
     }
-  }, [value]);
+  };
+
+  useOnClickOutside(filterString, () => {
+    setShowSuggestions(false);
+  });
 
   return (
-    <>
+    <FilterStringWrapper ref={filterString}>
       <Input
         data-testid="filter-value-input"
         variant="solid"
         value={value as string}
-        onChange={(e) => onChange(e.currentTarget.value)}
+        onChange={onInput}
         placeholder={stringPlaceholder}
       />
-      {suggestionsVisible && availableSuggestions.length > 0 && (
-        <FilterSuggestions
-          suggestionsLoading={false}
-          availableSuggestions={availableSuggestions}
-          filterValue={value as string}
-          onSelect={(value) => {
+      <FilterSuggestions
+        suggestionsLoading={suggestionsLoading}
+        suggestionsVisible={showSuggestions}
+        suggestions={suggestions}
+        filterValue={value as string}
+        onSelect={(value) => {
+          if (value) {
             onChange(value);
-            setTimeout(() => setSuggestionsVisible(false), 0);
-          }}
-        />
-      )}
-    </>
+          }
+          setTimeout(() => setShowSuggestions(false), 0);
+        }}
+      />
+    </FilterStringWrapper>
   );
 };
 

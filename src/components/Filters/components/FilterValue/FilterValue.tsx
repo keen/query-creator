@@ -10,7 +10,7 @@ import {
   Property as PropertyType,
 } from '../../../../types';
 import { AppContext } from '../../../../contexts';
-import { getQuery } from '../../../../modules/query';
+import { getFunnelSteps, getQuery } from '../../../../modules/query';
 import Property from '../../../Property';
 import PropertyGroup, { PropertyItem } from '../../../PropertyGroup';
 
@@ -30,6 +30,7 @@ type Props = {
   /** Filter identifier */
   id: string;
   propertyName: string;
+  funnelStepId?: string;
 };
 
 const FilterValue: FC<Props> = ({
@@ -39,43 +40,54 @@ const FilterValue: FC<Props> = ({
   onChange,
   id,
   propertyName,
+  funnelStepId,
 }) => {
   const { t } = useTranslation();
   const stringPlaceholder = t(
     'query_creator_filter_value.input_text_placeholder'
   );
-  const query = useSelector(getQuery);
-  const [availableSuggestions, setAvailableValues] = useState([]);
-  const [availableValesLoading, setAvailableValuesLoading] = useState(false); // todo loader
+  let query = useSelector(getQuery);
+  const { disableFilterSuggestions } = useContext(AppContext);
+
+  const [suggestions, setSuggestions] = useState([]);
+  const [suggestionsLoading, setSuggestionsLoading] = useState(false);
+  const [suggestionsVisible, setSuggestionsVisible] = useState(
+    !disableFilterSuggestions
+  );
 
   const { keenClient } = useContext(AppContext);
-  console.log('availableValesLoading', availableValesLoading);
+  const steps = useSelector(getFunnelSteps);
+
+  if (funnelStepId && steps.length > 0) {
+    query = steps.find((step) => step.id === funnelStepId) as any;
+  }
 
   useEffect(() => {
-    if (propertyName) {
+    if (propertyName && !disableFilterSuggestions) {
       const uniqueValuesQuery = {
         analysis_type: 'select_unique',
         event_collection: query.eventCollection,
         target_property: propertyName,
         timezone: query.timezone,
-        group_by: [],
-        limit: null,
-        interval: null,
         timeframe: query.timeframe,
-        zero_fill: null,
-        filters: [],
       };
-      setAvailableValuesLoading(true);
+      setSuggestionsLoading(true);
       keenClient
         .query(uniqueValuesQuery)
-        .then((response) => {
-          setAvailableValues(response.result);
-        })
+        .then((response) => setSuggestions(response.result))
         .finally(() => {
-          setAvailableValuesLoading(false);
+          setSuggestionsLoading(false);
         });
     }
-  }, [propertyName]);
+  }, [propertyName, query.timezone, query.timeframe]);
+
+  useEffect(() => {
+    setSuggestionsVisible(
+      ['contains', 'not_contains', 'eq', 'ne', 'in'].includes(operator) &&
+        propertyType === 'String' &&
+        !disableFilterSuggestions
+    );
+  }, [operator]);
 
   return (
     <>
@@ -88,7 +100,9 @@ const FilterValue: FC<Props> = ({
             value,
             id,
             stringPlaceholder,
-            availableSuggestions,
+            suggestions,
+            suggestionsLoading,
+            suggestionsVisible,
           })}
         </>
       ) : (

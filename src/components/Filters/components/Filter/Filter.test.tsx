@@ -1,11 +1,16 @@
 import React from 'react';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
+import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
+
 import { render as rtlRender, fireEvent } from '@testing-library/react';
 import { createTree } from '@keen.io/ui-core';
 
-import Filter from './Filter';
-
-import FiltersContext from '../../FiltersContext';
 import { SearchContext } from '../../../../contexts';
+import { AppContext } from '../../../../contexts';
+import FiltersContext from '../../FiltersContext';
+
+import Filter from './Filter';
 
 const schema = createTree({
   'category.id': 'String',
@@ -14,7 +19,20 @@ const schema = createTree({
   loggedIn: 'Boolean',
 });
 
-const render = (overProps: any = {}) => {
+mockAllIsIntersecting(true);
+
+const render = (overProps: any = {}, overStoreState: any = {}) => {
+  const mockStore = configureStore([]);
+  const storeState = {
+    query: {
+      propertyNames: [],
+      latest: 100,
+    },
+    events: {},
+    ...overStoreState,
+  };
+  const store = mockStore({ ...storeState });
+
   const props = {
     id: 'id',
     properties: schema,
@@ -26,13 +44,23 @@ const render = (overProps: any = {}) => {
   };
 
   const wrapper = rtlRender(
-    <SearchContext.Provider
-      value={{ expandTree: true, searchPropertiesPhrase: null }}
-    >
-      <FiltersContext.Provider value={{ schema }}>
-        <Filter {...props} />
-      </FiltersContext.Provider>
-    </SearchContext.Provider>
+    <Provider store={store}>
+      <AppContext.Provider
+        value={{
+          onUpdateChartSettings: () => jest.fn(),
+          modalContainer: 'modalContainer',
+          keenClient: { query: jest.fn(() => Promise.resolve({ data: {} })) },
+        }}
+      >
+        <SearchContext.Provider
+          value={{ expandTree: true, searchPropertiesPhrase: null }}
+        >
+          <FiltersContext.Provider value={{ schema }}>
+            <Filter {...props} />
+          </FiltersContext.Provider>
+        </SearchContext.Provider>
+      </AppContext.Provider>
+    </Provider>
   );
 
   return {

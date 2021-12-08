@@ -16,11 +16,3 @@ export const Container = styled.div`
     }
   }
 `;
-
-export const FilterInput = styled.div`
-  position: relative;
-  max-width: 200px;
-  min-width: 0;
-  margin-left: 5px;
-  margin-right: 5px;
-`;

@@ -35,6 +35,7 @@ const render = (overProps: any = {}) => {
 };
 
 mockAllIsIntersecting(true);
+window.HTMLElement.prototype.scrollIntoView = jest.fn();
 
 test('allows to set property type', () => {
   const {

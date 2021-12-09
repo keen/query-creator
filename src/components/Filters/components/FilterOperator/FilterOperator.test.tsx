@@ -23,6 +23,7 @@ const render = (overProps: any = {}) => {
 };
 
 mockAllIsIntersecting(true);
+window.HTMLElement.prototype.scrollIntoView = jest.fn();
 
 test('shows the operators list', () => {
   const {

@@ -30,6 +30,7 @@ type Props = {
   onChange: (id: string, filter: Filter) => void;
   /** Add button onClick handler */
   onClick: (id: string) => void;
+  /** Funnel step id */
   funnelStepId?: string;
 };
 

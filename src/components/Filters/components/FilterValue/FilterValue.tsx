@@ -29,7 +29,9 @@ type Props = {
   operator?: Operator;
   /** Filter identifier */
   id: string;
+  /** Property name */
   propertyName: string;
+  /** Funnel step id */
   funnelStepId?: string;
 };
 

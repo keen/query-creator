@@ -27,7 +27,7 @@ const FilterString: FC<Props> = ({
 
   const onInput = (e) => {
     const value = e.currentTarget.value;
-    onChange(e.currentTarget.value);
+    onChange(value);
     if (value && suggestionsVisible) {
       setShowSuggestions(true);
     }
@@ -55,7 +55,7 @@ const FilterString: FC<Props> = ({
           if (value) {
             onChange(value);
           }
-          setTimeout(() => setShowSuggestions(false), 0);
+          setShowSuggestions(false);
         }}
       />
     </FilterStringWrapper>

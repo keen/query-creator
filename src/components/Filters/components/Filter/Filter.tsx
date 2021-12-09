@@ -26,6 +26,7 @@ type Props = {
   onSearchProperties: (e: React.ChangeEvent<HTMLInputElement>) => void;
   /** Properties tree */
   properties: Record<string, string[] | Record<string, any>>;
+  /** Funnel step id */
   funnelStepId?: string;
 };
 

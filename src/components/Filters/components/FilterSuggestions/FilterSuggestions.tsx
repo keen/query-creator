@@ -104,12 +104,16 @@ const FilterSuggestions: FC<Props> = ({
           </BodyText>
         </LabelWrapper>
         {suggestionsLoading && (
-          <LoaderWrapper>
+          <LoaderWrapper data-testid="suggestions-loader">
             <Loader fill={colors.blue['500']} width={50} height={50} />
           </LoaderWrapper>
         )}
         {!suggestionsLoading && filteredSuggestions.length > 0 && (
-          <DropdownListContainer scrollToActive maxHeight={140}>
+          <DropdownListContainer
+            scrollToActive
+            maxHeight={140}
+            scrollShadow={true}
+          >
             {(activeItemRef) => (
               <DropdownList
                 padding="0 0 10px 0"

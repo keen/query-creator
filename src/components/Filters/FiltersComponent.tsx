@@ -37,6 +37,7 @@ type Props = {
   onRemove: (id: string) => void;
   /** On change event handler */
   onChange: (id: string, filters: FilterType) => void;
+  /** Funnel step id */
   funnelStepId?: string;
 };
 

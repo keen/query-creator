@@ -30,6 +30,8 @@ type Props = {
   onChange: (id: string, filter: Filter) => void;
   /** Add button onClick handler */
   onClick: (id: string) => void;
+  /** Funnel step id */
+  funnelStepId?: string;
 };
 
 const Filters: FC<Props> = ({
@@ -39,6 +41,7 @@ const Filters: FC<Props> = ({
   onRemove,
   onChange,
   onClick,
+  funnelStepId,
 }) => {
   const { t } = useTranslation();
   const { modalContainer } = useContext(AppContext);
@@ -72,6 +75,7 @@ const Filters: FC<Props> = ({
             onReset={onReset && onReset}
             onRemove={(id) => onRemove(id)}
             onChange={(id, filter) => onChange(id, filter)}
+            funnelStepId={funnelStepId}
           />
         )}
         <MousePositionedTooltip

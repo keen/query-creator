@@ -9,4 +9,7 @@ export type GetComponent = {
   value?: string | boolean | number | Coordinates | Array<string | number>;
   id: string;
   stringPlaceholder?: string;
+  suggestions?: string[];
+  suggestionsLoading?: boolean;
+  suggestionsVisible?: boolean;
 };

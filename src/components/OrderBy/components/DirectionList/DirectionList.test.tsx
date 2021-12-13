@@ -1,4 +1,6 @@
 import React from 'react';
+import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
+
 import { render as rtlRender, fireEvent } from '@testing-library/react';
 import { KEYBOARD_KEYS } from '@keen.io/ui-core';
 
@@ -17,6 +19,8 @@ const render = (overProps: any = {}) => {
     props,
   };
 };
+
+mockAllIsIntersecting(true);
 
 test('renders selected option', () => {
   const {

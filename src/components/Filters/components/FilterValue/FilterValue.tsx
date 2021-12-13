@@ -1,24 +1,20 @@
-import React, { FC } from 'react';
-import { Input, DatePicker } from '@keen.io/ui-core';
+/* eslint-disable @typescript-eslint/camelcase */
+
+import React, { FC, useContext, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
 
-import { DatePickerContainer } from './FilterValue.styles';
-
-import Property from '../../../Property';
-import PropertyGroup, { PropertyItem } from '../../../PropertyGroup';
-import FilterListValue from '../FilterListValue';
-import GeoCoordinates from '../GeoCoordinates';
-import FilterBoolean from '../FilterBoolean';
-
-import { TYPES_CONFIG } from '../../constants';
-
-import { GetComponent } from './types';
 import {
   Coordinates,
   Operator,
   Property as PropertyType,
 } from '../../../../types';
+import { AppContext } from '../../../../contexts';
+import { getFunnelSteps, getQuery } from '../../../../modules/query';
+import Property from '../../../Property';
+import PropertyGroup, { PropertyItem } from '../../../PropertyGroup';
+
+import { getValueComponent } from './getValueComponent';
 
 type Props = {
   /** Type of property */
@@ -33,74 +29,10 @@ type Props = {
   operator?: Operator;
   /** Filter identifier */
   id: string;
-};
-
-const getValueComponent = ({
-  propertyType,
-  operator,
-  onChange,
-  value,
-  id,
-  stringPlaceholder,
-}: GetComponent) => {
-  const { component } = TYPES_CONFIG[propertyType][operator];
-
-  switch (component) {
-    case 'null-placeholder':
-      return null;
-    case 'list':
-      return (
-        <FilterListValue
-          items={value as string[]}
-          propertyType={propertyType}
-          onChange={onChange}
-        />
-      );
-    case 'datepicker':
-      return (
-        <DatePickerContainer>
-          <DatePicker
-            date={new Date((value as string).substring(0, 19))}
-            id={`datepicker_${id}`}
-            onChange={(date: Date) =>
-              onChange(
-                `${dayjs(date.toString()).format('YYYY-MM-DDTHH:mm:ss')}Z`
-              )
-            }
-          />
-        </DatePickerContainer>
-      );
-    case 'boolean-switcher':
-      return <FilterBoolean value={value as boolean} onChange={onChange} />;
-    case 'geo-coordinates':
-      return (
-        <GeoCoordinates onChange={onChange} value={value as Coordinates} />
-      );
-    case 'input-number':
-      return (
-        <Input
-          type="number"
-          variant="solid"
-          value={value as number}
-          onChange={(e) => {
-            const value = e.currentTarget.value
-              ? parseFloat(e.currentTarget.value)
-              : '';
-            onChange(value);
-          }}
-        />
-      );
-    default:
-      return (
-        <Input
-          data-testid="filter-value-input"
-          variant="solid"
-          value={value as string}
-          onChange={(e) => onChange(e.currentTarget.value)}
-          placeholder={stringPlaceholder}
-        />
-      );
-  }
+  /** Property name */
+  propertyName: string;
+  /** Funnel step id */
+  funnelStepId?: string;
 };
 
 const FilterValue: FC<Props> = ({
@@ -109,11 +41,56 @@ const FilterValue: FC<Props> = ({
   value,
   onChange,
   id,
+  propertyName,
+  funnelStepId,
 }) => {
   const { t } = useTranslation();
   const stringPlaceholder = t(
     'query_creator_filter_value.input_text_placeholder'
   );
+  let query = useSelector(getQuery);
+  const { disableFilterSuggestions } = useContext(AppContext);
+
+  const [suggestions, setSuggestions] = useState([]);
+  const [suggestionsLoading, setSuggestionsLoading] = useState(false);
+  const [suggestionsVisible, setSuggestionsVisible] = useState(
+    !disableFilterSuggestions
+  );
+
+  const { keenClient } = useContext(AppContext);
+  const steps = useSelector(getFunnelSteps);
+
+  if (funnelStepId && steps.length > 0) {
+    query = steps.find((step) => step.id === funnelStepId) as any;
+  }
+
+  useEffect(() => {
+    if (propertyName && !disableFilterSuggestions) {
+      const uniqueValuesQuery = {
+        analysis_type: 'select_unique',
+        event_collection: query.eventCollection,
+        target_property: propertyName,
+        timezone: query.timezone,
+        timeframe: query.timeframe,
+      };
+      setSuggestionsLoading(true);
+      keenClient
+        .query(uniqueValuesQuery)
+        .then((response) => setSuggestions(response.result))
+        .finally(() => {
+          setSuggestionsLoading(false);
+        });
+    }
+  }, [propertyName, query.timezone, query.timeframe]);
+
+  useEffect(() => {
+    setSuggestionsVisible(
+      ['contains', 'not_contains', 'eq', 'ne', 'in'].includes(operator) &&
+        propertyType === 'String' &&
+        !disableFilterSuggestions
+    );
+  }, [operator]);
+
   return (
     <>
       {propertyType && operator ? (
@@ -125,6 +102,9 @@ const FilterValue: FC<Props> = ({
             value,
             id,
             stringPlaceholder,
+            suggestions,
+            suggestionsLoading,
+            suggestionsVisible,
           })}
         </>
       ) : (

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.9](https://github.com/keen/query-creator/compare/v1.11.8...v1.11.9) (2021-12-16)
+
+
+### Bug Fixes
+
+* 🐛 map filters suggestions to string ([#113](https://github.com/keen/query-creator/issues/113)) ([462ce7b](https://github.com/keen/query-creator/commit/462ce7b5069428736a7af63e5635138c606e7a04))
+
 ### [1.11.8](https://github.com/keen/query-creator/compare/v1.11.7...v1.11.8) (2021-12-13)
 
 ### [1.11.7](https://github.com/keen/query-creator/compare/v1.11.6...v1.11.7) (2021-12-02)

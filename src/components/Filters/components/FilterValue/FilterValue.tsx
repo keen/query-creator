@@ -76,7 +76,7 @@ const FilterValue: FC<Props> = ({
       setSuggestionsLoading(true);
       keenClient
         .query(uniqueValuesQuery)
-        .then((response) => setSuggestions(response.result))
+        .then((response) => setSuggestions(response.result?.map(String)))
         .finally(() => {
           setSuggestionsLoading(false);
         });

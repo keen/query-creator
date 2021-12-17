@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.10](https://github.com/keen/query-creator/compare/v1.11.9...v1.11.10) (2021-12-17)
+
+
+### Bug Fixes
+
+* 🐛 remove obsolete class ([676567c](https://github.com/keen/query-creator/commit/676567ce0175fd9c137f1448ec90d6ca444597d0))
+
 ### [1.11.9](https://github.com/keen/query-creator/compare/v1.11.8...v1.11.9) (2021-12-16)
 
 

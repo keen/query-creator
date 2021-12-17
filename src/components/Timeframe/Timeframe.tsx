@@ -21,7 +21,6 @@ import {
   TimezoneError,
   TitleComponent,
   convertRelativeTime,
-  TIME_PICKER_CLASS,
   KEYBOARD_KEYS,
 } from '@keen.io/ui-core';
 import { useKeypress } from '@keen.io/react-hooks';
@@ -122,10 +121,7 @@ const Timeframe: FC<Props> = ({
         dropIndicator
         onDefocus={(event: any) => {
           const path = getEventPath(event);
-          if (
-            !path?.includes(containerRef.current) &&
-            !path?.includes(document.querySelector(`.${TIME_PICKER_CLASS}`))
-          ) {
+          if (!path?.includes(containerRef.current)) {
             setOpen(false);
           }
         }}

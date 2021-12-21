@@ -47,7 +47,6 @@ const FunnelSteps: FC<{}> = () => {
     if (funnelStepsLabels) return funnelStepsLabels;
     return [];
   });
-
   const { onUpdateChartSettings } = useContext(AppContext);
 
   const [stepVisible, setStepVisible] = useState(null);

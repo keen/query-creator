@@ -1,5 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
+
 import {
   render as rtlRender,
   fireEvent,
@@ -51,6 +53,8 @@ const render = (storeState: any = {}, overProps: any = {}) => {
     wrapper,
   };
 };
+
+mockAllIsIntersecting(true);
 
 afterEach(() => {
   cleanup();

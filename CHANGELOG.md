@@ -2,6 +2,176 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.8](https://github.com/keen/query-creator/compare/v1.11.7...v1.11.8) (2021-12-13)
+
+### [1.11.7](https://github.com/keen/query-creator/compare/v1.11.6...v1.11.7) (2021-12-02)
+
+
+### Bug Fixes
+
+* 🐛 ignore timezone in Timeframe ([b8cd042](https://github.com/keen/query-creator/commit/b8cd04208d3917edb8ec9ac956d953683fb18994))
+
+### [1.11.6](https://github.com/keen/query-creator/compare/v1.11.5...v1.11.6) (2021-12-01)
+
+
+### Bug Fixes
+
+* 🐛 query with multiple orderBy ([4de23a0](https://github.com/keen/query-creator/commit/4de23a0a166d3899de09c12708b849b3a6eb06b7))
+
+### [1.11.5](https://github.com/keen/query-creator/compare/v1.11.4...v1.11.5) (2021-11-23)
+
+
+### Bug Fixes
+
+* 🐛 absolute timeframe label ([3f70828](https://github.com/keen/query-creator/commit/3f70828c3fc0b194d509fade76af69e21a098cbc))
+
+### [1.11.4](https://github.com/keen/query-creator/compare/v1.11.3...v1.11.4) (2021-11-23)
+
+
+### Bug Fixes
+
+* 🐛 Clear limit field on group by change ([#99](https://github.com/keen/query-creator/issues/99)) ([c054bc2](https://github.com/keen/query-creator/commit/c054bc29a03d0a93faf8b829666b8fb0231bd92a))
+* 🐛 timezones ([9b3d8c8](https://github.com/keen/query-creator/commit/9b3d8c832b15bab72a86ce92017c3753d37e54f0))
+
+### [1.11.3](https://github.com/keen/query-creator/compare/v1.11.2...v1.11.3) (2021-11-18)
+
+### [1.11.2](https://github.com/keen/query-creator/compare/v1.11.1...v1.11.2) (2021-11-10)
+
+
+### Bug Fixes
+
+* 🐛 Clear limit field on group by change ([#99](https://github.com/keen/query-creator/issues/99)) ([#100](https://github.com/keen/query-creator/issues/100)) ([37f66f8](https://github.com/keen/query-creator/commit/37f66f802c5fc4533ba057cfbced6085d1a4e0e7))
+
+### [1.11.1](https://github.com/keen/query-creator/compare/v1.11.0...v1.11.1) (2021-11-08)
+
+
+### Bug Fixes
+
+* 🐛 analysis selection ([9118adb](https://github.com/keen/query-creator/commit/9118adb16739439ce093958ddf5170a49ccabc4c))
+
+## [1.11.0](https://github.com/keen/query-creator/compare/v1.10.0...v1.11.0) (2021-10-08)
+
+
+### Features
+
+* 🎸 add keyboard navigation ([981e32b](https://github.com/keen/query-creator/commit/981e32b4a1cd1c4665e7e979a81828f4c3427612))
+
+## [1.10.0](https://github.com/keen/query-creator/compare/v1.9.0...v1.10.0) (2021-08-11)
+
+
+### Features
+
+* 🎸 scroll to active list element ([3c912dc](https://github.com/keen/query-creator/commit/3c912dcb857742f274c8dff76b3603b0f87d6274))
+
+## [1.9.0](https://github.com/keen/query-creator/compare/v1.8.0...v1.9.0) (2021-08-09)
+
+
+### Features
+
+* 🎸 Analysis search ([8ab1df9](https://github.com/keen/query-creator/commit/8ab1df92784dc40f57fb47f54e6087c7f6d66dc8))
+* 🎸 search analysis ([26688ec](https://github.com/keen/query-creator/commit/26688ec195f71fec1949fcaf8c2e13fdfcdff72d))
+
+## [1.8.0](https://github.com/keen/query-creator/compare/v1.7.0...v1.8.0) (2021-05-19)
+
+
+### Features
+
+* 🎸 Percentile analysis - numeric data required tooltip ([#87](https://github.com/keen/query-creator/issues/87)) ([716fd62](https://github.com/keen/query-creator/commit/716fd62172a8a983d55e38c467d4f13e173193ee))
+
+## [1.7.0](https://github.com/keen/query-creator/compare/v1.6.3...v1.7.0) (2021-04-30)
+
+
+### Features
+
+* 🎸 add placeholder for filters text input ([e2f2c9d](https://github.com/keen/query-creator/commit/e2f2c9d69812a740d79d2c04dd00b64fca864332))
+
+### [1.6.3](https://github.com/keen/query-creator/compare/v1.6.2...v1.6.3) (2021-04-23)
+
+### [1.6.2](https://github.com/keen/query-creator/compare/v1.6.1...v1.6.2) (2021-04-22)
+
+
+### Bug Fixes
+
+* 🐛 restore GroupBy margin ([0cf0750](https://github.com/keen/query-creator/commit/0cf07501934c0f41836355f834cf8d60b73119c7))
+
+### [1.6.1](https://github.com/keen/query-creator/compare/v1.6.0...v1.6.1) (2021-04-21)
+
+
+### Bug Fixes
+
+* 🐛 Tooltips unified, false positive tests fixed, testing library linter added ([#78](https://github.com/keen/query-creator/issues/78)) ([39adbd0](https://github.com/keen/query-creator/commit/39adbd03e5f92199536e9253cc6807fd87054f35))
+
+## [1.6.0](https://github.com/keen/query-creator/compare/v1.5.5...v1.6.0) (2021-04-19)
+
+
+### Features
+
+* 🎸 support rwd in layout ([16f1c3a](https://github.com/keen/query-creator/commit/16f1c3a19b7976e63afacf04514a28fa18879c6b))
+
+
+### Bug Fixes
+
+* 🐛 long target property ([e26895f](https://github.com/keen/query-creator/commit/e26895fe4ecc8deb27bc226248d233b392624372))
+
+### [1.5.5](https://github.com/keen/query-creator/compare/v1.5.4...v1.5.5) (2021-04-14)
+
+
+### Bug Fixes
+
+* 🐛 Dropable container - transparent variant used ([#72](https://github.com/keen/query-creator/issues/72)) ([c89477e](https://github.com/keen/query-creator/commit/c89477ed10de093010a64ced98f790be53e83328))
+* 🐛 enhance string property filter operators ([9937c06](https://github.com/keen/query-creator/commit/9937c06f697d9ba30426d6d9f9714645f2a16c0d))
+
+### [1.5.4](https://github.com/keen/query-creator/compare/v1.5.3...v1.5.4) (2021-04-08)
+
+### [1.5.3](https://github.com/keen/query-creator/compare/v1.5.2...v1.5.3) (2021-04-07)
+
+
+### Bug Fixes
+
+* 🐛 invalid date format ([bc526c7](https://github.com/keen/query-creator/commit/bc526c750695fe0866de11a92580e512f2bf126d))
+
+### [1.5.2](https://github.com/keen/query-creator/compare/v1.5.1...v1.5.2) (2021-04-06)
+
+### [1.5.1](https://github.com/keen/query-creator/compare/v1.5.0...v1.5.1) (2021-04-02)
+
+## [1.5.0](https://github.com/keen/query-creator/compare/v1.4.2...v1.5.0) (2021-04-02)
+
+
+### Features
+
+* 🎸 Extended global timezones configuration in query-creato ([7408eaf](https://github.com/keen/query-creator/commit/7408eaf0b4ee07c4e0fe4a8fd527c82506021932))
+* 🎸 timezone error ([0b410bc](https://github.com/keen/query-creator/commit/0b410bc0f57b335c6b63367e76741f0eb363e0ef))
+* 🎸 timezone loader ([c1ffd20](https://github.com/keen/query-creator/commit/c1ffd20636d447c5320a46410cce76d42e11b672))
+* 🎸 Tooltip when timezone selection is disabled added ([a2a572c](https://github.com/keen/query-creator/commit/a2a572cf7ca816ddc53139d33da638696a527728))
+
+
+### Bug Fixes
+
+* 🐛 CR fixes, setting initial state in createStore ([eefc776](https://github.com/keen/query-creator/commit/eefc776c07daad44b13779bb1fb806e80c09e629))
+
+### [1.4.2](https://github.com/keen/query-creator/compare/v1.4.1...v1.4.2) (2021-03-29)
+
+
+### Bug Fixes
+
+* 🐛 TS2742 The inferred type cannot be named without ref ([2f6d4a2](https://github.com/keen/query-creator/commit/2f6d4a23994587121eda05db7d06b1962217f5ff))
+
+### [1.4.1](https://github.com/keen/query-creator/compare/v1.4.0...v1.4.1) (2021-03-22)
+
+## [1.4.0](https://github.com/keen/query-creator/compare/v1.3.4...v1.4.0) (2021-03-16)
+
+
+### Features
+
+* 🎸 add timezone notification ([bacf77d](https://github.com/keen/query-creator/commit/bacf77d9fa469314aebef8633a851c5703da01d1))
+
+### [1.3.4](https://github.com/keen/query-creator/compare/v1.3.3...v1.3.4) (2021-03-08)
+
+
+### Bug Fixes
+
+* 🐛 Tsconfig typo fixed ([643b0d9](https://github.com/keen/query-creator/commit/643b0d920fcf5cd2efacd167fafaeea7d5c77e56))
+
 ### [1.3.3](https://github.com/keen/query-creator/compare/v1.3.2...v1.3.3) (2021-02-16)
 
 

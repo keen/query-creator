@@ -1,11 +1,20 @@
 import React from 'react';
-import { render as rtlRender, fireEvent } from '@testing-library/react';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
+import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
+
+import {
+  render as rtlRender,
+  fireEvent,
+  waitFor,
+} from '@testing-library/react';
 import { createTree } from '@keen.io/ui-core';
 
-import Filter from './Filter';
-
-import FiltersContext from '../../FiltersContext';
 import { SearchContext } from '../../../../contexts';
+import { AppContext } from '../../../../contexts';
+import FiltersContext from '../../FiltersContext';
+
+import Filter from './Filter';
 
 const schema = createTree({
   'category.id': 'String',
@@ -14,7 +23,20 @@ const schema = createTree({
   loggedIn: 'Boolean',
 });
 
-const render = (overProps: any = {}) => {
+mockAllIsIntersecting(true);
+
+const render = (overProps: any = {}, overStoreState: any = {}) => {
+  const mockStore = configureStore([]);
+  const storeState = {
+    query: {
+      propertyNames: [],
+      latest: 100,
+    },
+    events: {},
+    ...overStoreState,
+  };
+  const store = mockStore({ ...storeState });
+
   const props = {
     id: 'id',
     properties: schema,
@@ -26,13 +48,23 @@ const render = (overProps: any = {}) => {
   };
 
   const wrapper = rtlRender(
-    <SearchContext.Provider
-      value={{ expandTree: true, searchPropertiesPhrase: null }}
-    >
-      <FiltersContext.Provider value={{ schema }}>
-        <Filter {...props} />
-      </FiltersContext.Provider>
-    </SearchContext.Provider>
+    <Provider store={store}>
+      <AppContext.Provider
+        value={{
+          onUpdateChartSettings: () => jest.fn(),
+          modalContainer: 'modalContainer',
+          keenClient: { query: jest.fn(() => Promise.resolve({ data: {} })) },
+        }}
+      >
+        <SearchContext.Provider
+          value={{ expandTree: true, searchPropertiesPhrase: null }}
+        >
+          <FiltersContext.Provider value={{ schema }}>
+            <Filter {...props} />
+          </FiltersContext.Provider>
+        </SearchContext.Provider>
+      </AppContext.Provider>
+    </Provider>
   );
 
   return {
@@ -41,7 +73,7 @@ const render = (overProps: any = {}) => {
   };
 };
 
-test('allows user to remove filter', () => {
+test('allows user to remove filter', async () => {
   const filter = {
     propertyName: 'id',
     propertyType: undefined,
@@ -57,7 +89,7 @@ test('allows user to remove filter', () => {
   const button = getByTestId('action-button');
   fireEvent.click(button);
 
-  expect(props.onRemove).toHaveBeenCalled();
+  await waitFor(() => expect(props.onRemove).toHaveBeenCalled());
 });
 
 test('do not allows user to create empty filter', () => {
@@ -101,7 +133,7 @@ test('allows user to set filter property', () => {
   expect(props.onPropertyChange).toHaveBeenCalledWith('age');
 });
 
-test('allows user to cast property type', () => {
+test('allows user to cast property type', async () => {
   const filter = {
     propertyName: 'purchases',
     propertyType: 'Number',
@@ -110,7 +142,7 @@ test('allows user to cast property type', () => {
   };
 
   const {
-    wrapper: { getByTestId, getByText },
+    wrapper: { getByText, getByTestId },
     props,
   } = render({ filter });
 
@@ -120,15 +152,17 @@ test('allows user to cast property type', () => {
   const type = getByText('boolean');
   fireEvent.click(type);
 
-  expect(props.onChange).toHaveBeenCalledWith({
-    ...filter,
-    propertyType: 'Boolean',
-    operator: 'eq',
-    propertyValue: true,
-  });
+  await waitFor(() =>
+    expect(props.onChange).toHaveBeenCalledWith({
+      ...filter,
+      propertyType: 'Boolean',
+      operator: 'eq',
+      propertyValue: true,
+    })
+  );
 });
 
-test('allows user to set operator', () => {
+test('allows user to set operator', async () => {
   const filter = {
     propertyName: 'purchases',
     propertyType: 'Number',
@@ -147,13 +181,15 @@ test('allows user to set operator', () => {
   const operator = getByText('does not equal');
   fireEvent.click(operator);
 
-  expect(props.onChange).toHaveBeenCalledWith({
-    ...filter,
-    operator: 'ne',
-  });
+  await waitFor(() =>
+    expect(props.onChange).toHaveBeenCalledWith({
+      ...filter,
+      operator: 'ne',
+    })
+  );
 });
 
-test('updates filter value based on operator', () => {
+test('updates filter value based on operator', async () => {
   const filter = {
     propertyName: 'purchases',
     propertyType: 'Number',
@@ -172,14 +208,16 @@ test('updates filter value based on operator', () => {
   const operator = getByText('property exists');
   fireEvent.click(operator);
 
-  expect(props.onChange).toHaveBeenCalledWith({
-    ...filter,
-    operator: 'exists',
-    propertyValue: true,
-  });
+  await waitFor(() =>
+    expect(props.onChange).toHaveBeenCalledWith({
+      ...filter,
+      operator: 'exists',
+      propertyValue: true,
+    })
+  );
 });
 
-test('allows user to set filter value', () => {
+test('allows user to set filter value', async () => {
   const filter = {
     propertyName: 'name',
     propertyType: 'String',
@@ -195,8 +233,10 @@ test('allows user to set filter value', () => {
   const input = getByTestId('filter-value-input');
   fireEvent.change(input, { target: { value: 'Andrew' } });
 
-  expect(props.onChange).toHaveBeenCalledWith({
-    ...filter,
-    propertyValue: 'Andrew',
-  });
+  await waitFor(() =>
+    expect(props.onChange).toHaveBeenCalledWith({
+      ...filter,
+      propertyValue: 'Andrew',
+    })
+  );
 });

@@ -26,6 +26,8 @@ type Props = {
   onSearchProperties: (e: React.ChangeEvent<HTMLInputElement>) => void;
   /** Properties tree */
   properties: Record<string, string[] | Record<string, any>>;
+  /** Funnel step id */
+  funnelStepId?: string;
 };
 
 const Filter: FC<Props> = ({
@@ -36,6 +38,7 @@ const Filter: FC<Props> = ({
   onSearchProperties,
   onPropertyChange,
   onChange,
+  funnelStepId,
 }) => {
   const { propertyName, propertyType, propertyValue, operator } = filter;
 
@@ -92,6 +95,8 @@ const Filter: FC<Props> = ({
           operator={operator}
           onChange={(value) => onChange({ ...filter, propertyValue: value })}
           propertyType={propertyType}
+          propertyName={propertyName}
+          funnelStepId={funnelStepId}
         />
       </FilterItem>
       <FilterItem>

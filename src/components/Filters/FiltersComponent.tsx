@@ -37,6 +37,8 @@ type Props = {
   onRemove: (id: string) => void;
   /** On change event handler */
   onChange: (id: string, filters: FilterType) => void;
+  /** Funnel step id */
+  funnelStepId?: string;
 };
 
 const FiltersComponent: FC<Props> = ({
@@ -45,6 +47,7 @@ const FiltersComponent: FC<Props> = ({
   onRemove,
   onReset,
   onChange,
+  funnelStepId,
 }) => {
   const [searchPropertiesPhrase, setSearchPhrase] = useState(null);
   const [expandTree, setTreeExpand] = useState(false);
@@ -116,6 +119,7 @@ const FiltersComponent: FC<Props> = ({
               }}
               onRemove={() => onRemove(filter.id)}
               onChange={(filter) => onChange(filter.id, filter)}
+              funnelStepId={funnelStepId}
             />
             <AnimatePresence>
               {idx + 1 !== collection.length && (

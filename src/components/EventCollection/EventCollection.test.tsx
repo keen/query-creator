@@ -1,5 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
+
 import { render as rtlRender, fireEvent, act } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import { KEYBOARD_KEYS } from '@keen.io/ui-core';
@@ -30,6 +32,7 @@ const render = (storeState: any = {}, overProps: any = {}) => {
 };
 
 jest.useFakeTimers();
+mockAllIsIntersecting(true);
 
 test('allows user to select event collection', () => {
   const storeState = {

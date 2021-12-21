@@ -8,10 +8,13 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { AnimatePresence } from 'framer-motion';
+import { useDebounce } from 'react-use';
+
 import { Input, Tooltip, TitleComponent } from '@keen.io/ui-core';
 import { Icon } from '@keen.io/icons';
 import { colors } from '@keen.io/colors';
-import { AnimatePresence } from 'framer-motion';
+import { BodyText } from '@keen.io/typography';
 
 import {
   LimitInput,
@@ -20,6 +23,7 @@ import {
   TitleWrapper,
   TooltipContainer,
   Container,
+  TooltipWrapper,
 } from './Extraction.styles';
 
 import { ExtractionProperties } from './components';
@@ -48,11 +52,19 @@ const Extraction: FC<Props> = ({ collection }) => {
     visible: false,
   });
 
+  const [rangeValidationTooltipVisible, setRangeValidationTooltipVisible] =
+    useState(false);
+
+  useDebounce(() => setRangeValidationTooltipVisible(false), 3000, [
+    rangeValidationTooltipVisible,
+  ]);
+
   const extractionLimit = useSelector(getExtractionLimit);
   const properties = useSelector(getExtractionPropertyNames);
 
   const changeLimitHandler = useCallback((eventValue) => {
     if (!eventValue) {
+      setRangeValidationTooltipVisible(true);
       return dispatch(setExtractionLimit(undefined));
     }
     const value = parseInt(eventValue);
@@ -67,7 +79,8 @@ const Extraction: FC<Props> = ({ collection }) => {
         HIDE_TIME
       );
     } else if (value <= 0) {
-      dispatch(setExtractionLimit(1));
+      setRangeValidationTooltipVisible(true);
+      dispatch(setExtractionLimit(DEFAULT_LIMIT));
     } else {
       dispatch(setExtractionLimit(value));
     }
@@ -133,6 +146,20 @@ const Extraction: FC<Props> = ({ collection }) => {
             placeholder={t('extraction.limit_placeholder')}
             onChange={(e) => changeLimitHandler(e.target.value)}
           />
+          <AnimatePresence>
+            {rangeValidationTooltipVisible && (
+              <TooltipWrapper
+                {...TOOLTIP_MOTION}
+                data-testid="validation-tooltip"
+              >
+                <Tooltip hasArrow={true} arrowDirection="top">
+                  <BodyText variant="body2" color={colors.black[100]}>
+                    {t('extraction.range_validation_tooltip')}
+                  </BodyText>
+                </Tooltip>
+              </TooltipWrapper>
+            )}
+          </AnimatePresence>
         </LimitInput>
       </div>
     </Container>

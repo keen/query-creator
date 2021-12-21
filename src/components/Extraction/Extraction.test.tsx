@@ -177,3 +177,50 @@ test('allows user to remove extraction properties', () => {
     ]
   `);
 });
+
+test('not allows user to enter a value less than or equal to zero', () => {
+  const {
+    wrapper: { container },
+    store,
+  } = render();
+
+  const input = container.querySelector('input[type="number"]');
+  fireEvent.change(input, { target: { value: 0 } });
+
+  expect(store.getActions()).toMatchInlineSnapshot(`
+    Array [
+      Object {
+        "payload": Object {
+          "limit": 1,
+        },
+        "type": "@query/SET_EXTRACTION_LIMIT",
+      },
+    ]
+  `);
+});
+
+test('sets default extraction value on input blur when no value provided', async () => {
+  const {
+    wrapper: { container },
+    store,
+  } = render({
+    query: {
+      propertyNames: [],
+      latest: '',
+    },
+  });
+
+  const input = container.querySelector('input[type="number"]');
+  fireEvent.blur(input);
+
+  expect(store.getActions()).toMatchInlineSnapshot(`
+  Array [
+    Object {
+      "payload": Object {
+        "limit": 100,
+      },
+      "type": "@query/SET_EXTRACTION_LIMIT",
+    },
+  ]
+`);
+});

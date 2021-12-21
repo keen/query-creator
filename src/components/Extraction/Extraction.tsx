@@ -52,23 +52,24 @@ const Extraction: FC<Props> = ({ collection }) => {
   const properties = useSelector(getExtractionPropertyNames);
 
   const changeLimitHandler = useCallback((eventValue) => {
-    if (eventValue) {
-      const value = parseInt(eventValue);
-      if (value > PREVIEW_EVENTS_LIMIT) {
-        if (hideLimitHintTrigger.current)
-          clearTimeout(hideLimitHintTrigger.current);
-        dispatch(setExtractionLimit(PREVIEW_EVENTS_LIMIT));
-
-        setTooltip({ visible: true });
-        hideLimitHintTrigger.current = setTimeout(
-          () => setTooltip({ visible: false }),
-          HIDE_TIME
-        );
-      } else {
-        dispatch(setExtractionLimit(value));
+    if (!eventValue) {
+      return dispatch(setExtractionLimit(undefined));
+    }
+    const value = parseInt(eventValue);
+    if (value > PREVIEW_EVENTS_LIMIT) {
+      if (hideLimitHintTrigger.current) {
+        clearTimeout(hideLimitHintTrigger.current);
       }
+      dispatch(setExtractionLimit(PREVIEW_EVENTS_LIMIT));
+      setTooltip({ visible: true });
+      hideLimitHintTrigger.current = setTimeout(
+        () => setTooltip({ visible: false }),
+        HIDE_TIME
+      );
+    } else if (value <= 0) {
+      dispatch(setExtractionLimit(1));
     } else {
-      dispatch(setExtractionLimit(DEFAULT_LIMIT));
+      dispatch(setExtractionLimit(value));
     }
   }, []);
 
@@ -125,7 +126,10 @@ const Extraction: FC<Props> = ({ collection }) => {
           <Input
             type="number"
             variant="solid"
-            value={extractionLimit ? extractionLimit : DEFAULT_LIMIT}
+            onBlur={() =>
+              !extractionLimit && dispatch(setExtractionLimit(DEFAULT_LIMIT))
+            }
+            value={extractionLimit || ''}
             placeholder={t('extraction.limit_placeholder')}
             onChange={(e) => changeLimitHandler(e.target.value)}
           />

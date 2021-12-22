@@ -42,3 +42,10 @@ export const Container = styled.div`
   flex-direction: column;
   row-gap: 15px;
 `;
+
+export const TooltipWrapper = styled(motion.div)`
+  width: 160px;
+  position: absolute;
+  top: 45px;
+  z-index: 1;
+`;

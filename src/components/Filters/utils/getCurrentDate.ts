@@ -1,3 +1,3 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 
-export const getCurrentDate = () => moment().startOf('day').format();
+export const getCurrentDate = () => dayjs().startOf('day').format();

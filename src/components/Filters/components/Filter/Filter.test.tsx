@@ -24,6 +24,9 @@ const schema = createTree({
 });
 
 mockAllIsIntersecting(true);
+beforeEach(() => {
+  Element.prototype.scrollIntoView = jest.fn();
+});
 
 const render = (overProps: any = {}, overStoreState: any = {}) => {
   const mockStore = configureStore([]);

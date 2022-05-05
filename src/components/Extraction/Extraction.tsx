@@ -1,24 +1,16 @@
-import React, {
-  FC,
-  useCallback,
-  useState,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import React, { FC, useCallback, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { AnimatePresence } from 'framer-motion';
 import { useDebounce } from 'react-use';
 
 import { Input, Tooltip, TitleComponent } from '@keen.io/ui-core';
 import { Icon } from '@keen.io/icons';
 import { colors } from '@keen.io/colors';
-import { BodyText } from '@keen.io/typography';
+import { BodyText, FontWeight } from '@keen.io/typography';
 
 import {
   LimitInput,
-  HintMessage,
   TooltipMotion,
   TitleWrapper,
   TooltipContainer,
@@ -92,16 +84,6 @@ const Extraction: FC<Props> = ({ collection }) => {
     };
   }, []);
 
-  const HINT_MARKUP = useMemo(
-    () =>
-      `${t('extraction.maximum_events_limit')}<br /><br />${t(
-        'extraction.email_events_limit_first'
-      )} <strong>${t('extraction.extraction_to_email')}</strong>${t(
-        'extraction.email_events_limit_second'
-      )}`,
-    []
-  );
-
   return (
     <Container>
       <ExtractionProperties
@@ -124,11 +106,17 @@ const Extraction: FC<Props> = ({ collection }) => {
                   data-testid="extraction-limit-hint"
                 >
                   <Tooltip hasArrow={false} mode="dark">
-                    <HintMessage
-                      dangerouslySetInnerHTML={{
-                        __html: HINT_MARKUP,
-                      }}
-                    />
+                    <BodyText variant="body2" color={colors.white[500]}>
+                      {t('extraction.maximum_events_limit')}
+                      <br />
+                      <br />
+                      <Trans
+                        components={{
+                          bold: <FontWeight fontWeight="bold" />,
+                        }}
+                        i18nKey={'extraction.extraction_to_email_limit'}
+                      />
+                    </BodyText>
                   </Tooltip>
                 </TooltipMotion>
               )}

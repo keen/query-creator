@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.13](https://github.com/keen/query-creator/compare/v1.11.12...v1.11.13) (2022-05-05)
+
 ### [1.11.12](https://github.com/keen/query-creator/compare/v1.11.11...v1.11.12) (2022-01-17)
 
 ### [1.11.11](https://github.com/keen/query-creator/compare/v1.11.10...v1.11.11) (2021-12-22)

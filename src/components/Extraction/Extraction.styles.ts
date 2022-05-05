@@ -21,13 +21,6 @@ export const TooltipMotion = styled(motion.div)`
   z-index: ${UI_LAYERS.tooltip};
 `;
 
-export const HintMessage = styled.div`
-  color: ${colors.white[500]};
-  font-size: 14px;
-  font-family: 'Lato Regular', sans-serif;
-  line-height: 16px;
-`;
-
 export const TooltipContainer = styled.div`
   display: inline-block;
   margin-left: 10px;

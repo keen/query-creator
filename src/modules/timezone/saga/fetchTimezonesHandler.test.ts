@@ -28,6 +28,10 @@ describe('Scenario 1: Successfully fetch timezones collection', () => {
     expect(result).toEqual(getContext(ANALYTICS_API_HOST));
   });
 
+  test('get protocol from context', (result) => {
+    expect(result).toEqual(getContext('protocol'));
+  });
+
   test('performs request for timezones collection', () => {
     return new Response(JSON.stringify(apiResponse));
   });

@@ -15,7 +15,10 @@ export function* fetchTimezonesHandler() {
   try {
     yield put(timezoneSlice.actions.setTimezonesLoading(true));
     const apiHost = yield getContext(ANALYTICS_API_HOST);
-    const response: Response = yield fetch(`https://${apiHost}/timezones`);
+    const protocol = yield getContext('protocol');
+    const response: Response = yield fetch(
+      `${protocol}://${apiHost}/timezones`
+    );
 
     if (response.status === StatusCodes.OK) {
       const timezones = yield response.json();

@@ -27,6 +27,7 @@ import {
   UPDATE_VISUALIZATION_TYPE,
   QUERY_UPDATE_ACTION,
   ANALYTICS_API_HOST,
+  HTTP_PROTOCOL,
 } from './constants';
 import { createConfiguration } from './createConfiguration';
 
@@ -57,6 +58,8 @@ type Props = {
   disableTimezoneSelection?: boolean;
   /** Disable filter suggestions */
   disableFilterSuggestions?: boolean;
+  /** Type of http protocol to use */
+  httpProtocol: 'http' | 'https';
 };
 
 class QueryCreator extends React.PureComponent<Props> {
@@ -86,6 +89,7 @@ class QueryCreator extends React.PureComponent<Props> {
 
     const sagaMiddleware = createSagaMiddleware({
       context: {
+        [HTTP_PROTOCOL]: this.props.httpProtocol,
         keenClient: this.keenClient,
         [ANALYTICS_API_HOST]: this.props.host,
       },
@@ -193,6 +197,9 @@ class QueryCreator extends React.PureComponent<Props> {
       </Provider>
     );
   }
+  static defaultProps = {
+    httpProtocol: 'https',
+  };
 }
 
 export default QueryCreator;

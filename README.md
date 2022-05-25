@@ -29,6 +29,7 @@ yarn add query-creator
   host={host}
   onUpdateQuery={(query) => {}}
   onUpdateChartSettings={(chartSettings) => {}}
+  protoclol={protocol}
 />
 ```
 ## Build

@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { timezoneSlice } from '../reducer';
 
-import { ANALYTICS_API_HOST } from '../../../constants';
+import { ANALYTICS_API_HOST, HTTP_PROTOCOL } from '../../../constants';
 
 /**
  * Fetch collection of timezones from API
@@ -15,7 +15,7 @@ export function* fetchTimezonesHandler() {
   try {
     yield put(timezoneSlice.actions.setTimezonesLoading(true));
     const apiHost = yield getContext(ANALYTICS_API_HOST);
-    const protocol = yield getContext('protocol');
+    const protocol = yield getContext(HTTP_PROTOCOL);
     const response: Response = yield fetch(
       `${protocol}://${apiHost}/timezones`
     );

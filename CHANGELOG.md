@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/keen/query-creator/compare/v1.11.13...v1.13.0) (2022-05-26)
+
+
+### Features
+
+* 🎸 add http protocol props to query creator ([04181d4](https://github.com/keen/query-creator/commit/04181d45b5cc2f90317b660c8014302640e40caf))
+
+
+### Bug Fixes
+
+* 🐛 fix protocol variable ([fb6465f](https://github.com/keen/query-creator/commit/fb6465f890de5753ae45d2719ab34617aa79a3a4))
+
 ### [1.11.13](https://github.com/keen/query-creator/compare/v1.11.12...v1.11.13) (2022-05-05)
 
 ### [1.11.12](https://github.com/keen/query-creator/compare/v1.11.11...v1.11.12) (2022-01-17)

@@ -85,6 +85,7 @@ class QueryCreator extends React.PureComponent<Props> {
       masterKey: this.props.masterKey,
       readKey: this.props.readKey,
       host: this.props.host,
+      protocol: this.props.httpProtocol,
     });
 
     const sagaMiddleware = createSagaMiddleware({

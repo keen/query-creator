@@ -27,6 +27,7 @@ import {
   UPDATE_VISUALIZATION_TYPE,
   QUERY_UPDATE_ACTION,
   ANALYTICS_API_HOST,
+  TIMEZONES_API_HOST,
   HTTP_PROTOCOL,
 } from './constants';
 import { createConfiguration } from './createConfiguration';
@@ -52,6 +53,8 @@ type Props = {
   onUpdateChartSettings: (chartSettings: Record<string, any>) => void;
   /** Host name */
   host?: string;
+  /** Timezones host */
+  timezonesHost?: string;
   /** Default timezone for query */
   defaultTimezoneForQuery?: string;
   /** Disable timezone selection flag */
@@ -93,6 +96,7 @@ class QueryCreator extends React.PureComponent<Props> {
         [HTTP_PROTOCOL]: this.props.httpProtocol,
         keenClient: this.keenClient,
         [ANALYTICS_API_HOST]: this.props.host,
+        [TIMEZONES_API_HOST]: this.props.timezonesHost,
       },
     });
 
@@ -200,6 +204,7 @@ class QueryCreator extends React.PureComponent<Props> {
   }
   static defaultProps = {
     httpProtocol: 'https',
+    timezonesHost: 'api.keen.io',
   };
 }
 

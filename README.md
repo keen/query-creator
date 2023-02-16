@@ -45,6 +45,20 @@ First stage is responsible for transpilation Typescript code to `esnext` and emi
 Second stage is responsible for code transpilation based on supported browserlist defined in `package.json` file and increasing `styled-components` css specificity by using plugins from `.babelrc` file.
 Generator functions transformations are disabled so applications that use this package should take care of it on their own. 
 
+### Project Setup
+
+##### prerequisites
+
+1.  [yarn](https://classic.yarnpkg.com/) - package manager
+2.  `node` - make sure it's minimum **10.x.x**
+
+##### steps
+
+1.  checkout repository
+2.  run `yarn` - to install project dependencies
+3.  create a `config.js` file (use `config.template.js`) and provide `Keen` credentials
+4.  run application in development mode `yarn start`
+
 ### npm scripts
 
 List of useful commands that could be used by developers. Execution in the command-line interface should be prefixed with `yarn` package manager.

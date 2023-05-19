@@ -173,6 +173,16 @@ export const TYPES_CONFIG: Record<
       defaultValue: '',
       component: 'boolean-switcher',
     },
+    contains: {
+      label: 'contains',
+      defaultValue: '',
+      component: 'input-text',
+    },
+    not_contains: {
+      label: 'does not contain',
+      defaultValue: '',
+      component: 'input-text',
+    },
     ...ABSTRACT_OPERATORS,
   },
   Boolean: {

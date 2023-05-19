@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.13.3](https://github.com/keen/query-creator/compare/v1.13.2...v1.13.3) (2023-05-19)
+
+
+### Bug Fixes
+
+* 🐛 support contains/not_contains operator for lists ([db2ed60](https://github.com/keen/query-creator/commit/db2ed606febcc42bd8ebfe1ff3403a521271253d))
+
 ### [1.13.2](https://github.com/keen/query-creator/compare/v1.13.1...v1.13.2) (2022-06-03)
 
 ### [1.13.1](https://github.com/keen/query-creator/compare/v1.13.0...v1.13.1) (2022-06-01)
